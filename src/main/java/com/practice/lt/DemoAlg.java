@@ -34,12 +34,87 @@ public class DemoAlg {
         head.next = new ListNode(2);
         head.next.next = new ListNode(1);
         head.next.next.next = new ListNode(3);
-        ListNode listNode = sortList2(head);
+        ListNode listNode = sortList(head);
         System.out.println("排序后的链表:");
         while (listNode != null) {
             System.out.print(listNode.val + " ");
             listNode = listNode.next;
         }
+        System.out.println();
+
+        System.out.println("wordBreakExample1:" + wordBreak("leetcode", Arrays.asList("leet", "code")));
+        System.out.println("wordBreakExample2:" + wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat")));
+    }
+
+    /**
+     * 单词拆分 给你一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+     * 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+     * 示例 1：
+     *
+     * 输入: s = "leetcode", wordDict = ["leet", "code"]
+     * 输出: true
+     * 解释: 返回 true 因为 "leetcode" 可以由 "leet" 和 "code" 拼接成。
+     * 示例 2：
+     *
+     * 输入: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+     * 输出: false
+     * 解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
+     *      注意，你可以重复使用字典中的单词。
+     *
+     *  为什么选择动态规划？
+//         * 最优子结构：如果一个字符串 s[0...n] 可以被拆分为单词，那么它的前缀 s[0...i] 也一定可以被拆分为单词
+//         * 重叠子问题：不同长度的前缀会重复计算相似的子问题
+//         * 状态转移明确：可以通过较短的已知可拆分前缀推导出更长的可拆分前缀
+     *
+     * 为什么使用一维数组而不是二维数组？
+//         * 我们使用了一维布尔型数组 dp[] 而不是二维数组，原因如下：
+//         * 问题特性：只需要记录到每个位置是否可拆分，而不是需要记录具体的拆分方式
+//         * 状态转移可行性：可以通过检查所有可能的前缀-后缀组合来完成状态转移
+     *
+     * 为什么使用嵌套 for 循环？
+     * 种嵌套循环的设计基于以下考虑：
+//         * 外层循环遍历字符串的每个结束位置 i（从 1 到 s.length()）
+//         * 内层循环尝试所有可能的起始位置 j（从 0 到 i-1）
+//         * 对于每个位置 i，检查是否存在某个 j 使得：
+//             * 前缀 s[0...j] 可以拆分（dp[j] 为 true）
+//             * 后缀 s[j...i] 在字典中
+     *
+     * 需要二维 dp 数组的场景
+     * 需要定义二维 dp 数组的情况通常包括：
+//         * 需要记录区间信息的问题：
+//             * 回文子串：dp[i][j] 表示 s[i...j] 是否是回文
+//             * 最长回文子串
+//             * 不同的二叉搜索树：给定 1~n，求不同的 BST 数量
+//         * 矩阵/二维网格相关问题：
+//             * 不同路径
+//             * 最小路径和
+//             * 编辑距离
+//         * 涉及两个序列的比较：
+//             * 最长公共子序列
+//             * 最短公共超序列
+//             * 交错字符串
+//         * 区间调度优化问题：
+//             * 俄罗斯套娃信封问题
+//             * 最佳买卖股票时机含冷冻期
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        // 使用动态规划解决单词拆分问题
+        // 创建一个长度为 s.length() + 1 的动态规划数组 dp
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                // 如果当前子串可以拼接出字典中的某个单词，则更新dp[i]
+                if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
     }
 
     private static ListNode sortList2(ListNode head) {
@@ -52,16 +127,13 @@ public class DemoAlg {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
-        ListNode curNode = head;
-        ListNode nextNode;
+        ListNode curNode = head.next;
+        head.next = null;
         while (curNode != null) {
-            System.out.println("curNode: " + curNode.val);
-            nextNode = curNode.next;
-            curNode.next = null;
+            ListNode nextNode = curNode.next;
             insertOneNode(dummy, curNode);
             curNode = nextNode;
         }
-
 
         return dummy.next;
     }
@@ -72,9 +144,8 @@ public class DemoAlg {
         while (pre.next != null && pre.next.val < curNode.val) {
             pre = pre.next;
         }
-        ListNode tempNode =  pre.next;
+        curNode.next = pre.next;
         pre.next = curNode;
-        curNode.next = tempNode;
     }
 
     static class ListNode {
