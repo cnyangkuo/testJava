@@ -226,13 +226,29 @@ public class DemoAlg {
             k = k % n;
         }
         if (k == 0) {
-            return ;
+            return;
         }
-        int left = n - k;
-        for (int i = 0; i < left; i++) {
-            int temp = nums[i];
-            nums[i] = nums[i + k];
-            nums[i + k] = temp;
+        // 反转整个数组
+        reverse(nums, 0, n - 1);
+        // 反转前k个元素
+        reverse(nums, 0, k - 1);
+        // 反转剩下的元素
+        reverse(nums, k, n - 1);
+    }
+
+    /**
+     * 辅助方法：反转数组中指定范围的元素
+     * @param nums 数组
+     * @param start 起始索引（包含）
+     * @param end 结束索引（包含）
+     */
+    private static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
         }
     }
 
