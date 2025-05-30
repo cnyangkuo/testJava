@@ -44,6 +44,51 @@ public class DemoAlg {
 
         System.out.println("wordBreakExample1:" + wordBreak("leetcode", Arrays.asList("leet", "code")));
         System.out.println("wordBreakExample2:" + wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat")));
+
+        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        System.out.println("spiralOrder:");
+        System.out.println(spiralOrder(matrix));
+    }
+
+
+    /**
+     * 螺旋矩阵
+     * 给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+     * 输入：matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+     * 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
+     * @param matrix
+     * @return
+     */
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        int high = matrix.length;
+        int width = matrix[0].length;
+        if (high == 0 || width == 0) {
+            return new ArrayList<>();
+        }
+        int left = 0;
+        int right = width - 1;
+        int top = 0;
+        int bottom = high - 1;
+        List<Integer> res = new ArrayList<>();
+        while (left <= right && top <= bottom) {
+            for (int i = left; i <= right; i++) {
+                res.add(matrix[top][i]);
+            }
+            top++;
+            for (int i = top; i <= bottom; i++) {
+                res.add(matrix[i][right]);
+            }
+            right--;
+            for (int i = bottom; i >= top; i--) {
+                res.add(matrix[bottom][i]);
+            }
+            bottom--;
+            for (int i = right; i >= left; i--) {
+                res.add(matrix[i][left]);
+            }
+            left++;
+        }
+        return res;
     }
 
     /**
