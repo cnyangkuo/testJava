@@ -46,7 +46,7 @@ public class DemoAlg {
         System.out.println("wordBreakExample2:" + wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat")));
 
         int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
-        System.out.println("spiralOrder:");
+        System.out.println("螺旋矩阵 spiralOrder:");
         System.out.println(spiralOrder(matrix));
     }
 
@@ -71,19 +71,26 @@ public class DemoAlg {
         int bottom = high - 1;
         List<Integer> res = new ArrayList<>();
         while (left <= right && top <= bottom) {
-            for (int i = left; i <= right; i++) {
+            // 顶部行，从左到右
+            for (int i = left; i <= right && top <= bottom; i++) {
                 res.add(matrix[top][i]);
             }
             top++;
-            for (int i = top; i <= bottom; i++) {
+            
+            // 右侧列，从上到下
+            for (int i = top; i <= bottom && left <= right; i++) {
                 res.add(matrix[i][right]);
             }
             right--;
-            for (int i = bottom; i >= top; i--) {
+            
+            // 底部行，从右到左
+            for (int i = right; i >= left && top <= bottom; i--) {
                 res.add(matrix[bottom][i]);
             }
             bottom--;
-            for (int i = right; i >= left; i--) {
+            
+            // 左侧列，从下到上
+            for (int i = bottom; i >= top && left <= right; i--) {
                 res.add(matrix[i][left]);
             }
             left++;
