@@ -80,6 +80,12 @@ public class AllHotAlgTest {
         System.out.println("===== 动态规划算法测试 =====");
         DynamicProgrammingProblems.main(args);
         
+        System.out.println(" ===== 双指针+动态规划组合测试 =====");
+        CombinedAlgorithmsTest.testLongestValidParentheses();  // 新增组合算法测试
+        
+        System.out.println(" ===== 滑动窗口+哈希表组合测试 =====");
+        CombinedAlgorithmsTest.testMinWindowSubstring();  // 新增组合算法测试
+        
         System.out.println("\n===== 双指针算法测试 =====");
         TwoPointersProblems.main(args);
         
