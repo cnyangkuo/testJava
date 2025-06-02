@@ -1,5 +1,6 @@
-package com.practice;
+package com.practice.lock;
 
+import com.practice.util.ZKUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.recipes.locks.*;

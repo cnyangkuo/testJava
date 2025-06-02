@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.thread;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.alibaba.ttl.threadpool.TtlExecutors;
@@ -6,7 +6,6 @@ import jodd.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.util.concurrent.*;
 
 /**

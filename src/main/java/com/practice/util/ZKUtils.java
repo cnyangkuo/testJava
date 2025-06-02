@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.util;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;

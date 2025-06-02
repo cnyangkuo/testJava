@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.base;
 
 import org.openjdk.jol.info.ClassLayout;
 

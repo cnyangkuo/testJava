@@ -1,4 +1,4 @@
-package com.practice;
+package com.practice.base;
 
 import com.lmax.disruptor.Sequence;
 import org.openjdk.jol.info.ClassLayout;

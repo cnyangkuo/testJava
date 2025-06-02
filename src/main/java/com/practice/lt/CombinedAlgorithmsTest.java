@@ -64,10 +64,13 @@ public class CombinedAlgorithmsTest {
         while (right < s.length()) {
             char rChar = s.charAt(right++);
             if (need.containsKey(rChar)) {
-                if (need.get(rChar)-- > 0) count--;
+                int currentCount = need.get(rChar);
+                if (currentCount-- > 0) count--;
+                need.put(rChar, currentCount);
             }
-            
-            while (count == 0) {
+
+            // 确保窗口内包含所有目标字符后才进行收缩
+            while (count == 0 && left <= right) {  // 添加 left <= right 避免无限收缩
                 if (right - left < minLen) {
                     minLen = right - left;
                     startIdx = left;
@@ -75,7 +78,9 @@ public class CombinedAlgorithmsTest {
                 
                 char lChar = s.charAt(left++);
                 if (need.containsKey(lChar)) {
-                    if (need.get(lChar)++ == -1) count++;
+                    int currentCount = need.get(lChar);
+                    if (currentCount++ == -1) count++;
+                    need.put(lChar, currentCount);  // 替换为可变操作
                 }
             }
         }
