@@ -37,9 +37,10 @@ public class BacktrackingProblems {
         }
         
         for (int i = start; i < nums.length; i++) {
-            swap(nums, start, i);  // 交换元素
+            // 通过交换元素标记已选状态
+            swap(nums, start, i);  // 选定当前元素
             backtrackPermute(result, nums, start + 1);
-            swap(nums, start, i);  // 回溯
+            swap(nums, start, i);  // 回溯，恢复状态
         }
     }
     
