@@ -120,7 +120,86 @@ public class HeapProblems {
         }
         return dummy.next;
     }
-    
+
+    /**
+     * 问题5：Dijkstra算法求单源最短路径
+     * @param n 节点数量
+     * @param edges 邻接表 [[u, v, weight]]
+     * @param start 起始节点
+     * @return 最短距离数组
+     */
+    public static int[] dijkstraShortestPath(int n, int[][] edges, int start) {
+        // 构建邻接表
+        List<List<int[]>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            adj.get(u).add(new int[]{v, w});
+            adj.get(v).add(new int[]{u, w}); // 无向图
+        }
+
+        // 初始化距离数组
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[start] = 0;
+
+        // 最小堆：[distance, node]
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        minHeap.offer(new int[]{0, start});
+
+        while (!minHeap.isEmpty()) {
+            int[] curr = minHeap.poll();
+            int d = curr[0], u = curr[1];
+
+            if (d > dist[u]) continue; // 已处理过更短路径
+
+            for (int[] neighbor : adj.get(u)) {
+                int v = neighbor[0], w = neighbor[1];
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    minHeap.offer(new int[]{dist[v], v});
+                }
+            }
+        }
+        return dist;
+    }
+
+    /**
+     * 问题6：双堆法求解数据流中的中位数
+     */
+    public static class MedianFinder {
+        private PriorityQueue<Integer> maxHeap; // 大根堆存较小的一半
+        private PriorityQueue<Integer> minHeap; // 小根堆存较大的一半
+
+        public MedianFinder() {
+            maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+            minHeap = new PriorityQueue<>();
+        }
+
+        public void addNum(int num) {
+            if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+                maxHeap.offer(num);
+            } else {
+                minHeap.offer(num);
+            }
+
+            // 平衡堆大小
+            if (maxHeap.size() > minHeap.size() + 1) {
+                minHeap.offer(maxHeap.poll());
+            } else if (minHeap.size() > maxHeap.size()) {
+                maxHeap.offer(minHeap.poll());
+            }
+        }
+
+        public double findMedian() {
+            if (maxHeap.size() == minHeap.size()) {
+                return (maxHeap.peek() + minHeap.peek()) / 2.0;
+            } else {
+                return maxHeap.peek();
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // 测试示例1：前K个高频元素
         int[] nums1 = {1,1,1,2,2,3};
@@ -157,5 +236,30 @@ public class HeapProblems {
             result2 = result2.next;
         }
         // 输出1 1 2 3 4 4 5 6
+        System.out.println();
+
+        // 测试示例5：Dijkstra算法
+        int n = 5;
+        int[][] edges = {
+            {0,1,10}, {0,2,3}, {1,2,1}, {1,3,2}, {2,3,8}, {2,4,2}, {3,4,3}
+        };
+        int start = 0;
+        int[] shortestPath = dijkstraShortestPath(n, edges, start);
+        System.out.print("Dijkstra最短路径: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(shortestPath[i] + " ");  // 输出0 4 3 6 5
+        }
+        System.out.println();
+
+        // 测试示例6：双堆法中位数
+        MedianFinder medianFinder = new MedianFinder();
+        int[] stream = {1,3,2,4,5,6,7,8,9,10};
+        System.out.println("数据流中位数:");
+        for (int num : stream) {
+            medianFinder.addNum(num);
+            System.out.print(medianFinder.findMedian() + " ");
+        }
+        // 输出1.0 2.0 2.0 2.5 3.0 4.0 5.0 6.0 7.0 8.0
+        System.out.println();
     }
 }
