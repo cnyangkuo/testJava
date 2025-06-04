@@ -10,12 +10,25 @@ package com.practice.algorithm;
      * 执行Kahn算法。
  * 图的表示：
      * 将任务视为图的节点，依赖关系视为有向边。
-     * 构建邻接表（adj）和入度表（inDegree）。
+     * 构建邻接表（adjacency）和入度表（inDegree）。
+ *          入度表: 记录每个节点的依赖数量，决定可执行顺序，依次执行入度为0的节点.
  * 拓扑排序：
      * 使用 Kahn算法（基于入度）实现拓扑排序。
      * 找出所有入度为0的节点，依次处理并更新其邻居的入度。
+    * 环检测 若最终拓扑序列长度 < 总节点数，说明存在环（依赖冲突
  * 处理多解性：
      * 拓扑排序结果可能有多个，只要满足依赖关系即可。
+ *
+ *
+ *
+ * Kahn算法：基于广度优先搜索的拓扑排序算法。
+ * 步骤应该是初始化队列，将所有入度为0的节点加入队列，然后依次取出节点，
+ * 处理其邻接节点，减少它们的入度，直到队列为空。
+ * 算法的时间复杂度是O(V+E)，适合大规模数据。
+ * 可能的应用场景可能是任务调度、课程安排等有依赖关系的场景。
+ * 循环依赖：如果存在循环依赖，则无法进行拓扑排序。
+ *
+ *
  * @date 2025/5/26
  * @description
  */
@@ -41,7 +54,7 @@ public class TaskScheduler {
     public static List<Character> topologicalSort(String[] dependencies) {
         // 存储所有任务节点
         Set<Character> nodes = new HashSet<>();
-        // 邻接表：每个节点指向的后续节点
+        // 邻接表：每个节点指向的后续节点 adjacencyList
         Map<Character, List<Character>> adj = new HashMap<>();
         // 入度表：每个节点的入度数
         Map<Character, Integer> inDegree = new HashMap<>();
@@ -52,7 +65,7 @@ public class TaskScheduler {
             if (parts.length == 1) {
                 char node = parts[0].charAt(0);
                 nodes.add(node);
-                inDegree.put(node, 0);
+                inDegree.putIfAbsent(node, 0);
                 continue;
             }
             String fromPart = parts[0];
