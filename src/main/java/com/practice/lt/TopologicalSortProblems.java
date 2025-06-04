@@ -116,6 +116,7 @@ public class TopologicalSortProblems {
         int index = 0;
         
         while (!queue.isEmpty()) {
+            // 每一步只能有一个入度为0的节点，否则可能存在多个可能的顺序，导致无法唯一确定。
             if (queue.size() > 1) return false; // 不唯一
             int node = queue.poll();
             result[index++] = node;
@@ -130,6 +131,7 @@ public class TopologicalSortProblems {
         
         // 检查结果是否匹配原始序列
         if (index != org.length) return false;
+        // 结果必须与目标序列完全一致
         for (int i = 0; i < org.length; i++) {
             if (result[i] != org[i]) return false;
         }
@@ -137,6 +139,18 @@ public class TopologicalSortProblems {
     }
     
     /**
+     * 给定一组按外星语言字典顺序排列的单词，推断字母的顺序。
+     *   仅需比较相邻单词的第一个不同字符，推导字母顺序。
+             如 "wrt" 和 "wrf" → t < f。
+             如 "er" 和 "ett" → r < t。
+     *   处理孤立字母：未出现在依赖中的字母（如 a 在 words 中从未出现）可以放在任意位置。
+     *   循环检测：若存在循环依赖（如 a < b < a），返回空字符串
+     *
+     * 解题思路：
+         * 输入是一组单词，需要从相邻单词的比较中提取字母顺序。
+            *  比如，单词对"wrt"和"wrf"，第三个字符t和f的不同，可以推断t在f之前。
+         * 确定所有字母的顺序，可能不需要与任何已知序列匹配，只要满足依赖关系即可。
+     *
      * 问题3：外星语词典（LeetCode 269）
      * 思路分析：
      * 1. 通过单词列表构建字符之间的相对顺序
@@ -174,6 +188,7 @@ public class TopologicalSortProblems {
                         adjList.get(c1).add(c2);
                         inDegree.put(c2, inDegree.get(c2) + 1);
                     }
+                    // 只取第一个不同字符的依赖关系
                     break;
                 }
             }
