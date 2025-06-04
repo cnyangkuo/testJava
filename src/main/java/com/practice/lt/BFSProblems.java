@@ -172,6 +172,13 @@ public class BFSProblems {
         System.out.println("最小基因变化次数: " + minMutation(start, end, bank));  // 输出2
         
         // 测试示例3：打开转盘锁
+        // 题目核心要求
+        //    输入：初始密码"0000"、目标密码target、死亡组合列表deadends
+        //    输出：从"0000"到target的最小转动次数（若无法到达返回-1）
+        // 转动规则：
+        //    每次只能转动一个轮盘（共4个位置）
+        //    每次转动可**+1或-1**（如0→9或0→1）
+        //    中间结果不能出现在deadends中
         String[] deadends = {"0201","0101","0111","1212","2002"};
         String target = "0202";
         System.out.println("打开转盘锁最少次数: " + openLock(deadends, target));  // 输出6
