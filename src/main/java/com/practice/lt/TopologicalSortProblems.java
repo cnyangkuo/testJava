@@ -210,6 +210,7 @@ public class TopologicalSortProblems {
     public static void main(String[] args) {
         // 测试示例1：课程表II
         int numCourses = 4;
+        // {1, 0} 的含义： 课程1依赖课程0，即学习课程1前必须先完成课程0。
         int[][] prerequisites = {{1,0},{2,0},{3,1},{3,2}};
         int[] result1 = findOrder(numCourses, prerequisites);
         System.out.print("课程学习顺序: ");

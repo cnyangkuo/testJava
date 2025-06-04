@@ -39,7 +39,7 @@ public class TaskScheduler {
 
     public static void main(String[] args) {
         String[] dependencies = {"A->B", "B,C->D", "E->C", "B->F", "G"};
-        List<Character> order = topologicalSort(dependencies);
+        List<String> order = topologicalSort(dependencies);
         System.out.println("任务执行顺序: " + order.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining()));
@@ -51,75 +51,80 @@ public class TaskScheduler {
          */
     }
 
-    public static List<Character> topologicalSort(String[] dependencies) {
-        // 存储所有任务节点
-        Set<Character> nodes = new HashSet<>();
-        // 邻接表：每个节点指向的后续节点 adjacencyList
-        Map<Character, List<Character>> adj = new HashMap<>();
-        // 入度表：每个节点的入度数
-        Map<Character, Integer> inDegree = new HashMap<>();
-
-        // 解析依赖关系，构建图
+    public static List<String> topologicalSort(String[] dependencies) {
+        // 1. 构建邻接表和入度表
+        Map<String, List<String>> adjList = new HashMap<>();
+        Map<String, Integer> indegree = new HashMap<>();
+        Set<String> allTaskNodes = new HashSet<>();
+        
+        // 2. 解析依赖关系
         for (String dep : dependencies) {
-            String[] parts = dep.split("->");
-            if (parts.length == 1) {
-                char node = parts[0].charAt(0);
-                nodes.add(node);
-                inDegree.putIfAbsent(node, 0);
+            // 处理单个任务或依赖关系
+            if (!dep.contains("->")) {
+                allTaskNodes.add(dep.trim());
                 continue;
             }
-            String fromPart = parts[0];
-            char to = parts[1].charAt(0);
-            String[] froms = fromPart.split(",");
-            for (String fromStr : froms) {
-                char from = fromStr.charAt(0);
-                nodes.add(from);
-                nodes.add(to);
-                adj.computeIfAbsent(from, k -> new ArrayList<>()).add(to);
-                inDegree.put(to, inDegree.getOrDefault(to, 0) + 1);
-                inDegree.putIfAbsent(from, 0); // 确保from的入度初始化为0
+            
+            String[] pair = dep.split("->");
+            if (pair.length != 2) {
+                throw new IllegalArgumentException("无效的依赖格式: " + dep);
+            }
+            
+            String prevPart = pair[0].trim();
+            String next = pair[1].trim();
+            
+            // 处理多个前置任务的情况
+            String[] prevTasks = prevPart.split(",");
+            for (String prevTask : prevTasks) {
+                String task = prevTask.trim();
+                
+                // 添加任务到全局集合
+                allTaskNodes.add(task);
+                allTaskNodes.add(next);
+                
+                // 显式初始化邻接表
+                if (!adjList.containsKey(task)) {
+                    adjList.put(task, new ArrayList<>());
+                }
+                adjList.get(task).add(next);
+                
+                // 更新入度表
+                if (!indegree.containsKey(next)) {
+                    indegree.put(next, 0);
+                }
+                indegree.put(next, indegree.get(next) + 1);
             }
         }
-
-        // 初始化入度表，确保所有节点都有记录
-        for (char node : nodes) {
-            inDegree.putIfAbsent(node, 0);
-        }
-
-        System.out.println("邻接表: " + adj);
-        System.out.println("入度表: " + inDegree);
-
-        // 初始化队列，加入所有入度为0的节点
-        Queue<Character> queue = new LinkedList<>();
-        for (Map.Entry<Character, Integer> entry : inDegree.entrySet()) {
-            if (entry.getValue() == 0) {
-                queue.offer(entry.getKey());
+        
+        // 3. 初始化队列
+        Queue<String> queue = new LinkedList<>();
+        for (String task : allTaskNodes) {
+            if (!indegree.containsKey(task)) {
+                queue.offer(task);
             }
         }
-
-        // 拓扑排序结果
-        List<Character> result = new ArrayList<>();
+        
+        // 4. 拓扑排序
+        List<String> result = new ArrayList<>();
         while (!queue.isEmpty()) {
-            char current = queue.poll();
-            result.add(current);
-            if (adj.containsKey(current)) {
-                for (char neighbor : adj.get(current)) {
-                    inDegree.put(neighbor, inDegree.get(neighbor) - 1);
-                    // inDegree == 0 表示所有前置依赖已完成，任务可安全执行， 加入执行队列
-                    if (inDegree.get(neighbor) == 0) {
+            String curr = queue.poll();
+            result.add(curr);
+            
+            if (adjList.containsKey(curr)) {
+                for (String neighbor : adjList.get(curr)) {
+                    indegree.put(neighbor, indegree.get(neighbor) - 1);
+                    if (indegree.get(neighbor) == 0) {
                         queue.offer(neighbor);
-                    } else {
-                        System.out.println("neighbor " + neighbor + " inDegree=" +  +inDegree.get(neighbor));
                     }
                 }
             }
         }
-
-        // 检查是否有环
-        if (result.size() != nodes.size()) {
-            throw new IllegalArgumentException("存在循环依赖，无法排序");
+        
+        // 5. 检测环
+        if (result.size() != allTaskNodes.size()) {
+            throw new RuntimeException("存在循环依赖，无法完成调度");
         }
-
+        
         return result;
     }
 }
