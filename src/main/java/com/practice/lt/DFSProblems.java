@@ -3,7 +3,7 @@ package com.practice.lt;
 import java.util.*;
 
 /**
- * 深度优先搜索（DFS）相关面试题集合
+ * 深度优先搜索 Depth-First Search（DFS）相关面试题集合
  * 包含3个典型的DFS问题
  */
 public class DFSProblems {
@@ -64,10 +64,22 @@ public class DFSProblems {
     
     /**
      * 问题3：岛屿数量（LeetCode 200）
+     * 给定一个由'1'（陆地）和'0'（水）组成的二维网格，计算岛屿的数量。
+     * 岛屿被水包围，并且由相邻的陆地连接而成。这里的相邻指的是上下左右四个方向。
+     *
      * 思路分析：
      * 1. 遍历网格，遇到'1'则进行DFS
      * 2. 将访问过的'1'标记为'0'
      * 3. 统计DFS调用次数即为岛屿数量
+     *
+     * 为什么统计DFS调用次数就能得到岛屿数量？
+     * 因为每次DFS调用都会将当前连通区域的所有陆地标记为已访问，
+     * 这样每个岛屿只会被统计一次。每当遇到一个新的未访问的陆地单元格时，
+     * 说明发现了一个新的岛屿，因此DFS调用次数即为岛屿数。
+     *
+     * 防止重复计算同一岛屿。标记方式通常有两种：
+     * 1. 将原数组中的'1'改为'0'
+     * 2. 使用独立的visited数组记录访问状态
      * 
      * @param grid 字符网格
      * @return 岛屿数量
@@ -91,6 +103,7 @@ public class DFSProblems {
     }
     
     private static void dfsIsland(char[][] grid, int row, int col) {
+        // 越界或非陆地时自动返回（回溯条件） 遇到'0'（水或已访问标记）
         if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] == '0') {
             return;
         }

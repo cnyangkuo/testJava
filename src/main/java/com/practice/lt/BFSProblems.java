@@ -35,11 +35,13 @@ public class BFSProblems {
         while (!queue.isEmpty()) {
             int levelSize = queue.size();
             List<Integer> currentLevel = new ArrayList<>();
-            
+
+            // 只遍历当前层的数据
             for (int i = 0; i < levelSize; i++) {
                 TreeNode node = queue.poll();
                 currentLevel.add(node.val);
-                
+
+                // 新增下一层的数据
                 if (node.left != null) queue.offer(node.left);
                 if (node.right != null) queue.offer(node.right);
             }
@@ -85,6 +87,7 @@ public class BFSProblems {
                         if (current.charAt(j) == c) continue;
                         
                         String next = current.substring(0, j) + c + current.substring(j + 1);
+                        // 找到目标
                         if (next.equals(end) && bankSet.contains(next)) {
                             return steps;
                         }
@@ -156,6 +159,13 @@ public class BFSProblems {
         System.out.println("二叉树层序遍历: " + levelOrder(root1));  // 输出[[3],[9,20],[15,7]]
         
         // 测试示例2：最小基因变化
+        // 题目要求从起始基因字符串到目标基因字符串的最短变化路径，每次变化需满足：
+        // 1.仅改变一个字符（A/T/C/G）
+        // 2.变化后的字符串必须存在于给定的基因库bank中
+
+        // 为何用BFS？
+        //需要寻找最短路径，BFS天然适合层级扩展，首次到达终点即为最短步数
+        //每层遍历所有可能的变化（类似单词接龙）
         String start = "AACCGGTT";
         String end = "AAACGGTA";
         String[] bank = {"AACCGGTA","AAACGGTA","AAACGGTA"};
