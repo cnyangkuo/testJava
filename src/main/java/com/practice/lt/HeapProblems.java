@@ -123,6 +123,19 @@ public class HeapProblems {
 
     /**
      * 问题5：Dijkstra算法求单源最短路径
+     * ijkstra算法是经典的单源最短路径算法，用于解决带权图中从起点到其他所有节点的最短路径问题。
+     *
+     * 核心原理
+     * 1.贪心策略：
+     * 每次从未访问的节点中，选择距离起点最近的节点进行处理（通过最小堆实现）。
+     * 一旦确定某个节点的最短距离，后续不再修改该节点的距离（前提是图中没有负权边）。
+     * 2.松弛操作（Relaxation）：
+     * 对当前节点的邻接边进行遍历，尝试通过当前节点更新其邻居节点的最短距离。
+     * 例如：若从节点u到v的边权值为w，且dist[u] + w < dist[v]，则更新dist[v] = dist[u] + w。
+     * 3.最小堆优化：
+     * 使用最小堆（优先队列）动态维护待处理节点的最短候选距离。
+     * 每次从堆顶取出当前距离起点最近的节点，确保贪心策略的正确性。
+     *
      * @param n 节点数量
      * @param edges 邻接表 [[u, v, weight]]
      * @param start 起始节点
@@ -247,6 +260,14 @@ public class HeapProblems {
         int[] shortestPath = dijkstraShortestPath(n, edges, start);
         System.out.print("Dijkstra最短路径: ");
         for (int i = 0; i < n; i++) {
+            /**
+             * 节点0到节点0、1、2、3、4的最短距离。
+             *  - dist[0] = 0（自身）
+             *  - dist[1] = 4（0→2→1，3+1=4）
+             *  - dist[2] = 3（0→2）
+             *  - dist[3] = 6（0→2→1→3，3+1+2=6）
+             *  - dist[4] = 5（0→2→4，3+2=5）
+             */
             System.out.print(shortestPath[i] + " ");  // 输出0 4 3 6 5
         }
         System.out.println();
