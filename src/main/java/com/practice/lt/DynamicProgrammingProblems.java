@@ -93,14 +93,37 @@ public class DynamicProgrammingProblems {
 
         int n = weights.length;
 
-        int[] dp = new int[capacity + 1];
+        // 创建dp数组 表示容量为w时，前i个物品的最大价值
+        int[][] dp = new int[n+1][capacity+1];
 
-        for (int i = 0; i < n; i++) {
-            for (int w = capacity; w >= weights[i]; w--) {   // 倒序遍历容量 确保每个物品只被选择一次
-                dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i]);
+        // 遍历物品
+        // i-1的含义：物品数组索引从0开始（weights[0]是第一个物品），
+        // 外层循环i从1开始（表示前1个物品）。
+        //  weights[i-1]对应第i个物品的实际重量。
+        for (int i = 1; i <= n; i++) {
+            // 遍历容量
+            for (int w = 0; w <= capacity; w++) {
+                // 不选当前物品， 处理不选的情况是为了保留之前计算的最优解，而不仅仅是当前的选择
+                dp[i][w] = dp[i-1][w];
+                // 如果可以选当前物品,即当前容量w是否足够装下第i个物品。
+                // 在剩余容量w - weights[i-1]中加上当前物品的价值values[i-1]
+                if (w >= weights[i-1]) {
+                    dp[i][w] = Math.max(dp[i][w], dp[i-1][w-weights[i-1]] + values[i-1]);
+                }
             }
         }
-        return dp[capacity];
+        // 最终结果：dp[n][W]（前n个物品在容量W下的最大价值）
+        return dp[n][capacity];
+
+        /** 推导 优化后的状态转移方程
+         int[] dp = new int[capacity + 1];
+         for (int i = 0; i < n; i++) {
+             for (int w = capacity; w >= weights[i]; w--) {   // 倒序遍历容量 确保每个物品只被选择一次
+                dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i]);
+             }
+         }
+         return dp[capacity];
+         */
     }
 
     /**
