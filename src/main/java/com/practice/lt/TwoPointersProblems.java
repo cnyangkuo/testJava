@@ -53,7 +53,8 @@ public class TwoPointersProblems {
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         if (nums == null || nums.length < 3) return result;
-        
+
+        // 先排序
         Arrays.sort(nums);
         
         for (int i = 0; i < nums.length - 2; i++) {
