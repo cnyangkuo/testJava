@@ -51,27 +51,63 @@ public class SortDemo {
         System.out.println("Original array:");
         printArray(arr);
 
-        // 选择排序 特点: 时间复杂度始终O(n^2)，属于稳定排序算法，空间复杂度O(1)
+        // 选择排序 迭代方式直接选择最小元素
+        // 特点: 时间复杂度始终O(n^2)，属于稳定排序算法，空间复杂度O(1)
         selectionSort(arr4);
         System.out.println("Selection Sorted array:");
         printArray(arr4);
 
-        // 快排 特点: 时间复杂度O(nlogn)，最差时间复杂度O(n^2)，属于不稳定排序算法，空间复杂度O(1)
+        // 快排 属于分治算法
+        // 特点: 时间复杂度O(nlogn)，最差时间复杂度O(n^2)，属于不稳定排序算法，空间复杂度O(1)
+        // 分解：将数组划分为两部分（partition函数）
+        // 解决：递归对子数组排序（quickSort函数）
+        // 合并：无需额外操作（划分过程已保证有序）
         quickSort(arr);
 
         System.out.println("Quick Sorted array:");
         printArray(arr);
 
-        // 归并排序 特点: 时间复杂度始终O(nlogn)，属于稳定排序算法，空间复杂度O(n)
+        // 归并排序 属于分治算法
+        // 特点: 时间复杂度始终O(nlogn)，属于稳定排序算法，但空间复杂度O(n)
+        // 分解：将数组二分（mergeSort函数）
+        // 解决：递归排序子数组（mergeSort函数）
+        // 合并：将有序子数组合并（merge函数）
         mergeSort(arr2);
         System.out.println("Merge Sorted array:");
         printArray(arr2);
 
-        // 堆排序 特点: 时间复杂度始终O(nlogn)，属于不稳定排序算法，空间复杂度O(1)
+        // 堆排序 利用堆性质（父节点总数大于或小于子节点）
+        // 特点: 时间复杂度始终O(nlogn)，属于不稳定排序算法，空间复杂度O(1)
+        // 不稳定原因（虽然结果有序，但相同元素的位置可能发生过交换）
         heapSort(arr3);
         System.out.println("Heap Sorted array:");
         printArray(arr3);
 
+        // 插入排序
+        // 特点: 时间复杂度O(n^2)，属于稳定排序算法，空间复杂度O(1)
+        int[] arr5 = {5, 2, 9, 1, 5, 6, 13, 17, 14};
+        insertionSort(arr5);
+        System.out.println("Insertion Sorted array:");
+        printArray(arr5);
+    }
+
+    /**
+     * 选择排序, 核心思想是 repeatedly 选择最小的元素，将它与当前位置的元素交换位置。
+     * 时间复杂度O(n^2)，最差时间复杂度O(n^2)，属于不稳定排序算法，空间复杂度O(1)
+     * @param arr
+     * @return
+     **/
+    private static void selectionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            swap(arr, i, minIndex);
+        }
     }
 
     /**
@@ -128,61 +164,6 @@ public class SortDemo {
         }
         System.out.println();
     }
-
-    /**
-     * 选择排序, 核心思想是 repeatedly 选择最小的元素，将它与当前位置的元素交换位置。
-     * 时间复杂度O(n^2)，最差时间复杂度O(n^2)，属于不稳定排序算法，空间复杂度O(1)
-     * @param arr
-     * @return
-     **/
-    private static void selectionSort(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            int minIndex = i;
-            for (int j = i + 1; j < n; j++) {
-                if (arr[j] < arr[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            swap(arr, i, minIndex);
-        }
-    }
-
-    /**
-     * 堆排序, 核心思想是构建一个最大堆，然后逐步将堆顶元素交换到末尾，最终得到一个有序的数组。
-     * 时间复杂度O(nlogn)，最差时间复杂度O(nlogn)，属于不稳定排序算法，空间复杂度O(1)
-     * @param arr
-     */
-    private static void heapSort(int[] arr) {
-        // 构建最大堆
-        int n = arr.length;
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            heapify(arr, n, i);
-        }
-
-        // 堆排序,  从最后一个非叶子节点开始, 逐个将最大元素交换到末尾
-        for (int i = n - 1; i >= 0; i--) {
-            swap(arr, 0, i);
-            heapify(arr, i, 0);
-        }
-    }
-
-    private static void heapify(int[] arr, int i, int j) {
-        int largest = j;
-        int left = 2 * j + 1;
-        int right = 2 * j + 2;
-        if (left < i && arr[left] > arr[largest]) {
-            largest = left;
-        }
-        if (right < i && arr[right] > arr[largest]) {
-            largest = right;
-        }
-        if (largest != j) {
-            swap(arr, j, largest);
-            heapify(arr, i, largest);
-        }
-    }
-
 
     /**
      * 归并排序（Merge Sort）是一种基于分治策略的经典排序算法。其核心思想是将数组不断二分，
@@ -248,4 +229,59 @@ public class SortDemo {
             arr[left + l] = temp[l];
         }
     }
+
+    /**
+     * 堆排序, 核心思想是构建一个最大堆，然后逐步将堆顶元素交换到末尾，最终得到一个有序的数组。
+     * 时间复杂度O(nlogn)，最差时间复杂度O(nlogn)，属于不稳定排序算法（因为父子节点交换可能改变相同元素的相对顺序），空间复杂度O(1)
+     * @param arr
+     */
+    private static void heapSort(int[] arr) {
+        // 构建最大堆
+        int n = arr.length;
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        // 堆排序,  从最后一个非叶子节点开始, 逐个将最大元素交换到末尾
+        for (int i = n - 1; i >= 0; i--) {
+            swap(arr, 0, i);
+            heapify(arr, i, 0);
+        }
+    }
+
+    private static void heapify(int[] arr, int i, int j) {
+        int largest = j;
+        int left = 2 * j + 1;
+        int right = 2 * j + 2;
+        if (left < i && arr[left] > arr[largest]) {
+            largest = left;
+        }
+        if (right < i && arr[right] > arr[largest]) {
+            largest = right;
+        }
+        if (largest != j) {
+            swap(arr, j, largest);
+            heapify(arr, i, largest);
+        }
+    }
+
+    /**
+     * 插入排序，核心思想是将每个元素插入到已排序序列中的正确位置
+     * 时间复杂度O(n²)，最差时间复杂度O(n²)，属于稳定排序算法（仅当元素严格大于时才移动），空间复杂度O(1)
+     * @param arr
+     */
+    private static void insertionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            // 仅当元素严格大于时才后移，保证稳定性
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
 }
