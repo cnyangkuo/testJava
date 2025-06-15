@@ -132,8 +132,12 @@ public class LongestCommonSubsequence {
         if (n == 0) return 0;
         if (n == 1) return cost[0];
 
-        int[] dp = new int[n];
-        int[] prev = new int[n];
+        // 创建动态规划数组, dp 表示到达每个台阶的最低花费, prev 表示到达该台阶的前一个台阶
+        int[] dp = new int[n];      // 记录到达每个台阶的最小成本
+        int[] prev = new int[n];    // 记录达到该台阶的前一个台阶索引（路径信息）
+        // 两个数组协同工作：
+        // - dp[i] 存储到达第i阶的最小累计成本
+        // - prev[i] 存储从哪个台阶走到第i阶（用于重建路径）
 
         // 初始化起点
         dp[0] = cost[0];
@@ -145,10 +149,10 @@ public class LongestCommonSubsequence {
         for (int i = 2; i < n; i++) {
             if (dp[i - 1] < dp[i - 2]) {
                 dp[i] = cost[i] + dp[i - 1];
-                prev[i] = i - 1;
+                prev[i] = i - 1;     // 记录是从i-1阶走一步上来的
             } else {
                 dp[i] = cost[i] + dp[i - 2];
-                prev[i] = i - 2;
+                prev[i] = i - 2;    // 记录是从i-2阶走两步上来的
             }
         }
 
@@ -163,7 +167,7 @@ public class LongestCommonSubsequence {
             current = n - 2;
         }
 
-        // 回溯路径
+        // 通过prev数组回溯最优路径
         List<Integer> path = new ArrayList<>();
         while (current != -1) {
             path.add(current);
