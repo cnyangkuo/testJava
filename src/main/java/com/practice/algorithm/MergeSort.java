@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * 归并排序（Merge Sort）是一种基于分治策略的经典排序算法。其核心思想是将数组不断二分，
  * 直到子数组不可再分，然后将有序的子数组合并成一个有序的整体。
+ * 时间复杂度O(nlogn)，空间复杂度O(n)，最差时间复杂度O(nlogn)，空间复杂度O(n)。
  * @author yangkuo
  * @date 2025/5/16
  * @description
