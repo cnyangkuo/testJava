@@ -31,7 +31,9 @@ enum Rank {
  * 扑克牌类，支持动态排序规则
  */
 class Card {
+    // 牌面值
     private final Rank rank;
+    // 花色
     private final Suit suit;
 
     public Card(Rank rank, Suit suit) {
@@ -61,23 +63,21 @@ public class PlayCardSort {
      * 动态排序方法
      * @param cards 需要排序的牌
      * @param rankOrder 牌面值排序规则（+1升序/-1降序）
-     * @param suitOrder 花色优先级映射
+     * @param suitIntegerMap 花色优先级映射
      * @return 排序后的牌
      */
-    public static List<Card> sortCards(List<Card> cards, int rankOrder, Map<Suit, Integer> suitOrder) {
+    public static List<Card> sortCards(List<Card> cards, int rankOrder, Map<Suit, Integer> suitIntegerMap) {
         // 创建副本以避免修改原始列表
         List<Card> sortedList = new ArrayList<>(cards);
         
         // 获取最大花色优先级
-        int maxSuitPriority = Collections.max(suitOrder.values());
+        int maxSuitPriority = Collections.max(suitIntegerMap.values());
         
-        // 实现复合排序：
-        // 1. 先按花色优先级
-        // 2. 再按牌面值优先级
+        // 实现复合排序
         sortedList.sort((c1, c2) -> {
             // 比较花色
-            int suitCompare = Integer.compare(suitOrder.getOrDefault(c1.getSuit(), maxSuitPriority + 1),
-                                           suitOrder.getOrDefault(c2.getSuit(), maxSuitPriority + 1)) * rankOrder;
+            int suitCompare = Integer.compare(suitIntegerMap.getOrDefault(c1.getSuit(), maxSuitPriority + 1),
+                                           suitIntegerMap.getOrDefault(c2.getSuit(), maxSuitPriority + 1)) * rankOrder;
             if (suitCompare != 0) return suitCompare;
 
             // 比较牌面值
@@ -91,13 +91,13 @@ public class PlayCardSort {
      * 性能优化版排序方法
      * @param cards 需要排序的牌
      * @param rankOrder 牌面值排序规则（+1升序/-1降序）
-     * @param suitOrder 花色优先级映射
+     * @param suitIntegerMap 花色优先级映射
      * @param useCompositeKey 是否使用复合排序键
      * @return 排序后的牌
      */
-    public static List<Card> sortCards(List<Card> cards, int rankOrder, Map<Suit, Integer> suitOrder, boolean useCompositeKey) {
+    public static List<Card> sortCards(List<Card> cards, int rankOrder, Map<Suit, Integer> suitIntegerMap, boolean useCompositeKey) {
         if (!useCompositeKey) {
-            return sortCards(cards, rankOrder, suitOrder);
+            return sortCards(cards, rankOrder, suitIntegerMap);
         }
 
         // 使用复合排序键优化
@@ -105,9 +105,9 @@ public class PlayCardSort {
 
         List<Card> sortedList = new ArrayList<>(cards);
         sortedList.sort(Comparator.comparingInt(c -> {
-            int rankKey = c.getRank().getPriority() * rankOrder;
-            int suitKey = suitOrder.getOrDefault(c.getSuit(), Integer.MAX_VALUE);
-            return rankKey * suitMultiplier + suitKey;
+            int rankKey = c.getRank().getPriority();
+            int suitKey = suitIntegerMap.getOrDefault(c.getSuit(), Integer.MAX_VALUE);
+            return (rankKey + suitMultiplier * suitKey) * rankOrder;
         }));
 
         return sortedList;
@@ -130,16 +130,16 @@ public class PlayCardSort {
         suitPriority.put(Suit.HEARTS, 3);
         
         // 测试不同排序规则
-        System.out.println("按牌面升序+自定义花色优先级:");
+        System.out.println("按自定义花色+牌面优先级，升序排序:");
         List<Card> result1 = sortCards(cards, 1, suitPriority);
         for (Card card : result1) {
             System.out.println(card);
         }
         
-//        System.out.println("\n按牌面降序+自定义花色优先级（性能优化版）:");
-//        List<Card> result2 = sortCards(cards, -1, suitPriority, true);
-//        for (Card card : result2) {
-//            System.out.println(card);
-//        }
+        System.out.println("\n按自定义花色+牌面优先级，降序排序（性能优化版）:");
+        List<Card> result2 = sortCards(cards, -1, suitPriority, true);
+        for (Card card : result2) {
+            System.out.println(card);
+        }
     }
 }
