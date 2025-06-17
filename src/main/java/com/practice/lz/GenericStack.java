@@ -11,9 +11,9 @@ import java.util.List;
 public class GenericStack<T extends Comparable<T>> {
     private List<T> stack;
     
-//    public GenericStack() {
-//        this.stack = new ArrayList<>();
-//    }
+    public GenericStack() {
+        this.stack = new ArrayList<>();
+    }
     
     /**
      * 题目1：实现基本的栈操作
@@ -69,23 +69,26 @@ public class GenericStack<T extends Comparable<T>> {
      */
     private GenericStack<T> minStack;
     
-    public GenericStack() {
-        this.stack = new ArrayList<>();
-        this.minStack = new GenericStack<>();
-    }
-    
     public void pushWithMin(T item) {
+        if (minStack == null) {
+            minStack = new GenericStack<>();
+        }
         stack.add(item);
+        // 如果当前元素小于等于辅助栈栈顶元素，则将当前元素压入辅助栈
         if (minStack.isEmpty() || item.compareTo(minStack.peek()) <= 0) {
             minStack.push(item);
         }
     }
     
     public T popWithMin() {
+        if (minStack == null) {
+            throw new IllegalStateException("栈为空");
+        }
         if (isEmpty()) {
             throw new IllegalStateException("栈为空");
         }
         T item = stack.remove(stack.size() - 1);
+        // 如果当前元素等于辅助栈栈顶元素，则将辅助栈栈顶元素弹出
         if (!minStack.isEmpty() && item.equals(minStack.peek())) {
             minStack.pop();
         }
@@ -93,22 +96,26 @@ public class GenericStack<T extends Comparable<T>> {
     }
     
     public T getMin() {
-        if (minStack.isEmpty()) {
+        if (minStack == null || minStack.isEmpty()) {
             throw new IllegalStateException("栈为空");
         }
         return minStack.peek();
     }
     
     /**
-     * 题目3：栈排序（仅使用一个额外栈）
+     * 题目3：栈排序（仅使用一个额外栈） 从栈顶到栈底进行排序 从小到大排序
      * 核心思想：临时栈辅助排序
      */
     public void sort() {
+        if (isEmpty()) {
+            return;
+        }
+        // 临时栈，栈顶是最大数
         GenericStack<T> tempStack = new GenericStack<>();
         
         while (!isEmpty()) {
             T current = pop();
-            // 当前元素比临时栈顶大时，将临时栈元素移回原栈
+            // 当前元素比临时栈顶大时，将临时栈元素移回原栈；因为current必须比临时栈的栈顶元素大才能压入临时栈
             while (!tempStack.isEmpty() && current.compareTo(tempStack.peek()) < 0) {
                 push(tempStack.pop());
             }
@@ -116,7 +123,7 @@ public class GenericStack<T extends Comparable<T>> {
             tempStack.push(current);
         }
         
-        // 将元素移回原栈
+        // 将元素移回原栈，栈顶到栈底 临时栈为从大到小，当前栈变为从小到大
         while (!tempStack.isEmpty()) {
             push(tempStack.pop());
         }
