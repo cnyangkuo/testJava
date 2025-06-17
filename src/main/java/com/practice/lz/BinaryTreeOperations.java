@@ -82,7 +82,14 @@ public class BinaryTreeOperations<T> {
     public boolean isValidBST() {
         return isValidBSTHelper(root, null, null);
     }
-    
+
+    /**
+     * 递归方法实现
+     * @param node 当前节点
+     * @param min 最小值限制
+     * @param max 最大值限制
+     * @return true if BST
+     */
     private boolean isValidBSTHelper(TreeNode<T> node, T min, T max) {
         if (node == null) return true;
         
@@ -173,6 +180,7 @@ public class BinaryTreeOperations<T> {
         Integer[] elements2 = {5, 1, 4, null, null, 3, 6};
         tree2.createTree(elements2);
         System.out.println("测试验证二叉搜索树:");
+        tree2.printTree();
         System.out.println("是否是有效BST: " + tree2.isValidBST());
     }
 }
