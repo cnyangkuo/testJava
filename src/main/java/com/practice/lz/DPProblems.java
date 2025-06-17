@@ -86,37 +86,19 @@ public class DPProblems {
         int[] dp = new int[capacity + 1];
         
         // 状态转移
+        // 外层循环为物品，从0开始，到物品i结束
         for (int i = 0; i < n; i++) {
+            // 内层循环为背包容量，从物品i的容量开始，到背包容量结束
+            // 逆序遍历，是为了避免重复计算； j >= weights[i] 表示当前物品可加入背包
             for (int j = capacity; j >= weights[i]; j--) {
+                // 当前物品可加入背包，则更新dp[j]为当前物品价值 + 剩余容量可装价值 与 不加入背包的 二者中较大的值
                 dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
             }
         }
-        
+
+        // 返回最大可装价值
         return dp[capacity];
     }
-    
-//    /**
-//     * 辅助方法：打印二维DP表
-//     * @param dp 二维DP表
-//     */
-//    private void printDPTable(int[][] dp) {
-//        int rows = dp.length;
-//        int cols = dp[0].length;
-//
-//        System.out.print("\t");
-//        for (int j = 0; j < cols; j++) {
-//            System.out.print(j + "\t");
-//        }
-//        System.out.println();
-//
-//        for (int i = 0; i < rows; i++) {
-//            System.out.print((i > 0 ? word1.charAt(i - 1) : '#') + "\t");
-//            for (int j = 0; j < cols; j++) {
-//                System.out.print(dp[i][j] + "\t");
-//            }
-//            System.out.println();
-//        }
-//    }
     
     // 测试用例
     public static void main(String[] args) {

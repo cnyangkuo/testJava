@@ -200,8 +200,8 @@ public class DynamicProgrammingProblems {
         // 测试示例2：0-1背包问题
         int[] weights = {2,3,4,5};
         int[] values = {3,4,5,6};
-        int capacity = 4;
-        System.out.println("背包最大价值: " + knapsackProblem(weights, values, capacity));  // 输出5
+        int capacity = 8;
+        System.out.println("背包最大价值: " + knapsackProblem(weights, values, capacity));  // 输出10
 
         // 测试示例4：完全背包问题
         System.out.println("完全背包最大价值: " + completeKnapsackProblem(weights, values, capacity));  // 输出6
