@@ -83,6 +83,7 @@ public class DPProblems {
      */
     public int knapsack(int[] weights, int[] values, int capacity) {
         int n = weights.length;
+        // 创建DP表 表示当前容量可装价值
         int[] dp = new int[capacity + 1];
         
         // 状态转移
@@ -92,9 +93,45 @@ public class DPProblems {
             // 逆序遍历，是为了避免重复计算； j >= weights[i] 表示当前物品可加入背包
             for (int j = capacity; j >= weights[i]; j--) {
                 // 当前物品可加入背包，则更新dp[j]为当前物品价值 + 剩余容量可装价值 与 不加入背包的 二者中较大的值
+                boolean flag = (dp[j] < dp[j - weights[i]] + values[i]);
                 dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
+//                if (flag)  {
+//                    System.out.println("i=" + i + " 更新 j=" + j + " dp[" + (capacity) + "]: " + java.util.Arrays.toString(dp));
+//                }
+//                // 打印 当前dp数组
+//                System.out.println("i=" + i + " j=" + j + " dp[" + (capacity) + "]: " + java.util.Arrays.toString(dp));
             }
+//            // 打印 当前dp数组
+//            System.out.println("i=" + i + " dp[" + (capacity) + "]: " + java.util.Arrays.toString(dp));
         }
+
+        /**
+         * i=0 更新 j=8 dp[8]: [0, 0, 0, 0, 0, 0, 0, 0, 3]
+         * i=0 更新 j=7 dp[8]: [0, 0, 0, 0, 0, 0, 0, 3, 3]
+         * i=0 更新 j=6 dp[8]: [0, 0, 0, 0, 0, 0, 3, 3, 3]
+         * i=0 更新 j=5 dp[8]: [0, 0, 0, 0, 0, 3, 3, 3, 3]
+         * i=0 更新 j=4 dp[8]: [0, 0, 0, 0, 3, 3, 3, 3, 3]
+         * i=0 更新 j=3 dp[8]: [0, 0, 0, 3, 3, 3, 3, 3, 3]
+         * i=0 更新 j=2 dp[8]: [0, 0, 3, 3, 3, 3, 3, 3, 3]
+         * i=0 dp[8]: [0, 0, 3, 3, 3, 3, 3, 3, 3]
+         *
+         * i=1 更新 j=8 dp[8]: [0, 0, 3, 3, 3, 3, 3, 3, 7]
+         * i=1 更新 j=7 dp[8]: [0, 0, 3, 3, 3, 3, 3, 7, 7]
+         * i=1 更新 j=6 dp[8]: [0, 0, 3, 3, 3, 3, 7, 7, 7]
+         * i=1 更新 j=5 dp[8]: [0, 0, 3, 3, 3, 7, 7, 7, 7]
+         * i=1 更新 j=4 dp[8]: [0, 0, 3, 3, 4, 7, 7, 7, 7]
+         * i=1 更新 j=3 dp[8]: [0, 0, 3, 4, 4, 7, 7, 7, 7]
+         * i=1 dp[8]: [0, 0, 3, 4, 4, 7, 7, 7, 7]
+         *
+         * i=2 更新 j=8 dp[8]: [0, 0, 3, 4, 4, 7, 7, 7, 9]
+         * i=2 更新 j=7 dp[8]: [0, 0, 3, 4, 4, 7, 7, 9, 9]
+         * i=2 更新 j=6 dp[8]: [0, 0, 3, 4, 4, 7, 8, 9, 9]
+         * i=2 更新 j=4 dp[8]: [0, 0, 3, 4, 5, 7, 8, 9, 9]
+         * i=2 dp[8]: [0, 0, 3, 4, 5, 7, 8, 9, 9]
+         *
+         * i=3 更新 j=8 dp[8]: [0, 0, 3, 4, 5, 7, 8, 9, 10]
+         * i=3 dp[8]: [0, 0, 3, 4, 5, 7, 8, 9, 10]
+         */
 
         // 返回最大可装价值
         return dp[capacity];
@@ -103,13 +140,13 @@ public class DPProblems {
     // 测试用例
     public static void main(String[] args) {
         DPProblems dp = new DPProblems();
-        
+
         // 测试用例1：最长递增子序列
         int[] nums1 = {10,9,2,5,3,7,101,18};
         System.out.println("测试最长递增子序列:");
         System.out.println("输入数组: " + java.util.Arrays.toString(nums1));
         System.out.println("最长递增子序列长度: " + dp.lengthOfLIS(nums1));
-        
+
         // 测试用例2：编辑距离
         String word1 = "horse";
         String word2 = "ros";
@@ -117,7 +154,7 @@ public class DPProblems {
         System.out.println("源字符串: " + word1);
         System.out.println("目标字符串: " + word2);
         System.out.println("最少操作次数: " + dp.minDistance(word1, word2));
-        
+
         // 测试用例3：背包问题
         int[] weights = {2, 3, 4, 5};
         int[] values = {3, 4, 5, 6};
