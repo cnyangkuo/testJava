@@ -24,14 +24,14 @@ public class LRUCache<K, V> {
     }
     
     private final int capacity;
-    private final Map<K, Node<K, V>> cache;
-    // 伪头部和尾部节点
+    private final Map<K, Node<K, V>> cacheMap;
+    // 伪头部和尾部节点，始终有这2个node
     private final Node<K, V> head = new Node<>(null, null);
     private final Node<K, V> tail = new Node<>(null, null);
     
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.cache = new HashMap<>(capacity);
+        this.cacheMap = new HashMap<>(capacity);
         // 初始化双向链表
         head.next = tail;
         tail.prev = head;
@@ -45,7 +45,7 @@ public class LRUCache<K, V> {
      * @return 缓存值
      */
     public V get(K key) {
-        Node<K, V> node = cache.get(key);
+        Node<K, V> node = cacheMap.get(key);
         if (node == null) return null;
         // 将访问的节点移到头部
         remove(node);
@@ -59,22 +59,23 @@ public class LRUCache<K, V> {
      * @param value 值
      */
     public void put(K key, V value) {
-        Node<K, V> node = cache.get(key);
+        Node<K, V> node = cacheMap.get(key);
         if (node != null) {
             // 更新值并移到头部
             node.value = value;
             remove(node);
             addToHead(node);
         } else {
-            // 添加新节点
-            if (cache.size() >= capacity) {
+            // 淘汰超过容量的节点
+            if (cacheMap.size() >= capacity) {
                 // 移除尾部节点
                 Node<K, V> lru = tail.prev;
                 remove(lru);
-                cache.remove(lru.key);
+                cacheMap.remove(lru.key);
             }
+            // 添加新节点
             Node<K, V> newNode = new Node<>(key, value);
-            cache.put(key, newNode);
+            cacheMap.put(key, newNode);
             addToHead(newNode);
         }
     }
@@ -104,7 +105,7 @@ public class LRUCache<K, V> {
      * @return 缓存项数
      */
     public int getCurrentSize() {
-        return cache.size();
+        return cacheMap.size();
     }
     
     /**
