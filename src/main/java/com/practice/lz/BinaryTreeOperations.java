@@ -75,7 +75,7 @@ public class BinaryTreeOperations<T> {
     }
     
     /**
-     * 题目2：验证二叉搜索树
+     * 题目2：验证二叉搜索树，含义为左子树节点值小于当前节点值，右子树节点值大于当前节点值，最终所有子节点都满足该条件
      * 核心思想：中序遍历验证有序性
      * @return true if BST
      */
@@ -92,7 +92,8 @@ public class BinaryTreeOperations<T> {
      */
     private boolean isValidBSTHelper(TreeNode<T> node, T min, T max) {
         if (node == null) return true;
-        
+
+        // 递归终止条件 左子树节点值小于当前节点值 右子树节点值大于当前节点值 如果不满足则返回false
         if ((min != null && ((Comparable<T>) node.val).compareTo(min) <= 0) || 
             (max != null && ((Comparable<T>) node.val).compareTo(max) >= 0)) {
             return false;
