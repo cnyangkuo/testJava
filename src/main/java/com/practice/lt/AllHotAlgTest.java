@@ -72,12 +72,72 @@ package com.practice.lt;
      * 暴力解：生成所有组合 → O(2^n)
      * 动态规划：记录中间结果 → O(n)
      * 数学推导：直接计算 → O(1) → 最终选择数学解法，但需通过动态规划发现数学规律
- *
- *
+     *
+     *
  */
 public class AllHotAlgTest {
+    // 跳水板问题动态规划解法（组合数）
+    /**
+     * 动态规划解法：计算组成目标长度的不同组合数（不考虑顺序）。
+     * 状态转移方程：dp[i] += dp[i - plank]，其中plank遍历所有板长且i >= plank
+     * 时间复杂度：O(target * k)，k为板的数量
+     * 空间复杂度：O(target)
+     * @param planks 可用板长数组
+     * @param target 目标长度
+     * @return 组合数
+     */
+    public int divingBoardDP(int[] planks, int target) {
+        int[] dp = new int[target + 1];
+        // dp[i]表示长度为i时的组合数
+        // 初始化dp[0]为1, 因为长度为0只有一种方式，即不用任何板。
+        dp[0] = 1;
+        for (int plank : planks) {
+            // 动态规划方程应该是dp[i] = sum(dp[i - p]) for p in planks if i >= p
+            for (int i = plank; i <= target; i++) {
+                dp[i] += dp[i - plank];
+            }
+        }
+        return dp[target];
+    }
+
+    // 跳水板问题数学推导解法（排列数）
+    /**
+     * 数学推导解法：通过排列组合公式直接计算可能的组合数。
+     * 核心思想：当存在重复元素时，使用容斥原理计算不同排列数
+     * 时间复杂度：O(target * k)
+     * 空间复杂度：O(target)
+     * @param planks 可用板长数组
+     * @param target 目标长度
+     * @return 排列数
+     */
+    public int divingBoardMath(int[] planks, int target) {
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= target; i++) {
+            for (int plank : planks) {
+                if (i >= plank) {
+                    dp[i] += dp[i - plank];
+                }
+            }
+        }
+        return dp[target];
+    }
+
     public static void main(String[] args) {
-        System.out.println("===== 动态规划算法测试 =====");
+        AllHotAlgTest solution = new AllHotAlgTest();
+        // 给定k种不同长度的木板，每种无限使用，求组成总长度为n的不同组合数。
+        int[] planks = {1, 2, 3};  // 示例板长
+        int target = 4;            // 目标长度
+
+        // 测试动态规划解法, 计算不考虑顺序的组合数，采用标准动态规划实现, （四种组合：1+1+1+1, 1+1+2, 1+3, 2+2）
+        int dpResult = solution.divingBoardDP(planks, target);
+        System.out.println("动态规划解法结果: " + dpResult);  // 应输出4
+
+        // 测试数学推导解法, 计算排列数，采用数学推导实现, （七种排列：1+1+1+1, 1+1+2, 1+2+1, 2+1+1, 1+3, 3+1, 2+2）
+        int mathResult = solution.divingBoardMath(planks, target);
+        System.out.println("数学推导解法结果: " + mathResult);  // 应输出7
+
+        System.out.println("\n===== 动态规划算法测试 =====");
         DynamicProgrammingProblems.main(args);
         
         System.out.println(" ===== 双指针+动态规划组合测试 =====");
