@@ -7,7 +7,9 @@ package com.interview.langzhi;
  * @description
  */
 public class StackPipe<T> {
+    // 栈顶指针
     private Node<T> top;
+    // 栈底指针
     private Node<T> bottom;
 
     public StackPipe() {
@@ -16,7 +18,7 @@ public class StackPipe<T> {
     }
 
     /**
-     * 栈操作, 讲新的数据压入栈顶
+     * 栈操作, 将新的数据压入栈顶
      * @param data
      */
     public void push(T data) {
@@ -32,7 +34,7 @@ public class StackPipe<T> {
     }
 
     /**
-     * 栈操作， 取出一个数据
+     * 栈操作， 取出栈顶数据
      * @return
      */
     public T pop() {
@@ -40,10 +42,10 @@ public class StackPipe<T> {
             return null;
         }
         T data = top.getData();
-
-        // 栈顶元素移除
+        // 栈顶指针下移
         top = top.getDown();
         if (top != null) {
+            // 栈顶元素移除
             top.setUp(null);
         } else {
             bottom = null;
@@ -60,8 +62,10 @@ public class StackPipe<T> {
             return null;
         }
         T data = bottom.getData();
+        // 栈底指针上移
         bottom = bottom.getUp();
         if (bottom != null) {
+            // 栈底元素移除
             bottom.setDown(null);
         } else {
             top = null;
@@ -83,8 +87,7 @@ public class StackPipe<T> {
     public static void main(String[] args) {
         StackPipe<Integer> stackPipe = new StackPipe<>();
 
-        // 测试基本功能
-        System.out.println("===== 栈操作测试 =====");
+        System.out.println("===== 栈操作测试 初始化栈 =====");
         stackPipe.push(1);
         stackPipe.push(2);
         stackPipe.push(3);
