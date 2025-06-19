@@ -25,8 +25,8 @@ public class StackPipe<T> {
             top = newNode;
             bottom = newNode;
         } else {
-            newNode.setUp(top);
-            top.setDown(newNode);
+            newNode.setDown(top);
+            top.setUp(newNode);
             top = newNode;
         }
     }
@@ -52,7 +52,7 @@ public class StackPipe<T> {
     }
 
     /**
-     * 队列操作, 以队列的方法取出一个数据
+     * 队列操作, 以队列的方法取出一个数据，就是栈的底部元素
      * @return
      */
     public T pop2() {
@@ -69,6 +69,17 @@ public class StackPipe<T> {
         return data;
     }
 
+    /**
+     * 从栈顶到栈底打印栈内容
+     * @return
+     */
+    private void printStack() {
+        for (Node<T> current = top; current != null; current = current.getDown()) {
+            System.out.print(current.getData() + " -> ");
+        }
+        System.out.println("null");
+    }
+
     public static void main(String[] args) {
         StackPipe<Integer> stackPipe = new StackPipe<>();
 
@@ -78,21 +89,18 @@ public class StackPipe<T> {
         stackPipe.push(2);
         stackPipe.push(3);
 
-        System.out.println("栈弹出顺序验证:");
-        System.out.println("pop() -> " + stackPipe.pop());  // 应输出3
-        System.out.println("pop() -> " + stackPipe.pop());  // 应输出2
-        System.out.println("pop() -> " + stackPipe.pop());  // 应输出1
 
-        // 重新填充数据
-        stackPipe.push(1);
-        stackPipe.push(2);
-        stackPipe.push(3);
+        System.out.println("===== 打印栈内容 =====");
+        stackPipe.printStack();
 
-        System.out.println("\n===== 队列操作测试 =====");
-        System.out.println("队列弹出顺序验证:");
-        System.out.println("pop2() -> " + stackPipe.pop2());  // 应输出1
-        System.out.println("pop2() -> " + stackPipe.pop2());  // 应输出2
-        System.out.println("pop2() -> " + stackPipe.pop2());  // 应输出3
+        // pop 取数验证， 期望输出的是3
+        System.out.println("栈顶元素验证:");
+        System.out.println("top() -> " + stackPipe.pop());
+
+        // POP2取数验证, 期望输出1
+        System.out.println("队列元素验证:");
+        System.out.println("pop2() -> " + stackPipe.pop2());
 
     }
+
 }
