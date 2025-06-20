@@ -112,7 +112,7 @@ public class StackPipe<T> implements Iterable<T> {
     /**
      * 栈翻转
      */
-    public void reverse(){
+    public void reverse() {
         lock.lock();
         try {
             if (size() <= 1) {
