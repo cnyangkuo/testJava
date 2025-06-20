@@ -1,6 +1,7 @@
 package com.interview.langzhi;
 
 import java.util.Iterator;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -169,6 +170,12 @@ public class StackPipe<T> implements Iterable<T> {
         System.out.println();
     }
 
+    public static <E> StackPipe<E> create(Collection<? extends E> c) {
+        StackPipe<E> pipe = new StackPipe<>();
+        for (E item : c) pipe.push(item);
+        return pipe;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new StackIterator();
@@ -197,12 +204,12 @@ public class StackPipe<T> implements Iterable<T> {
     }
 
     public static void main(String[] args) {
-        StackPipe<Integer> stackPipe = new StackPipe<>();
-
         System.out.println("===== 初始化栈 =====");
-        stackPipe.push(1);
-        stackPipe.push(2);
-        stackPipe.push(3);
+//        StackPipe<Integer> stackPipe = new StackPipe<>();
+//        stackPipe.push(1);
+//        stackPipe.push(2);
+//        stackPipe.push(3);
+        StackPipe<Integer> stackPipe = StackPipe.create(java.util.Arrays.asList(1, 2, 3));
 
         System.out.println("===== 使用迭代器打印栈内容 =====");
         for (Integer num : stackPipe) {
