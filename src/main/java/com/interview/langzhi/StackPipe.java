@@ -169,7 +169,7 @@ public class StackPipe<T> implements Iterable<T>, Serializable {
      * 从栈顶到栈底打印栈内容
      * @return
      */
-    private void printStack() {
+    public void printStack() {
         for (Node<T> current = top; current != null; current = current.getDown()) {
             System.out.println(current.getData());
 //            if (current == bottom) {
@@ -182,7 +182,7 @@ public class StackPipe<T> implements Iterable<T>, Serializable {
     /**
      * 打印列表，即从栈底到栈顶打印栈内容
      */
-    private void printList() {
+    public void printList() {
         for (Node<T> current = bottom; current != null; current = current.getUp()) {
             System.out.print(current.getData());
             if (current != top) {
