@@ -1,8 +1,12 @@
 package com.interview.langzhi;
 
-import java.util.Iterator;
-import java.util.Collection;
-import java.util.NoSuchElementException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -12,15 +16,17 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2025/6/19
  * @description 实现Iterable接口以支持迭代器
  */
-public class StackPipe<T> implements Iterable<T> {
-    // 栈顶指针
-    private Node<T> top;
-    // 栈底指针
-    private Node<T> bottom;
+public class StackPipe<T> implements Iterable<T>, Serializable {
+    // 声明序列化版本ID
+    private static final long serialVersionUID = 1L;
+    // 栈顶指针 - transient表示不直接序列化链表结构
+    private transient Node<T> top;
+    // 栈底指针 - transient表示不直接序列化链表结构
+    private transient Node<T> bottom;
     // 新增计数器
     private int size;
-    // 锁
-    private final Lock lock = new ReentrantLock();
+    // 锁 - transient表示不直接序列化锁
+    private transient Lock lock = new ReentrantLock();
 
     public StackPipe() {
         this.top = null;
@@ -166,6 +172,22 @@ public class StackPipe<T> implements Iterable<T> {
     private void printStack() {
         for (Node<T> current = top; current != null; current = current.getDown()) {
             System.out.println(current.getData());
+//            if (current == bottom) {
+//                System.out.print("栈底部");
+//            }
+        }
+        System.out.println();
+    }
+
+    /**
+     * 打印列表，即从栈底到栈顶打印栈内容
+     */
+    private void printList() {
+        for (Node<T> current = bottom; current != null; current = current.getUp()) {
+            System.out.print(current.getData());
+            if (current != top) {
+                System.out.print(",");
+            }
         }
         System.out.println();
     }
@@ -203,13 +225,65 @@ public class StackPipe<T> implements Iterable<T> {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * 自定义序列化方法
+     */
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        lock.lock();
+        try {
+            List<T> elements = new ArrayList<>();
+            Node<T> current = top;
+            while (current != null) {
+                elements.add(current.getData());
+                current = current.getDown();
+            }
+            out.defaultWriteObject(); // 序列化非transient字段
+            out.writeInt(elements.size());
+            for (T element : elements) {
+                out.writeObject(element);
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /**
+     * 自定义反序列化方法
+     */
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+        lock = new ReentrantLock(); // 重新初始化锁
+        in.defaultReadObject(); // 反序列化非transient字段
+        
+        int size = in.readInt();
+        for (int i = 0; i < size; i++) {
+            T element = (T) in.readObject();
+            push(element);
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("===== 初始化栈 =====");
 //        StackPipe<Integer> stackPipe = new StackPipe<>();
 //        stackPipe.push(1);
 //        stackPipe.push(2);
 //        stackPipe.push(3);
-        StackPipe<Integer> stackPipe = StackPipe.create(java.util.Arrays.asList(1, 2, 3));
+        StackPipe<Integer> stackPipe = StackPipe.create(Arrays.asList(1, 2, 3));
+
+        System.out.println("===== 序列化并反序列化测试 =====");
+        // 创建临时文件路径
+        String tempFilePath = "/tmp/stackpipe.ser";
+        // 序列化
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(tempFilePath))) {
+            oos.writeObject(stackPipe);
+        }
+        // 反序列化
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(tempFilePath))) {
+            @SuppressWarnings("unchecked")
+            StackPipe<Integer> deserializedStack = (StackPipe<Integer>) ois.readObject();
+            System.out.println("反序列化后的栈内容:");
+            deserializedStack.printList();
+            deserializedStack.printStack();
+        }
 
         System.out.println("===== 使用迭代器打印栈内容 =====");
         for (Integer num : stackPipe) {
