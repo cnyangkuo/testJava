@@ -1,6 +1,7 @@
 package com.interview.langzhi;
 
 /**
+ * 双向链表节点类
  * @author yangkuo
  * @date 2025/6/19
  * @description

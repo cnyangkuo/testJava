@@ -79,31 +79,33 @@ public class StackPipe<T> {
      */
     private void printStack() {
         for (Node<T> current = top; current != null; current = current.getDown()) {
-            System.out.print(current.getData() + " -> ");
+            System.out.println(current.getData());
         }
-        System.out.println("null");
+        System.out.println();
     }
 
     public static void main(String[] args) {
         StackPipe<Integer> stackPipe = new StackPipe<>();
 
-        System.out.println("===== 栈操作测试 初始化栈 =====");
+        System.out.println("===== 初始化栈 =====");
         stackPipe.push(1);
         stackPipe.push(2);
         stackPipe.push(3);
 
-
-        System.out.println("===== 打印栈内容 =====");
+        System.out.println("===== 打印栈内容(从栈顶到栈底) =====");
         stackPipe.printStack();
 
-        // pop 取数验证， 期望输出的是3
+        // POP 取数验证， 期望输出3
         System.out.println("栈顶元素验证:");
-        System.out.println("top() -> " + stackPipe.pop());
+        System.out.println("pop() -> " + stackPipe.pop());
 
         // POP2取数验证, 期望输出1
         System.out.println("队列元素验证:");
         System.out.println("pop2() -> " + stackPipe.pop2());
 
+        System.out.println();
+        System.out.println("===== 再次打印栈内容(从栈顶到栈底) =====");
+        stackPipe.printStack();
     }
 
 }
