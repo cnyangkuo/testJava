@@ -48,18 +48,11 @@ public class LT234PalindromeLinkedList {
         }
 
         // 反转后半部分链表
-        ListNode prev = null;
-        ListNode current = slow;
-        while (current != null) {
-            ListNode nextTemp = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextTemp;
-        }
+        ListNode p2 = revertList(slow);
 
         // 比较前半部分和后半部分的值
         ListNode firstHalf = head;
-        ListNode secondHalf = prev;
+        ListNode secondHalf = p2;
         boolean isPalindrome = true;
         while (secondHalf != null) {
             if (firstHalf.val != secondHalf.val) {
@@ -71,14 +64,10 @@ public class LT234PalindromeLinkedList {
         }
 
         // 可选：恢复原链表结构
-        // 对于偶数个节点的情况，需要重新连接中间节点
-        current = prev;
-        prev = null;
-        while (current != null) {
-            ListNode nextTemp = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextTemp;
+        if (fast != null) {
+            revertList(fast);
+        } else {
+            revertList(p2);
         }
 
         head.printList();
