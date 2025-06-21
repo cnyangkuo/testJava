@@ -26,9 +26,13 @@ public class LT090SubsetII {
     // 回溯方法生成所有可能的子集
     private void backtrack(int[] nums, int start, List<Integer> path, List<List<Integer>> result) {
         result.add(new ArrayList<>(path)); // 添加当前子集
-        
+
+        // 这里的start变量表示当前递归的起始位置，确保同一层级的重复元素只被处理一次。
         for (int i = start; i < nums.length; i++) {
-            // 跳过重复元素
+            // 跳过重复元素, 同一递归层级（start相同）时, 当前元素与前一个元素重复，且前一个元素已经被处理过, 此时继续选择会导致同一层级生成重复子集。
+            // 如果数组是[1,2,2]，当在第一层递归中选择第二个2的时候，如果前面的2已经被处理过，那么再次选择就会导致重复。
+            // 假设当前路径是[1]，然后选择第二个元素2，此时剩下的元素是第三个2。如果不跳过的话，可能会生成[1,2]两次。
+            // 因此，需要在同一层级中，如果遇到相同的元素且前一个相同的元素未被使用，则跳过当前元素，以避免重复。
             if (i > start && nums[i] == nums[i - 1]) {
                 continue;
             }

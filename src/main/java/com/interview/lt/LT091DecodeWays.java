@@ -15,6 +15,7 @@ public class LT091DecodeWays {
         }
         
         int n = s.length();
+        // 创建一个长度为n + 1的动态规划数组dp, 表示从 i 到末尾的解码数
         int[] dp = new int[n + 1];
         dp[n] = 1; // 空字符串有一种解码方式
         dp[n - 1] = (s.charAt(n - 1) != '0') ? 1 : 0;
@@ -24,7 +25,7 @@ public class LT091DecodeWays {
             if (s.charAt(i) != '0') {
                 dp[i] = dp[i + 1];
             }
-            
+
             // 如果两位数在10到26之间，则可以组合解码
             int twoDigit = Integer.parseInt(s.substring(i, i + 2));
             if (twoDigit >= 10 && twoDigit <= 26) {
@@ -39,7 +40,7 @@ public class LT091DecodeWays {
     public static void main(String[] args) {
         LT091DecodeWays solution = new LT091DecodeWays();
         
-        // 测试案例1
+        // 测试案例1， '12'可以解码为AB或L，所以输出2
         String s1 = "12";
         System.out.println("测试案例1结果: " + solution.numDecodings(s1)); // 应该输出2
         
