@@ -35,55 +35,50 @@ public class LT234PalindromeLinkedList {
      * @return 是否为回文链表
      */
     public boolean isPalindrome(ListNode head) {
-        if (head == null || head.next == null) {
-            return true;
-        }
-        
-        // 使用快慢指针找到链表中点
-        ListNode slow = head;
-        ListNode fast = head;
+        if (head == null || head.next == null) return true;
+
+        // 1. 快慢指针找中点
+        ListNode slow = head, fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        // 反转后半部分链表
-        ListNode p2 = revertList(slow);
-
-        // 比较前半部分和后半部分的值
-        ListNode firstHalf = head;
-        ListNode secondHalf = p2;
+        // 2. 反转后半部分链表
+        ListNode reversedHalf = reverseList(slow);
+        ListNode p1 = head;
+        ListNode p2 = reversedHalf;
         boolean isPalindrome = true;
-        while (secondHalf != null) {
-            if (firstHalf.val != secondHalf.val) {
+
+        // 3. 比较前后两部分
+        while (p2 != null) {
+            if (p1.val != p2.val) {
                 isPalindrome = false;
                 break;
             }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
+            p1 = p1.next;
+            p2 = p2.next;
         }
 
-        if (fast != null) {
-            revertList(fast);
-        } else {
-            revertList(p2);
-        }
-
+        // 4. 恢复链表（可选）
+        reverseList(reversedHalf);
         head.printList();
         return isPalindrome;
     }
 
-    private ListNode revertList(ListNode head) {
+    // 反转链表辅助函数
+    private ListNode reverseList(ListNode head) {
         ListNode prev = null;
-        ListNode current = head;
-        while (current != null) {
-            ListNode nextTemp = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextTemp;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
         }
         return prev;
     }
+
 
     public static void main(String[] args) {
         // 测试用例
