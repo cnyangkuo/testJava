@@ -64,6 +64,7 @@ public class LT234PalindromeLinkedList {
         while (secondHalf != null) {
             if (firstHalf.val != secondHalf.val) {
                 isPalindrome = false;
+                break;
             }
             firstHalf = firstHalf.next;
             secondHalf = secondHalf.next;
