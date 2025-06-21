@@ -12,6 +12,18 @@ public class LT092ReverseLinkedListII {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
+
+        public void printList() {
+            ListNode current = this;
+            while (current != null) {
+                System.out.print(current.val);
+                if (current.next != null) {
+                    System.out.print(" -> ");
+                }
+                current = current.next;
+            }
+            System.out.println();
+        }
     }
 
     // 使用直接反转法解决反转链表 II 问题
@@ -29,14 +41,24 @@ public class LT092ReverseLinkedListII {
         for (int i = 0; i < m - 1; i++) {
             prev = prev.next;
         }
+
+        // prev: 始终指向反转区间的前驱节点（初始指向第 m-1 个节点）
+        // current：始终指向反转区间的第一个节点（初始指向第 m 个节点）
         
         // 开始反转从m到n的节点
         ListNode current = prev.next;
         for (int i = 0; i < n - m; i++) {
+            // 保存即将被移动的节点
             ListNode temp = prev.next;
+            // 摘除待移动节点
             prev.next = current.next;
+            // 维护剩余链表完整性, 断开current与被摘除节点的连接
             current.next = current.next.next;
+            // 将被摘除节点接回prev的后续位置
             prev.next.next = temp;
+            System.out.println();
+            System.out.println("prev: " + prev.val + " current: " + current.val);
+            head.printList();
         }
         
         return dummy.next;
