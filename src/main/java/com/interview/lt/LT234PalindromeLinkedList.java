@@ -63,7 +63,6 @@ public class LT234PalindromeLinkedList {
             secondHalf = secondHalf.next;
         }
 
-        // 可选：恢复原链表结构
         if (fast != null) {
             revertList(fast);
         } else {

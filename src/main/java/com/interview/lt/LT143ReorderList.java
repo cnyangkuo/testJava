@@ -13,7 +13,7 @@ public class LT143ReorderList {
         if (head == null || head.next == null) return;
         
         // 1. 使用快慢指针找到链表中点
-        ListNode slow = head, fast = head;
+        ListNode slow = head, fast = head.next;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;

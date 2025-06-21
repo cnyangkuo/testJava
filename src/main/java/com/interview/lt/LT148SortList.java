@@ -11,7 +11,7 @@ public class LT148SortList {
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) return head;
         
-        // 使用快慢指针找到链表中点
+        // 使用快慢指针找到链表中点, 快慢指针, 偶数情况下中点定义为偏左
         ListNode slow = head, fast = head;
         ListNode prev = null;
         while (fast != null && fast.next != null) {

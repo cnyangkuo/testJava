@@ -48,8 +48,13 @@ public class LT109ConvertSortedListToBinarySearchTree {
         }
         
         // 使用快慢指针找到链表中间节点
+        /**
+         * 快指针的初始化，这二种情况都可行
+         * fast = head（偏左）	    偶数长度时中点定义需明确
+         * fast = head.next（偏右）
+         */
         ListNode slow = head;
-        ListNode fast = head;
+        ListNode fast = head.next;
         
         while (fast != tail && fast.next != tail) {
             slow = slow.next;
