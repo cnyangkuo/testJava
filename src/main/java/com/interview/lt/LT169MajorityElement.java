@@ -6,8 +6,13 @@ package com.interview.lt;
  * 难度: 简单
  * 标签: 数组, 哈希表, 分治算法
  */
+// 添加LT169多数元素问题解决方案
 public class LT169MajorityElement {
-    // 使用摩尔投票法（Moore Voting Algorithm）
+    // 题目：多数元素（Majority Element）
+    // 难度：简单
+    // 描述：给定一个大小为n的数组，找到其中的多数元素，该元素出现次数大于⌊n/2⌋次。
+    // 解法：摩尔投票算法，时间复杂度O(n)，空间复杂度O(1)
+    
     public int majorityElement(int[] nums) {
         int count = 0;
         Integer candidate = null;
@@ -24,20 +29,13 @@ public class LT169MajorityElement {
     
     public static void main(String[] args) {
         LT169MajorityElement solution = new LT169MajorityElement();
+        int[] nums1 = {3,2,3};
+        System.out.println("Test case 1: " + solution.majorityElement(nums1)); // 应该输出3
         
-        // 测试用例1
-        int[] nums1 = {3, 2, 3};
-        int result1 = solution.majorityElement(nums1);
-        System.out.println("Test 1: " + result1 + " 期望输出: 3");
+        int[] nums2 = {2,2,1,1,1,2,2};
+        System.out.println("Test case 2: " + solution.majorityElement(nums2)); // 应该输出2
         
-        // 测试用例2
-        int[] nums2 = {2, 2, 1, 1, 1, 2, 2};
-        int result2 = solution.majorityElement(nums2);
-        System.out.println("Test 2: " + result2 + " 期望输出: 2");
-        
-        // 测试用例3
-        int[] nums3 = {1, 1, 2, 2, 2};
-        int result3 = solution.majorityElement(nums3);
-        System.out.println("Test 3: " + result3 + " 期望输出: 2");
+        int[] nums3 = {5,5,5,5,5,1,2,3};
+        System.out.println("Test case 3: " + solution.majorityElement(nums3)); // 应该输出5
     }
 }
