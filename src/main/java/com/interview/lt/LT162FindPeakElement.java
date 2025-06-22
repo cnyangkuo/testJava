@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT162寻找峰值问题解决方案
 public class LT162FindPeakElement {
     // 题目：寻找峰值（Find Peak Element）
