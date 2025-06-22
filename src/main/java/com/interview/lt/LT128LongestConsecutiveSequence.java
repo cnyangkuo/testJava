@@ -24,12 +24,10 @@ public class LT128LongestConsecutiveSequence {
         for (int num : numSet) {
             // 只有当当前数字的前一个数字不在集合中时，才开始计算连续序列
             if (!numSet.contains(num - 1)) {
-                int currentNum = num;
                 int currentStreak = 1;
                 
                 // 继续查找下一个连续的数字
-                while (numSet.contains(currentNum + 1)) {
-                    currentNum++;
+                while (numSet.contains(num + currentStreak)) {
                     currentStreak++;
                 }
                 
