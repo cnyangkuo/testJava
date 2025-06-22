@@ -31,26 +31,67 @@ public class LT148SortList {
         return merge(left, right);
     }
     
-    // 合并两个有序链表
-    private ListNode merge(ListNode<Integer> l1, ListNode<Integer> l2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode curr = dummyHead;
-        
+    /**
+     * 归并排序变体2：快指针初始化为head.next实现
+     * @param head 链表头节点
+     * @return 排序后的链表
+     * 时间复杂度：O(n log n) - 最坏、平均情况
+     * 空间复杂度：O(log n) - 递归栈深度
+     * 关键改进：使用 fast = head.next 的初始化方式
+     */
+    public ListNode sortList2(ListNode head) {
+        // 终止条件：空节点或单节点
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // 快慢指针找中点（快指针提前走一步）
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 分割链表
+        ListNode mid = slow.next;
+        slow.next = null;
+
+        // 递归排序左右子链表
+        ListNode left = sortList2(mid);
+        ListNode right = sortList2(head);
+
+        // 合并有序链表
+        return merge(left, right);
+    }
+
+    /**
+     * 合并两个有序链表（无哨兵节点版）
+     * @param l1 第一个有序链表
+     * @param l2 第二个有序链表
+     * @return 合并后的有序链表
+     */
+    private ListNode merge(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        // 交叉连接节点
         while (l1 != null && l2 != null) {
-            if (l1.val < l2.val) {
-                curr.next = l1;
+            // 修复：使用Integer类型确保数值比较有效性
+            if (((Integer) l1.val).compareTo((Integer) l2.val) < 0) {
+                tail.next = l1;
                 l1 = l1.next;
             } else {
-                curr.next = l2;
+                tail.next = l2;
                 l2 = l2.next;
             }
-            curr = curr.next;
+            tail = tail.next;
         }
+
+        // 连接剩余节点
+        tail.next = (l1 != null) ? l1 : l2;
         
-        // 连接剩余部分
-        curr.next = (l1 != null) ? l1 : l2;
-        
-        return dummyHead.next;
+        return dummy.next;
     }
     
     public static void main(String[] args) {
