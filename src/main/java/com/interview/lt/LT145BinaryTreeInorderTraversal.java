@@ -10,7 +10,7 @@ import java.util.Stack;
  * 难度: 简单
  * 标签: 栈, 树, 深度优先搜索
  */
-public class LT094BinaryTreeInorderTraversal {
+public class LT145BinaryTreeInorderTraversal {
     // 定义二叉树节点结构
     public static class TreeNode {
         int val;
@@ -47,30 +47,30 @@ public class LT094BinaryTreeInorderTraversal {
         return result;
     }
 
-//    // 使用递归实现二叉树的中序遍历
-//    public List<Integer> inorderTraversal(TreeNode root) {
-//        List<Integer> result = new ArrayList<>();
-//        if (root == null) {
-//            return result;
-//        }
-//
-//        inorderTraversalHelper(root, result);
-//        return result;
-//    }
-//
-//    private void inorderTraversalHelper(TreeNode node, List<Integer> result) {
-//        if (node == null) {
-//            return;
-//        }
-//
-//        inorderTraversalHelper(node.left, result);
-//        result.add(node.val);
-//        inorderTraversalHelper(node.right, result);
-//    }
+    // 使用递归实现二叉树的中序遍历
+    public List<Integer> inorderTraversal1(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+
+        inorderTraversalHelper(root, result);
+        return result;
+    }
+
+    private void inorderTraversalHelper(TreeNode node, List<Integer> result) {
+        if (node == null) {
+            return;
+        }
+
+        inorderTraversalHelper(node.left, result);
+        result.add(node.val);
+        inorderTraversalHelper(node.right, result);
+    }
 
     // 测试用例
     public static void main(String[] args) {
-        LT094BinaryTreeInorderTraversal solution = new LT094BinaryTreeInorderTraversal();
+        LT145BinaryTreeInorderTraversal solution = new LT145BinaryTreeInorderTraversal();
         
         // 创建测试用例: 1->null->2->3
         TreeNode root = new TreeNode(1);

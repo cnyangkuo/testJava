@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT146LRU缓存机制问题解决方案
 import java.util.HashMap;
 import java.util.Map;

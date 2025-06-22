@@ -33,7 +33,23 @@ public class LT144BinaryTreePreorderTraversal {
         
         return result;
     }
-    
+
+    public List<Integer> preorderTraversal1(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+        preorder(root, result);
+        return result;
+    }
+
+    private void preorder(TreeNode<Integer> root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        result.add(root.val);
+        preorder(root.left, result);
+        preorder(root.right, result);
+    }
+
     public static void main(String[] args) {
         LT144BinaryTreePreorderTraversal solution = new LT144BinaryTreePreorderTraversal();
         

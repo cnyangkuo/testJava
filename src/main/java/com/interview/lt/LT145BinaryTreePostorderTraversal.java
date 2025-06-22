@@ -1,18 +1,9 @@
+package com.interview.lt;
+
 // 添加LT145二叉树的后序遍历问题解决方案
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-// 定义二叉树节点类
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    
-    TreeNode(int x) {
-        val = x;
-    }
-}
 
 public class LT145BinaryTreePostorderTraversal {
     // 题目：二叉树的后序遍历（Binary Tree Postorder Traversal）
@@ -24,8 +15,8 @@ public class LT145BinaryTreePostorderTraversal {
         List<Integer> result = new ArrayList<>();
         if (root == null) return result;
         
-        Stack<TreeNode> stack1 = new Stack<>();
-        Stack<TreeNode> stack2 = new Stack<>();
+        Stack<TreeNode<Integer>> stack1 = new Stack<>();
+        Stack<TreeNode<Integer>> stack2 = new Stack<>();
         
         stack1.push(root);
         
@@ -47,7 +38,26 @@ public class LT145BinaryTreePostorderTraversal {
         
         return result;
     }
-    
+
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        postorder(root, result);
+        return result;
+    }
+
+    private void postorder(TreeNode<Integer> root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        postorder(root.left, result);
+        postorder(root.right, result);
+        result.add(root.val);
+    }
+
+
     public static void main(String[] args) {
         LT145BinaryTreePostorderTraversal solution = new LT145BinaryTreePostorderTraversal();
         
