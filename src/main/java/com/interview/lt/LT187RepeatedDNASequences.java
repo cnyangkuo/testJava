@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT187重复的DNA序列问题解决方案
 import java.util.HashSet;
 import java.util.Set;

@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT191位1的个数问题解决方案
 public class LT191Numberof1Bits {
     // 题目：位1的个数（Number of 1 Bits）

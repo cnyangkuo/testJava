@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT166分数到循环小数问题解决方案
 import java.util.HashMap;
 import java.util.Map;

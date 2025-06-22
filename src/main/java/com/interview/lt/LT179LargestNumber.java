@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT179最大数问题解决方案
 import java.util.Arrays;
 import java.util.Comparator;

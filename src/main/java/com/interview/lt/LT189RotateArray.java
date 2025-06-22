@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT189旋转数组问题解决方案
 public class LT189RotateArray {
     // 题目：旋转数组（Rotate Array）

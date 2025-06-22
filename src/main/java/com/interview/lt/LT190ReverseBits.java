@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT190颠倒二进制位问题解决方案
 public class LT190ReverseBits {
     // 题目：颠倒二进制位（Reverse Bits）
