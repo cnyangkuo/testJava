@@ -59,6 +59,7 @@ public class LT148SortList {
         slow.next = null;
 
         /**
+         // 快慢指针同步走
          ListNode slow = head, fast = head;
          ListNode prev = null;
          while (fast != null && fast.next != null) {
