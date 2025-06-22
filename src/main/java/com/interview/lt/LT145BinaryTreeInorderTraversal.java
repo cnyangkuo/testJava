@@ -21,7 +21,8 @@ public class LT145BinaryTreeInorderTraversal {
         
         Stack<TreeNode> stack = new Stack<>();
         TreeNode<Integer> current = root;
-        
+
+        // 循环条件：栈不为空 或者 当前节点不为空
         while (current != null || !stack.isEmpty()) {
             // 一直向左走，将所有左节点压入栈
             while (current != null) {

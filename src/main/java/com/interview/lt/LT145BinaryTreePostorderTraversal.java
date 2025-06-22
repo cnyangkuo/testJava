@@ -23,7 +23,8 @@ public class LT145BinaryTreePostorderTraversal {
         while (!stack1.isEmpty()) {
             TreeNode node = stack1.pop();
             stack2.push(node);
-            
+
+            // 先压入左孩子，再压入右孩子（因为栈stack1的元素会转移到stack2，这样从stack2的出站相当于FIFO）
             if (node.left != null) {
                 stack1.push(node.left);
             }
