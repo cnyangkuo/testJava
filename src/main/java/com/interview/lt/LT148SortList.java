@@ -8,7 +8,7 @@ public class LT148SortList {
     // 描述：在O(n log n)时间复杂度内对链表进行排序，并返回排序后的链表。
     // 解法：归并排序，使用快慢指针找中点，时间复杂度O(n log n)，空间复杂度O(log n)
     
-    public ListNode sortList(ListNode head) {
+    public ListNode sortList1(ListNode head) {
         if (head == null || head.next == null) return head;
         
         // 使用快慢指针找到链表中点, 快慢指针, 偶数情况下中点定义为偏左
@@ -24,8 +24,8 @@ public class LT148SortList {
         prev.next = null;
         
         // 递归排序左右两部分
-        ListNode left = sortList(head);
-        ListNode right = sortList(slow);
+        ListNode left = sortList1(head);
+        ListNode right = sortList1(slow);
         
         // 合并两个有序链表
         return merge(left, right);
@@ -39,7 +39,7 @@ public class LT148SortList {
      * 空间复杂度：O(log n) - 递归栈深度
      * 关键改进：使用 fast = head.next 的初始化方式
      */
-    public ListNode sortList2(ListNode head) {
+    public ListNode sortList(ListNode head) {
         // 终止条件：空节点或单节点
         if (head == null || head.next == null) {
             return head;
@@ -58,8 +58,8 @@ public class LT148SortList {
         slow.next = null;
 
         // 递归排序左右子链表
-        ListNode left = sortList2(mid);
-        ListNode right = sortList2(head);
+        ListNode left = sortList(head);
+        ListNode right = sortList(mid);
 
         // 合并有序链表
         return merge(left, right);
@@ -71,14 +71,14 @@ public class LT148SortList {
      * @param l2 第二个有序链表
      * @return 合并后的有序链表
      */
-    private ListNode merge(ListNode l1, ListNode l2) {
+    private ListNode merge(ListNode<Integer> l1, ListNode<Integer> l2) {
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
 
         // 交叉连接节点
         while (l1 != null && l2 != null) {
             // 修复：使用Integer类型确保数值比较有效性
-            if (((Integer) l1.val).compareTo((Integer) l2.val) < 0) {
+            if (l1.val < l2.val) {
                 tail.next = l1;
                 l1 = l1.next;
             } else {
