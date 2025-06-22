@@ -21,11 +21,12 @@ public class LT148SortList {
         }
         
         // 断开链表，分成两部分
+        ListNode mid = prev.next;
         prev.next = null;
         
         // 递归排序左右两部分
         ListNode left = sortList1(head);
-        ListNode right = sortList1(slow);
+        ListNode right = sortList1(mid);
         
         // 合并两个有序链表
         return merge(left, right);
@@ -56,6 +57,20 @@ public class LT148SortList {
         // 分割链表
         ListNode mid = slow.next;
         slow.next = null;
+
+        /**
+         ListNode slow = head, fast = head;
+         ListNode prev = null;
+         while (fast != null && fast.next != null) {
+             prev = slow;
+             slow = slow.next;
+             fast = fast.next.next;
+         }
+
+         // 断开链表，分成两部分
+         ListNode mid = prev.next;
+         prev.next = null;
+         */
 
         // 递归排序左右子链表
         ListNode left = sortList(head);
