@@ -22,7 +22,8 @@ public class LT152MaximumProductSubarray {
         for (int i = 1; i < nums.length; i++) {
             int num = nums[i];
             // 解法1
-            int prevMax = currMax; // 保存上一状态
+            int prevMax = currMax; // 保存上一max状态
+            int prevMin = currMin; // 保存上一min状态
 
             // 状态转移, 因为乘法的特性，负数乘以负数可能变成正数，
             // 所以当前的最小值可能在之后变成最大值, 所以要记录currMin
@@ -33,8 +34,8 @@ public class LT152MaximumProductSubarray {
             // 即 :
             // currMax = max(num, prevMax * num, prevMin * num)，
             // currMin = min(num, prevMax * num, prevMin * num)
-            currMin = Math.min(Math.min(prevMax * num, currMin * num), num);
-            currMax = Math.max(Math.max(prevMax * num, currMin * num), num);
+            currMax = Math.max(Math.max(prevMax * num, prevMin * num), num);
+            currMin = Math.min(Math.min(prevMax * num, prevMin * num), num);
 
             // 更新全局最大值
             result = Math.max(result, currMax);
