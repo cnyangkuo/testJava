@@ -1,3 +1,5 @@
+package com.interview.lt;
+
 // 添加LT151翻转字符串里的单词问题解决方案
 public class LT151ReverseWordsInAString {
     // 题目：翻转字符串里的单词（Reverse Words in a String）
