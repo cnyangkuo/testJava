@@ -11,13 +11,6 @@ import java.util.Stack;
  * 标签: 栈, 树, 深度优先搜索
  */
 public class LT145BinaryTreeInorderTraversal {
-    // 定义二叉树节点结构
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
     // 使用迭代法实现二叉树的中序遍历
     public List<Integer> inorderTraversal(TreeNode root) {
@@ -27,7 +20,7 @@ public class LT145BinaryTreeInorderTraversal {
         }
         
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
+        TreeNode<Integer> current = root;
         
         while (current != null || !stack.isEmpty()) {
             // 一直向左走，将所有左节点压入栈
@@ -58,7 +51,7 @@ public class LT145BinaryTreeInorderTraversal {
         return result;
     }
 
-    private void inorderTraversalHelper(TreeNode node, List<Integer> result) {
+    private void inorderTraversalHelper(TreeNode<Integer> node, List<Integer> result) {
         if (node == null) {
             return;
         }
