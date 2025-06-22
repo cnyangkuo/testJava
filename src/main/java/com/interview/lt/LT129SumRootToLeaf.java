@@ -30,15 +30,15 @@ public class LT129SumRootToLeaf {
 
     // 使用深度优先搜索计算从根到叶节点的数字之和
     public int sumNumbers(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
         return dfs(root, 0);
     }
 
     // 深度优先搜索辅助方法
     private int dfs(TreeNode node, int currentSum) {
-        if (node == null) {
-            return 0;
-        }
-
         // 计算当前路径的数字
         currentSum = currentSum * 10 + node.val;
         

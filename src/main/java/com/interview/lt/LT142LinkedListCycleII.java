@@ -1,13 +1,6 @@
+package com.interview.lt;
+
 // 添加LT142环形链表II问题解决方案
-// 定义链表节点类
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) {
-        val = x;
-        next = null;
-    }
-}
 
 public class LT142LinkedListCycleII {
     // 题目：环形链表II（Linked List Cycle II）
