@@ -40,7 +40,7 @@ public class LT152MaximumProductSubarray {
             // 更新全局最大值
             result = Math.max(result, currMax);
 
-            // 解法2
+            // 解法2， 优化后
 //            // 如果当前数字为负数，交换最大值和最小值
 //            // 因为负数会使最大值变最小值，最小值变最大值
 //            if (num < 0) {
