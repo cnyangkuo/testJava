@@ -66,12 +66,12 @@ public class CombinedAlgorithmsTest {
         int start = 0;
 
         while (right < s.length()) {
-            char c = s.charAt(right);
+            char r = s.charAt(right);
             right++;
 
-            if (need.containsKey(c)) {
-                window.put(c, window.getOrDefault(c, 0) + 1);
-                if (window.get(c).equals(need.get(c))) {
+            if (need.containsKey(r)) {
+                window.put(r, window.getOrDefault(r, 0) + 1);
+                if (window.get(r).equals(need.get(r))) {
                     valid++;
                 }
             }
@@ -85,14 +85,14 @@ public class CombinedAlgorithmsTest {
                 }
 
                 // 收缩窗口
-                char d = s.charAt(left);
+                char l = s.charAt(left);
                 left++;
 
-                if (need.containsKey(d)) {
-                    if (window.get(d).equals(need.get(d))) {
+                if (need.containsKey(l)) {
+                    if (window.get(l).equals(need.get(l))) {
                         valid--;
                     }
-                    window.put(d, window.get(d) - 1);
+                    window.put(l, window.get(l) - 1);
                 }
             }
         }
