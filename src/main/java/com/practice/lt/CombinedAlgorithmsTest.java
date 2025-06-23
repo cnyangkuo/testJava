@@ -7,29 +7,49 @@ import java.util.*;
  */
 public class CombinedAlgorithmsTest {
     /**
-     * 测试最长有效括号（双指针+动态规划解法）
-     * 示例: ")()())" → 4 ， 输入")()())"，有效子串是两个"()"，总长度为4
+     * 测试最长有效括号（栈+动态规划解法）
+     * 示例: ")()())()" → 4 ， 输入")()())()"，最长有效括号是"()()"，总长度为4
      */
     public static void testLongestValidParentheses() {
-        String input = ")()())";
+        String input = ")()())()";
         int result = longestValidParentheses(input);
         System.out.println("输入: " + input + ", 最长有效括号长度: " + result);
     }
 
     /**
-     * 双指针+动态规划组合解法
+     * 动态规划思路解析：
+     * 1. 栈中保存最后一个未匹配左括号的位置
+     * 2. 当遇到右括号时：
+     *    - 弹出栈顶元素表示匹配一个左括号
+     *    - 若栈为空，说明当前字符无法匹配，记录新基准点
+     *    - 若栈非空，计算i - stack.peek()为当前有效长度
+     * 3. 示例分析: ")()())()"
+     *    i=0:")", stack=[-1] → pop → push(0)
+     *    i=1:"(", push(1)
+     *    i=2:")", pop(1) → max=2-(-1)=3
+     *    i=3:"(", push(3)
+     *    i=4:")", pop(3) → max=4-(-1)=5
+     *    i=6:"(", push(6)
+     *    i=7:")", pop(6) → max=7-5=2
+     *    最终max=5对应子串"()())("不成立，实际最长有效子串应为")()())"中的"()()"
      */
     private static int longestValidParentheses(String s) {
         int max = 0;
+        // 使用栈来跟踪未匹配的左括号的位置。栈初始为空，压入-1作为基准。
+        // 当遇到左括号时，压入其索引；
+        // 遇到右括号时，弹出栈顶，如果栈为空，说明没有匹配的左括号，此时将当前索引压入栈作为新的基准
         Stack<Integer> stack = new Stack<>();
+        stack.push(-1); // 添加初始基准点
         
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
                 stack.push(i);
             } else {
-                if (!stack.isEmpty()) {
-                    stack.pop();
-                    max = Math.max(max, i - (stack.isEmpty() ? -1 : stack.peek()));
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                } else {
+                    max = Math.max(max, i - stack.peek());
                 }
             }
         }
