@@ -8,7 +8,7 @@ import java.util.*;
 public class CombinedAlgorithmsTest {
     /**
      * 测试最长有效括号（双指针+动态规划解法）
-     * 示例: ")()())" → 4
+     * 示例: ")()())" → 4 ， 输入")()())"，有效子串是两个"()"，总长度为4
      */
     public static void testLongestValidParentheses() {
         String input = ")()())";
@@ -20,7 +20,7 @@ public class CombinedAlgorithmsTest {
      * 双指针+动态规划组合解法
      */
     private static int longestValidParentheses(String s) {
-        int max = 0, start = 0;
+        int max = 0;
         Stack<Integer> stack = new Stack<>();
         
         for (int i = 0; i < s.length(); i++) {
@@ -30,8 +30,6 @@ public class CombinedAlgorithmsTest {
                 if (!stack.isEmpty()) {
                     stack.pop();
                     max = Math.max(max, i - (stack.isEmpty() ? -1 : stack.peek()));
-                } else {
-                    start = i + 1;
                 }
             }
         }
