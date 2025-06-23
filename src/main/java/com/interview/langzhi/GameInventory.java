@@ -8,7 +8,7 @@ package com.interview.langzhi;
  * @description
  */
 public class GameInventory <T>{
-    private StackPipe<T> inventory = new StackPipe<>();
+    private NewStackPipe<T> inventory = new NewStackPipe<>();
 
     public void addItem(T item) {
         inventory.push(item);
