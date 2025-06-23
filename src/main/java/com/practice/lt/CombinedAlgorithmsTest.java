@@ -53,38 +53,49 @@ public class CombinedAlgorithmsTest {
      * 滑动窗口+哈希表组合解法
      */
     private static String minWindow(String s, String t) {
+        if (s == null || t == null || s.length() < t.length()) return "";
         Map<Character, Integer> need = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
         for (char c : t.toCharArray()) {
             need.put(c, need.getOrDefault(c, 0) + 1);
         }
-        
-        int left = 0, right = 0, count = t.length();
-        int minLen = Integer.MAX_VALUE, startIdx = 0;
-        
+
+        int left = 0, right = 0;
+        int valid = 0;
+        int minLen = Integer.MAX_VALUE;
+        int start = 0;
+
         while (right < s.length()) {
-            char rChar = s.charAt(right++);
-            if (need.containsKey(rChar)) {
-                int currentCount = need.get(rChar);
-                if (currentCount-- > 0) count--;
-                need.put(rChar, currentCount);
+            char c = s.charAt(right);
+            right++;
+
+            if (need.containsKey(c)) {
+                window.put(c, window.getOrDefault(c, 0) + 1);
+                if (window.get(c).equals(need.get(c))) {
+                    valid++;
+                }
             }
 
-            // 确保窗口内包含所有目标字符后才进行收缩
-            while (count == 0 && left <= right) {  // 添加 left <= right 避免无限收缩
+            // 判断是否满足覆盖条件
+            while (valid == need.size()) {
+                // 更新最小窗口
                 if (right - left < minLen) {
                     minLen = right - left;
-                    startIdx = left;
+                    start = left;
                 }
-                
-                char lChar = s.charAt(left++);
-                if (need.containsKey(lChar)) {
-                    int currentCount = need.get(lChar);
-                    if (currentCount++ == -1) count++;
-                    need.put(lChar, currentCount);  // 替换为可变操作
+
+                // 收缩窗口
+                char d = s.charAt(left);
+                left++;
+
+                if (need.containsKey(d)) {
+                    if (window.get(d).equals(need.get(d))) {
+                        valid--;
+                    }
+                    window.put(d, window.get(d) - 1);
                 }
             }
         }
-        
-        return minLen == Integer.MAX_VALUE ? "" : s.substring(startIdx, startIdx + minLen);
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
     }
 }
