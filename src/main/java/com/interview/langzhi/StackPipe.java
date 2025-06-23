@@ -1,5 +1,7 @@
 package com.interview.langzhi;
 
+import java.util.Random;
+
 /**
  * 栈型队列类
  * @author yangkuo
@@ -11,10 +13,13 @@ public class StackPipe<T> {
     private Node<T> top;
     // 栈底指针
     private Node<T> bottom;
+    // 栈节点计算器
+    private int size;
 
     public StackPipe() {
         this.top = null;
         this.bottom = null;
+        this.size = 0;
     }
 
     /**
@@ -31,6 +36,7 @@ public class StackPipe<T> {
             top.setUp(newNode);
             top = newNode;
         }
+        size++;
     }
 
     /**
@@ -50,6 +56,7 @@ public class StackPipe<T> {
         } else {
             bottom = null;
         }
+        size--;
         return data;
     }
 
@@ -70,7 +77,63 @@ public class StackPipe<T> {
         } else {
             top = null;
         }
+        size--;
         return data;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
+     * 判断蛇是否全部被吃掉
+     * @return
+     */
+    public boolean isAllBitten() {
+        Node<T> current = top;
+        while (current != null) {
+            if (!current.isBitten()) {
+                return false;
+            }
+            current = current.getDown();
+        }
+        return true;
+    }
+
+    public boolean eat(StackPipe<T> otherSnake) {
+        if (otherSnake.isEmpty()) {
+            return false;
+        }
+
+        Random rand = new Random();
+        int index = rand.nextInt(otherSnake.getSize());
+
+        Node<T> current = otherSnake.top;
+        for (int i = 0; i < index; i++) {
+            current = current.getDown();
+        }
+
+        if (!current.isBitten()) {
+            current.setBitten(true);
+            return true;
+        } else {
+            System.out.println("Miss!");
+            return false;
+        }
+    }
+
+    /**
+     * 打印蛇的身体，每段是否被咬过
+     */
+    private void printSnakeBody() {
+        for (Node<T> current = top; current != null; current = current.getDown()) {
+            System.out.print((current.isBitten() ? "X" : "O") + " -> ");
+        }
+        System.out.print("null");
     }
 
     /**
@@ -85,6 +148,41 @@ public class StackPipe<T> {
     }
 
     public static void main(String[] args) {
+        StackPipe<Integer> snakeA = new StackPipe<>();
+        StackPipe<Integer> snakeB = new StackPipe<>();
+
+        // 初始化蛇的身体（各10个节点）
+        for (int i = 1; i <= 10; i++) {
+            snakeA.push(i);
+            snakeB.push(i);
+        }
+
+        while (true) {
+            // 蛇A攻击蛇B
+            if (snakeA.eat(snakeB)) {
+                System.out.println("Snake A bites Snake B!");
+            }
+            // 检查胜利条件
+            if (snakeB.isAllBitten()) {
+                snakeA.printSnakeBody();
+                System.out.println("Snake A wins!");
+                break;
+            }
+
+            // 蛇B攻击蛇A
+            if (snakeB.eat(snakeA)) {
+                System.out.println("Snake B bites Snake A!");
+            }
+            // 检查胜利条件
+            if (snakeA.isAllBitten()) {
+                snakeB.printSnakeBody();
+                System.out.println("Snake B wins!");
+                break;
+            }
+        }
+    }
+
+    public static void mainOld(String[] args) {
         StackPipe<Integer> stackPipe = new StackPipe<>();
 
         System.out.println("===== 初始化栈 =====");

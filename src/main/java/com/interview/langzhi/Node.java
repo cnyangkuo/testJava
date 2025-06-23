@@ -13,11 +13,14 @@ public class Node<T> {
     private Node<T> up;
     // 指向下方节点
     private Node<T> down;
+    // 是否被咬
+    private boolean isBitten;
 
     public Node(T data) {
         this.data = data;
         this.up = null;
         this.down = null;
+        this.isBitten = false;
     }
 
     public T getData() {
@@ -42,6 +45,14 @@ public class Node<T> {
 
     public void setDown(Node<T> down) {
         this.down = down;
+    }
+
+    public boolean isBitten() {
+        return isBitten;
+    }
+
+    public void setBitten(boolean isBitton) {
+        this.isBitten = isBitton;
     }
 
 }
