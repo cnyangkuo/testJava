@@ -43,4 +43,5 @@ public class Node<T> {
     public void setDown(Node<T> down) {
         this.down = down;
     }
+
 }
