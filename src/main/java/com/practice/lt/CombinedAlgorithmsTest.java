@@ -24,14 +24,16 @@ public class CombinedAlgorithmsTest {
      *    - 若栈为空，说明当前字符无法匹配，记录新基准点
      *    - 若栈非空，计算i - stack.peek()为当前有效长度
      * 3. 示例分析: ")()())()"
-     *    i=0:")", stack=[-1] → pop → push(0)
-     *    i=1:"(", push(1)
-     *    i=2:")", pop(1) → max=2-(-1)=3
-     *    i=3:"(", push(3)
-     *    i=4:")", pop(3) → max=4-(-1)=5
-     *    i=6:"(", push(6)
-     *    i=7:")", pop(6) → max=7-5=2
-     *    最终max=5对应子串"()())("不成立，实际最长有效子串应为")()())"中的"()()"
+     * 索引: 0 1 2 3 4 5 6 7
+     * 字符: ) ( ) ( ) ) ( )
+//     i=0: ')', 栈初始为[-1]。弹出-1后栈空，压入0。
+//     i=1: '(', 压入1。栈[0,1]
+//     i=2: ')', 弹出1，栈变为[0]。此时i - stack.peek()=2-0=2 → max=2.
+//     i=3: '(', 压入3. 栈[0,3]
+//     i=4: ')', 弹出3，栈变为[0]. i -0=4 → max=4. 实际最长有效子串应为")()())"中的"()()"
+//     i=5: ')', 弹出0 → 栈空，压入5.
+//     i=6: '(', 压入6.
+//     i=7: ')', 弹出6，栈为空，压入7.
      */
     private static int longestValidParentheses(String s) {
         int max = 0;
@@ -47,6 +49,7 @@ public class CombinedAlgorithmsTest {
             } else {
                 stack.pop();
                 if (stack.isEmpty()) {
+                    // 当前字符无法匹配，记录新基准点位置
                     stack.push(i);
                 } else {
                     max = Math.max(max, i - stack.peek());
