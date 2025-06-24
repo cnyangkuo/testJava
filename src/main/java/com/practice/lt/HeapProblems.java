@@ -113,7 +113,7 @@ public class HeapProblems {
         while (!minHeap.isEmpty()) {
             ListNode node = minHeap.poll();
             current.next = node;
-            current = current.next;
+            current = node;
             
             if (node.next != null) {
                 minHeap.offer(node.next);
