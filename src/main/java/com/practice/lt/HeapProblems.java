@@ -29,18 +29,19 @@ public class HeapProblems {
         if (nums == null || nums.length == 0 || k <= 0) return new int[0];
         
         // 统计频率
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        Map<Integer, Integer> numFreqMap = new HashMap<>();
         for (int num : nums) {
-            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+            numFreqMap.put(num, numFreqMap.getOrDefault(num, 0) + 1);
         }
         
         // 创建最小堆
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(
-            (a, b) -> frequencyMap.get(a) - frequencyMap.get(b)
+            (a, b) -> numFreqMap.get(a) - numFreqMap.get(b)
+//            Comparator.comparingInt(numFreqMap::get)
         );
         
         // 维护堆大小不超过k
-        for (int num : frequencyMap.keySet()) {
+        for (int num : numFreqMap.keySet()) {
             minHeap.offer(num);
             if (minHeap.size() > k) {
                 minHeap.poll();
