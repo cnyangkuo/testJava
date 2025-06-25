@@ -7,9 +7,9 @@ package com.interview.langzhi;
  * @description
  */
 public class UndoableStackPipe<T> {
-    private NewStackPipe<T> mainStack = new NewStackPipe<>();
-    private NewStackPipe<T> undoStack = new NewStackPipe<>();
-    private NewStackPipe<T> undo2Stack = new NewStackPipe<>();
+    private StackPipe<T> mainStack = new StackPipe<>();
+    private StackPipe<T> undoStack = new StackPipe<>();
+//    private StackPipe<T> undo2Stack = new StackPipe<>();
 
     public void push(T data) {
         mainStack.push(data);
