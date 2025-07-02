@@ -200,6 +200,9 @@ public class TTLTest {
 
         // 关闭线程池
         threadPoolExecutor.shutdown();
+        if (!threadPoolExecutor.awaitTermination(60, TimeUnit.SECONDS)) {
+            threadPoolExecutor.shutdownNow(); // 强制关闭
+        }
     }
 
     public static void main2(String[] args) {
