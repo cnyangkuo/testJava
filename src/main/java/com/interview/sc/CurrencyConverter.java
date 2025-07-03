@@ -1,13 +1,11 @@
 package com.interview.sc;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Arrays;
 
-/**
- * 货币转换工具类
- * 支持多种货币之间的精确转换和四舍五入处理
- */
 public class CurrencyConverter {
     /**
      * 转换货币金额
@@ -51,7 +49,7 @@ public class CurrencyConverter {
         BigDecimal usdToCnyRate = new BigDecimal("7.15");
         BigDecimal convertedAmount = convert(usdAmount, usdToCnyRate, 2);
         System.out.println(usdAmount + " USD = " + convertedAmount + " CNY");
-        
+
         // 测试交叉汇率计算
         BigDecimal usdToEurRate = new BigDecimal("0.85");
         BigDecimal eurToCnyRate = new BigDecimal("7.85");
@@ -68,5 +66,30 @@ public class CurrencyConverter {
                 BigDecimal.ONE.add(rate).pow(years, MathContext.DECIMAL128)
         ).setScale(4, RoundingMode.HALF_UP);
         System.out.println("复利计算结果: " + finalAmount);
+
+        // 原始BigInteger
+        BigInteger bigInteger = new BigInteger("12345678901234567890");
+        
+        // mag数组（大端序）
+        int[] mag = new int[]{0xAB54A98C, 0xEB1F0AD2};
+        
+        // 转换为字节数组
+        byte[] bytes = new byte[mag.length * 4];
+        for (int i = 0; i < mag.length; i++) {
+            int val = mag[i];
+            // 大端序存储
+            bytes[i*4]   = (byte)(val >>> 24);
+            bytes[i*4+1] = (byte)(val >>> 16);
+            bytes[i*4+2] = (byte)(val >>> 8);
+            bytes[i*4+3] = (byte)val;
+        }
+        
+        // 通过字节数组构造新的BigInteger
+        BigInteger newBit = new BigInteger(bigInteger.signum(), bytes);
+        
+        // 验证结果
+        System.out.println("原始值: " + bigInteger);
+        System.out.println("构造值: " + newBit);
+        System.out.println("是否相等: " + bigInteger.equals(newBit));
     }
 }
