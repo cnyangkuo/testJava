@@ -1,6 +1,7 @@
 package com.interview.sc;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
@@ -56,5 +57,16 @@ public class CurrencyConverter {
         BigDecimal eurToCnyRate = new BigDecimal("7.85");
         BigDecimal crossRate = calculateCrossRate("USD", "CNY", "EUR", usdToEurRate, eurToCnyRate, 4);
         System.out.println("USD/CNY交叉汇率: " + crossRate);
+
+        // 实现复合利率计算
+        BigDecimal principal = new BigDecimal("10000");
+        BigDecimal rate = new BigDecimal("0.05"); // 5%
+        int years = 10;
+
+        // 复利公式：principal * (1 + rate)^years
+        BigDecimal finalAmount = principal.multiply(
+                BigDecimal.ONE.add(rate).pow(years, MathContext.DECIMAL128)
+        ).setScale(4, RoundingMode.HALF_UP);
+        System.out.println("复利计算结果: " + finalAmount);
     }
 }
