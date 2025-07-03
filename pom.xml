@@ -72,6 +72,13 @@
 <!--            </exclusions>-->
 <!--        </dependency>-->
 
+        <!-- dynamic-tp -->
+<!--        <dependency>-->
+<!--            <groupId>io.github.dynamic-tp</groupId>-->
+<!--            <artifactId>dynamic-tp-spring-boot-starter</artifactId>-->
+<!--            <version>1.1.6</version>-->
+<!--        </dependency>-->
+
         <!--        Disruptor -->
         <dependency>
             <groupId>com.lmax</groupId>

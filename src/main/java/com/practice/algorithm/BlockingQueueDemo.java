@@ -1,5 +1,8 @@
 package com.practice.algorithm;
 
+/**
+ * @author hanson
+ */
 public class BlockingQueueDemo {
     static class BlockingQueue<T> {
         private Object[] items;
