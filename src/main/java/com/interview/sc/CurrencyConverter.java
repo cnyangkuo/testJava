@@ -92,12 +92,5 @@ public class CurrencyConverter {
         System.out.println("构造值: " + newBit);
         System.out.println("是否相等: " + bigInteger.equals(newBit));
 
-
-        // 2. 避免创建中间对象
-        BigInteger a = new BigInteger("12");
-        BigInteger b = new BigInteger("34");
-        BigInteger c = new BigInteger("56");
-        BigInteger result1 = a.add(b).multiply(c); // 产生2个临时对象
-        BigInteger result2 = a.add(b.multiply(c)); // 优化后产生1个临时对象
     }
 }
