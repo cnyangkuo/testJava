@@ -91,5 +91,6 @@ public class CurrencyConverter {
         System.out.println("原始值: " + bigInteger);
         System.out.println("构造值: " + newBit);
         System.out.println("是否相等: " + bigInteger.equals(newBit));
+
     }
 }
