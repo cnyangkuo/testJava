@@ -1,164 +1,208 @@
-Classfile /Users/hanson/data/project/study/testJava/target/classes/com/interview/sc/StreamTest.class
-  Last modified 2025-7-4; size 2649 bytes
-  MD5 checksum 0f085d6d7043585fb72c5cea5b212512
+Classfile /Users/hanson/data/project/study/testJava/target/classes/com/practice/base/StreamTest.class
+  Last modified 2025-7-4; size 3432 bytes
+  MD5 checksum f648dec22c3af72adef9a3e738baaf78
   Compiled from "StreamTest.java"
-public class com.interview.sc.StreamTest
+public class com.practice.base.StreamTest
   minor version: 0
   major version: 52
   flags: ACC_PUBLIC, ACC_SUPER
 Constant pool:
-    #1 = Methodref          #30.#53       // java/lang/Object."<init>":()V
-    #2 = Class              #54           // java/lang/String
-    #3 = String             #55           // a
-    #4 = String             #56           // b
-    #5 = InterfaceMethodref #57.#58       // java/util/stream/Stream.of:([Ljava/lang/Object;)Ljava/util/stream/Stream;
-    #6 = InvokeDynamic      #0:#64        // #0:test:()Ljava/util/function/Predicate;
-    #7 = InterfaceMethodref #57.#65       // java/util/stream/Stream.filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
-    #8 = String             #66           // c
-    #9 = String             #67           // d
-   #10 = InvokeDynamic      #1:#64        // #1:test:()Ljava/util/function/Predicate;
-   #11 = InterfaceMethodref #57.#69       // java/util/stream/Stream.count:()J
-   #12 = Class              #70           // java/lang/Integer
-   #13 = Methodref          #12.#71       // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
-   #14 = Methodref          #72.#73       // java/util/Arrays.asList:([Ljava/lang/Object;)Ljava/util/List;
-   #15 = Fieldref           #74.#75       // java/lang/System.out:Ljava/io/PrintStream;
-   #16 = String             #76           // --------------------------------------------------
-   #17 = Methodref          #77.#78       // java/io/PrintStream.println:(Ljava/lang/String;)V
-   #18 = InterfaceMethodref #79.#80       // java/util/List.parallelStream:()Ljava/util/stream/Stream;
-   #19 = Methodref          #30.#81       // java/lang/Object.getClass:()Ljava/lang/Class;
-   #20 = InvokeDynamic      #2:#85        // #2:accept:(Ljava/io/PrintStream;)Ljava/util/function/Consumer;
-   #21 = InterfaceMethodref #57.#86       // java/util/stream/Stream.forEach:(Ljava/util/function/Consumer;)V
-   #22 = Methodref          #77.#87       // java/io/PrintStream.println:()V
-   #23 = InterfaceMethodref #79.#88       // java/util/List.stream:()Ljava/util/stream/Stream;
-   #24 = Class              #89           // java/lang/StringBuilder
-   #25 = Methodref          #24.#53       // java/lang/StringBuilder."<init>":()V
-   #26 = String             #90           // filter:
-   #27 = Methodref          #24.#91       // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-   #28 = Methodref          #24.#92       // java/lang/StringBuilder.toString:()Ljava/lang/String;
-   #29 = Class              #93           // com/interview/sc/StreamTest
-   #30 = Class              #94           // java/lang/Object
-   #31 = Utf8               <init>
-   #32 = Utf8               ()V
-   #33 = Utf8               Code
-   #34 = Utf8               LineNumberTable
-   #35 = Utf8               LocalVariableTable
-   #36 = Utf8               this
-   #37 = Utf8               Lcom/interview/sc/StreamTest;
-   #38 = Utf8               main
-   #39 = Utf8               ([Ljava/lang/String;)V
-   #40 = Utf8               args
-   #41 = Utf8               [Ljava/lang/String;
-   #42 = Utf8               list
-   #43 = Utf8               Ljava/util/List;
-   #44 = Utf8               LocalVariableTypeTable
-   #45 = Utf8               Ljava/util/List<Ljava/lang/Integer;>;
-   #46 = Utf8               lambda$main$1
-   #47 = Utf8               (Ljava/lang/String;)Z
-   #48 = Utf8               s
-   #49 = Utf8               Ljava/lang/String;
-   #50 = Utf8               lambda$main$0
-   #51 = Utf8               SourceFile
-   #52 = Utf8               StreamTest.java
-   #53 = NameAndType        #31:#32       // "<init>":()V
-   #54 = Utf8               java/lang/String
-   #55 = Utf8               a
-   #56 = Utf8               b
-   #57 = Class              #95           // java/util/stream/Stream
-   #58 = NameAndType        #96:#97       // of:([Ljava/lang/Object;)Ljava/util/stream/Stream;
-   #59 = Utf8               BootstrapMethods
-   #60 = MethodHandle       #6:#98        // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
-   #61 = MethodType         #99           //  (Ljava/lang/Object;)Z
-   #62 = MethodHandle       #6:#100       // invokestatic com/interview/sc/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
-   #63 = MethodType         #47           //  (Ljava/lang/String;)Z
-   #64 = NameAndType        #101:#102     // test:()Ljava/util/function/Predicate;
-   #65 = NameAndType        #103:#104     // filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
-   #66 = Utf8               c
-   #67 = Utf8               d
-   #68 = MethodHandle       #6:#105       // invokestatic com/interview/sc/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
-   #69 = NameAndType        #106:#107     // count:()J
-   #70 = Utf8               java/lang/Integer
-   #71 = NameAndType        #108:#109     // valueOf:(I)Ljava/lang/Integer;
-   #72 = Class              #110          // java/util/Arrays
-   #73 = NameAndType        #111:#112     // asList:([Ljava/lang/Object;)Ljava/util/List;
-   #74 = Class              #113          // java/lang/System
-   #75 = NameAndType        #114:#115     // out:Ljava/io/PrintStream;
-   #76 = Utf8               --------------------------------------------------
-   #77 = Class              #116          // java/io/PrintStream
-   #78 = NameAndType        #117:#118     // println:(Ljava/lang/String;)V
-   #79 = Class              #119          // java/util/List
-   #80 = NameAndType        #120:#121     // parallelStream:()Ljava/util/stream/Stream;
-   #81 = NameAndType        #122:#123     // getClass:()Ljava/lang/Class;
-   #82 = MethodType         #124          //  (Ljava/lang/Object;)V
-   #83 = MethodHandle       #5:#125       // invokevirtual java/io/PrintStream.print:(Ljava/lang/Object;)V
-   #84 = MethodType         #126          //  (Ljava/lang/Integer;)V
-   #85 = NameAndType        #127:#128     // accept:(Ljava/io/PrintStream;)Ljava/util/function/Consumer;
-   #86 = NameAndType        #129:#130     // forEach:(Ljava/util/function/Consumer;)V
-   #87 = NameAndType        #117:#32      // println:()V
-   #88 = NameAndType        #131:#121     // stream:()Ljava/util/stream/Stream;
-   #89 = Utf8               java/lang/StringBuilder
-   #90 = Utf8               filter:
-   #91 = NameAndType        #132:#133     // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-   #92 = NameAndType        #134:#135     // toString:()Ljava/lang/String;
-   #93 = Utf8               com/interview/sc/StreamTest
-   #94 = Utf8               java/lang/Object
-   #95 = Utf8               java/util/stream/Stream
-   #96 = Utf8               of
-   #97 = Utf8               ([Ljava/lang/Object;)Ljava/util/stream/Stream;
-   #98 = Methodref          #136.#137     // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
-   #99 = Utf8               (Ljava/lang/Object;)Z
-  #100 = Methodref          #29.#138      // com/interview/sc/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
-  #101 = Utf8               test
-  #102 = Utf8               ()Ljava/util/function/Predicate;
-  #103 = Utf8               filter
-  #104 = Utf8               (Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
-  #105 = Methodref          #29.#139      // com/interview/sc/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
-  #106 = Utf8               count
-  #107 = Utf8               ()J
-  #108 = Utf8               valueOf
-  #109 = Utf8               (I)Ljava/lang/Integer;
-  #110 = Utf8               java/util/Arrays
-  #111 = Utf8               asList
-  #112 = Utf8               ([Ljava/lang/Object;)Ljava/util/List;
-  #113 = Utf8               java/lang/System
-  #114 = Utf8               out
-  #115 = Utf8               Ljava/io/PrintStream;
-  #116 = Utf8               java/io/PrintStream
-  #117 = Utf8               println
-  #118 = Utf8               (Ljava/lang/String;)V
-  #119 = Utf8               java/util/List
-  #120 = Utf8               parallelStream
-  #121 = Utf8               ()Ljava/util/stream/Stream;
-  #122 = Utf8               getClass
-  #123 = Utf8               ()Ljava/lang/Class;
-  #124 = Utf8               (Ljava/lang/Object;)V
-  #125 = Methodref          #77.#140      // java/io/PrintStream.print:(Ljava/lang/Object;)V
-  #126 = Utf8               (Ljava/lang/Integer;)V
-  #127 = Utf8               accept
-  #128 = Utf8               (Ljava/io/PrintStream;)Ljava/util/function/Consumer;
-  #129 = Utf8               forEach
-  #130 = Utf8               (Ljava/util/function/Consumer;)V
-  #131 = Utf8               stream
-  #132 = Utf8               append
-  #133 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
-  #134 = Utf8               toString
-  #135 = Utf8               ()Ljava/lang/String;
-  #136 = Class              #141          // java/lang/invoke/LambdaMetafactory
-  #137 = NameAndType        #142:#146     // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
-  #138 = NameAndType        #50:#47       // lambda$main$0:(Ljava/lang/String;)Z
-  #139 = NameAndType        #46:#47       // lambda$main$1:(Ljava/lang/String;)Z
-  #140 = NameAndType        #147:#124     // print:(Ljava/lang/Object;)V
-  #141 = Utf8               java/lang/invoke/LambdaMetafactory
-  #142 = Utf8               metafactory
-  #143 = Class              #149          // java/lang/invoke/MethodHandles$Lookup
-  #144 = Utf8               Lookup
-  #145 = Utf8               InnerClasses
-  #146 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
-  #147 = Utf8               print
-  #148 = Class              #150          // java/lang/invoke/MethodHandles
-  #149 = Utf8               java/lang/invoke/MethodHandles$Lookup
-  #150 = Utf8               java/lang/invoke/MethodHandles
+    #1 = Methodref          #42.#70       // java/lang/Object."<init>":()V
+    #2 = Class              #71           // java/lang/String
+    #3 = String             #72           // a
+    #4 = String             #73           // b
+    #5 = InterfaceMethodref #27.#74       // java/util/stream/Stream.of:([Ljava/lang/Object;)Ljava/util/stream/Stream;
+    #6 = InvokeDynamic      #0:#80        // #0:test:()Ljava/util/function/Predicate;
+    #7 = InterfaceMethodref #27.#81       // java/util/stream/Stream.filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
+    #8 = String             #82           // c
+    #9 = String             #83           // d
+   #10 = InvokeDynamic      #1:#80        // #1:test:()Ljava/util/function/Predicate;
+   #11 = InterfaceMethodref #27.#85       // java/util/stream/Stream.count:()J
+   #12 = Class              #86           // java/lang/Integer
+   #13 = Methodref          #12.#87       // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+   #14 = Methodref          #88.#89       // java/util/Arrays.asList:([Ljava/lang/Object;)Ljava/util/List;
+   #15 = Fieldref           #90.#91       // java/lang/System.out:Ljava/io/PrintStream;
+   #16 = String             #92           // --------------------------------------------------
+   #17 = Methodref          #93.#94       // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #18 = InterfaceMethodref #33.#95       // java/util/List.parallelStream:()Ljava/util/stream/Stream;
+   #19 = Methodref          #42.#96       // java/lang/Object.getClass:()Ljava/lang/Class;
+   #20 = InvokeDynamic      #2:#100       // #2:accept:(Ljava/io/PrintStream;)Ljava/util/function/Consumer;
+   #21 = InterfaceMethodref #27.#101      // java/util/stream/Stream.forEach:(Ljava/util/function/Consumer;)V
+   #22 = Methodref          #93.#102      // java/io/PrintStream.println:()V
+   #23 = InterfaceMethodref #33.#103      // java/util/List.stream:()Ljava/util/stream/Stream;
+   #24 = InvokeDynamic      #3:#107       // #3:apply:()Ljava/util/function/UnaryOperator;
+   #25 = InterfaceMethodref #27.#108      // java/util/stream/Stream.iterate:(Ljava/lang/Object;Ljava/util/function/UnaryOperator;)Ljava/util/stream/Stream;
+   #26 = InterfaceMethodref #27.#109      // java/util/stream/Stream.parallel:()Ljava/util/stream/BaseStream;
+   #27 = Class              #110          // java/util/stream/Stream
+   #28 = Long               10l
+   #30 = InterfaceMethodref #27.#111      // java/util/stream/Stream.limit:(J)Ljava/util/stream/Stream;
+   #31 = Methodref          #112.#113     // java/util/stream/Collectors.toList:()Ljava/util/stream/Collector;
+   #32 = InterfaceMethodref #27.#114      // java/util/stream/Stream.collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;
+   #33 = Class              #115          // java/util/List
+   #34 = Methodref          #93.#116      // java/io/PrintStream.println:(Ljava/lang/Object;)V
+   #35 = Methodref          #12.#117      // java/lang/Integer.intValue:()I
+   #36 = Class              #118          // java/lang/StringBuilder
+   #37 = Methodref          #36.#70       // java/lang/StringBuilder."<init>":()V
+   #38 = String             #119          // filter:
+   #39 = Methodref          #36.#120      // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #40 = Methodref          #36.#121      // java/lang/StringBuilder.toString:()Ljava/lang/String;
+   #41 = Class              #122          // com/practice/base/StreamTest
+   #42 = Class              #123          // java/lang/Object
+   #43 = Utf8               <init>
+   #44 = Utf8               ()V
+   #45 = Utf8               Code
+   #46 = Utf8               LineNumberTable
+   #47 = Utf8               LocalVariableTable
+   #48 = Utf8               this
+   #49 = Utf8               Lcom/practice/base/StreamTest;
+   #50 = Utf8               main
+   #51 = Utf8               ([Ljava/lang/String;)V
+   #52 = Utf8               args
+   #53 = Utf8               [Ljava/lang/String;
+   #54 = Utf8               list
+   #55 = Utf8               Ljava/util/List;
+   #56 = Utf8               safeList
+   #57 = Utf8               LocalVariableTypeTable
+   #58 = Utf8               Ljava/util/List<Ljava/lang/Integer;>;
+   #59 = Utf8               lambda$main$2
+   #60 = Utf8               (Ljava/lang/Integer;)Ljava/lang/Integer;
+   #61 = Utf8               i
+   #62 = Utf8               Ljava/lang/Integer;
+   #63 = Utf8               lambda$main$1
+   #64 = Utf8               (Ljava/lang/String;)Z
+   #65 = Utf8               s
+   #66 = Utf8               Ljava/lang/String;
+   #67 = Utf8               lambda$main$0
+   #68 = Utf8               SourceFile
+   #69 = Utf8               StreamTest.java
+   #70 = NameAndType        #43:#44       // "<init>":()V
+   #71 = Utf8               java/lang/String
+   #72 = Utf8               a
+   #73 = Utf8               b
+   #74 = NameAndType        #124:#125     // of:([Ljava/lang/Object;)Ljava/util/stream/Stream;
+   #75 = Utf8               BootstrapMethods
+   #76 = MethodHandle       #6:#126       // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+   #77 = MethodType         #127          //  (Ljava/lang/Object;)Z
+   #78 = MethodHandle       #6:#128       // invokestatic com/practice/base/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
+   #79 = MethodType         #64           //  (Ljava/lang/String;)Z
+   #80 = NameAndType        #129:#130     // test:()Ljava/util/function/Predicate;
+   #81 = NameAndType        #131:#132     // filter:(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
+   #82 = Utf8               c
+   #83 = Utf8               d
+   #84 = MethodHandle       #6:#133       // invokestatic com/practice/base/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
+   #85 = NameAndType        #134:#135     // count:()J
+   #86 = Utf8               java/lang/Integer
+   #87 = NameAndType        #136:#137     // valueOf:(I)Ljava/lang/Integer;
+   #88 = Class              #138          // java/util/Arrays
+   #89 = NameAndType        #139:#140     // asList:([Ljava/lang/Object;)Ljava/util/List;
+   #90 = Class              #141          // java/lang/System
+   #91 = NameAndType        #142:#143     // out:Ljava/io/PrintStream;
+   #92 = Utf8               --------------------------------------------------
+   #93 = Class              #144          // java/io/PrintStream
+   #94 = NameAndType        #145:#146     // println:(Ljava/lang/String;)V
+   #95 = NameAndType        #147:#148     // parallelStream:()Ljava/util/stream/Stream;
+   #96 = NameAndType        #149:#150     // getClass:()Ljava/lang/Class;
+   #97 = MethodType         #151          //  (Ljava/lang/Object;)V
+   #98 = MethodHandle       #5:#152       // invokevirtual java/io/PrintStream.print:(Ljava/lang/Object;)V
+   #99 = MethodType         #153          //  (Ljava/lang/Integer;)V
+  #100 = NameAndType        #154:#155     // accept:(Ljava/io/PrintStream;)Ljava/util/function/Consumer;
+  #101 = NameAndType        #156:#157     // forEach:(Ljava/util/function/Consumer;)V
+  #102 = NameAndType        #145:#44      // println:()V
+  #103 = NameAndType        #158:#148     // stream:()Ljava/util/stream/Stream;
+  #104 = MethodType         #159          //  (Ljava/lang/Object;)Ljava/lang/Object;
+  #105 = MethodHandle       #6:#160       // invokestatic com/practice/base/StreamTest.lambda$main$2:(Ljava/lang/Integer;)Ljava/lang/Integer;
+  #106 = MethodType         #60           //  (Ljava/lang/Integer;)Ljava/lang/Integer;
+  #107 = NameAndType        #161:#162     // apply:()Ljava/util/function/UnaryOperator;
+  #108 = NameAndType        #163:#164     // iterate:(Ljava/lang/Object;Ljava/util/function/UnaryOperator;)Ljava/util/stream/Stream;
+  #109 = NameAndType        #165:#166     // parallel:()Ljava/util/stream/BaseStream;
+  #110 = Utf8               java/util/stream/Stream
+  #111 = NameAndType        #167:#168     // limit:(J)Ljava/util/stream/Stream;
+  #112 = Class              #169          // java/util/stream/Collectors
+  #113 = NameAndType        #170:#171     // toList:()Ljava/util/stream/Collector;
+  #114 = NameAndType        #172:#173     // collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;
+  #115 = Utf8               java/util/List
+  #116 = NameAndType        #145:#151     // println:(Ljava/lang/Object;)V
+  #117 = NameAndType        #174:#175     // intValue:()I
+  #118 = Utf8               java/lang/StringBuilder
+  #119 = Utf8               filter:
+  #120 = NameAndType        #176:#177     // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #121 = NameAndType        #178:#179     // toString:()Ljava/lang/String;
+  #122 = Utf8               com/practice/base/StreamTest
+  #123 = Utf8               java/lang/Object
+  #124 = Utf8               of
+  #125 = Utf8               ([Ljava/lang/Object;)Ljava/util/stream/Stream;
+  #126 = Methodref          #180.#181     // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #127 = Utf8               (Ljava/lang/Object;)Z
+  #128 = Methodref          #41.#182      // com/practice/base/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
+  #129 = Utf8               test
+  #130 = Utf8               ()Ljava/util/function/Predicate;
+  #131 = Utf8               filter
+  #132 = Utf8               (Ljava/util/function/Predicate;)Ljava/util/stream/Stream;
+  #133 = Methodref          #41.#183      // com/practice/base/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
+  #134 = Utf8               count
+  #135 = Utf8               ()J
+  #136 = Utf8               valueOf
+  #137 = Utf8               (I)Ljava/lang/Integer;
+  #138 = Utf8               java/util/Arrays
+  #139 = Utf8               asList
+  #140 = Utf8               ([Ljava/lang/Object;)Ljava/util/List;
+  #141 = Utf8               java/lang/System
+  #142 = Utf8               out
+  #143 = Utf8               Ljava/io/PrintStream;
+  #144 = Utf8               java/io/PrintStream
+  #145 = Utf8               println
+  #146 = Utf8               (Ljava/lang/String;)V
+  #147 = Utf8               parallelStream
+  #148 = Utf8               ()Ljava/util/stream/Stream;
+  #149 = Utf8               getClass
+  #150 = Utf8               ()Ljava/lang/Class;
+  #151 = Utf8               (Ljava/lang/Object;)V
+  #152 = Methodref          #93.#184      // java/io/PrintStream.print:(Ljava/lang/Object;)V
+  #153 = Utf8               (Ljava/lang/Integer;)V
+  #154 = Utf8               accept
+  #155 = Utf8               (Ljava/io/PrintStream;)Ljava/util/function/Consumer;
+  #156 = Utf8               forEach
+  #157 = Utf8               (Ljava/util/function/Consumer;)V
+  #158 = Utf8               stream
+  #159 = Utf8               (Ljava/lang/Object;)Ljava/lang/Object;
+  #160 = Methodref          #41.#185      // com/practice/base/StreamTest.lambda$main$2:(Ljava/lang/Integer;)Ljava/lang/Integer;
+  #161 = Utf8               apply
+  #162 = Utf8               ()Ljava/util/function/UnaryOperator;
+  #163 = Utf8               iterate
+  #164 = Utf8               (Ljava/lang/Object;Ljava/util/function/UnaryOperator;)Ljava/util/stream/Stream;
+  #165 = Utf8               parallel
+  #166 = Utf8               ()Ljava/util/stream/BaseStream;
+  #167 = Utf8               limit
+  #168 = Utf8               (J)Ljava/util/stream/Stream;
+  #169 = Utf8               java/util/stream/Collectors
+  #170 = Utf8               toList
+  #171 = Utf8               ()Ljava/util/stream/Collector;
+  #172 = Utf8               collect
+  #173 = Utf8               (Ljava/util/stream/Collector;)Ljava/lang/Object;
+  #174 = Utf8               intValue
+  #175 = Utf8               ()I
+  #176 = Utf8               append
+  #177 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #178 = Utf8               toString
+  #179 = Utf8               ()Ljava/lang/String;
+  #180 = Class              #186          // java/lang/invoke/LambdaMetafactory
+  #181 = NameAndType        #187:#191     // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #182 = NameAndType        #67:#64       // lambda$main$0:(Ljava/lang/String;)Z
+  #183 = NameAndType        #63:#64       // lambda$main$1:(Ljava/lang/String;)Z
+  #184 = NameAndType        #192:#151     // print:(Ljava/lang/Object;)V
+  #185 = NameAndType        #59:#60       // lambda$main$2:(Ljava/lang/Integer;)Ljava/lang/Integer;
+  #186 = Utf8               java/lang/invoke/LambdaMetafactory
+  #187 = Utf8               metafactory
+  #188 = Class              #194          // java/lang/invoke/MethodHandles$Lookup
+  #189 = Utf8               Lookup
+  #190 = Utf8               InnerClasses
+  #191 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #192 = Utf8               print
+  #193 = Class              #195          // java/lang/invoke/MethodHandles
+  #194 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #195 = Utf8               java/lang/invoke/MethodHandles
 {
-  public com.interview.sc.StreamTest();
+  public com.practice.base.StreamTest();
     descriptor: ()V
     flags: ACC_PUBLIC
     Code:
@@ -167,16 +211,16 @@ Constant pool:
          1: invokespecial #1                  // Method java/lang/Object."<init>":()V
          4: return
       LineNumberTable:
-        line 11: 0
+        line 50: 0
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
-            0       5     0  this   Lcom/interview/sc/StreamTest;
+            0       5     0  this   Lcom/practice/base/StreamTest;
 
   public static void main(java.lang.String[]);
     descriptor: ([Ljava/lang/String;)V
     flags: ACC_PUBLIC, ACC_STATIC
     Code:
-      stack=4, locals=2, args_size=1
+      stack=4, locals=3, args_size=1
          0: iconst_2
          1: anewarray     #2                  // class java/lang/String
          4: dup
@@ -251,26 +295,64 @@ Constant pool:
        155: invokeinterface #21,  2           // InterfaceMethod java/util/stream/Stream.forEach:(Ljava/util/function/Consumer;)V
        160: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
        163: invokevirtual #22                 // Method java/io/PrintStream.println:()V
-       166: return
+       166: iconst_0
+       167: invokestatic  #13                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       170: invokedynamic #24,  0             // InvokeDynamic #3:apply:()Ljava/util/function/UnaryOperator;
+       175: invokestatic  #25                 // InterfaceMethod java/util/stream/Stream.iterate:(Ljava/lang/Object;Ljava/util/function/UnaryOperator;)Ljava/util/stream/Stream;
+       178: invokeinterface #26,  1           // InterfaceMethod java/util/stream/Stream.parallel:()Ljava/util/stream/BaseStream;
+       183: checkcast     #27                 // class java/util/stream/Stream
+       186: ldc2_w        #28                 // long 10l
+       189: invokeinterface #30,  3           // InterfaceMethod java/util/stream/Stream.limit:(J)Ljava/util/stream/Stream;
+       194: invokestatic  #31                 // Method java/util/stream/Collectors.toList:()Ljava/util/stream/Collector;
+       197: invokeinterface #32,  2           // InterfaceMethod java/util/stream/Stream.collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;
+       202: checkcast     #33                 // class java/util/List
+       205: astore_2
+       206: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       209: aload_2
+       210: invokevirtual #34                 // Method java/io/PrintStream.println:(Ljava/lang/Object;)V
+       213: return
       LineNumberTable:
-        line 15: 0
-        line 20: 28
-        line 23: 55
-        line 25: 61
-        line 26: 90
-        line 29: 98
-        line 30: 122
-        line 31: 128
-        line 34: 136
-        line 35: 160
-        line 36: 166
+        line 54: 0
+        line 59: 28
+        line 62: 55
+        line 64: 61
+        line 65: 90
+        line 68: 98
+        line 69: 122
+        line 70: 128
+        line 73: 136
+        line 74: 160
+        line 82: 166
+        line 83: 178
+        line 84: 194
+        line 85: 206
+        line 86: 213
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
-            0     167     0  args   [Ljava/lang/String;
-           90      77     1  list   Ljava/util/List;
+            0     214     0  args   [Ljava/lang/String;
+           90     124     1  list   Ljava/util/List;
+          206       8     2 safeList   Ljava/util/List;
       LocalVariableTypeTable:
         Start  Length  Slot  Name   Signature
-           90      77     1  list   Ljava/util/List<Ljava/lang/Integer;>;
+           90     124     1  list   Ljava/util/List<Ljava/lang/Integer;>;
+          206       8     2 safeList   Ljava/util/List<Ljava/lang/Integer;>;
+
+  private static java.lang.Integer lambda$main$2(java.lang.Integer);
+    descriptor: (Ljava/lang/Integer;)Ljava/lang/Integer;
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #35                 // Method java/lang/Integer.intValue:()I
+         4: iconst_1
+         5: iadd
+         6: invokestatic  #13                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+         9: areturn
+      LineNumberTable:
+        line 82: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0     i   Ljava/lang/Integer;
 
   private static boolean lambda$main$1(java.lang.String);
     descriptor: (Ljava/lang/String;)Z
@@ -278,20 +360,20 @@ Constant pool:
     Code:
       stack=3, locals=1, args_size=1
          0: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
-         3: new           #24                 // class java/lang/StringBuilder
+         3: new           #36                 // class java/lang/StringBuilder
          6: dup
-         7: invokespecial #25                 // Method java/lang/StringBuilder."<init>":()V
-        10: ldc           #26                 // String filter:
-        12: invokevirtual #27                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+         7: invokespecial #37                 // Method java/lang/StringBuilder."<init>":()V
+        10: ldc           #38                 // String filter:
+        12: invokevirtual #39                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
         15: aload_0
-        16: invokevirtual #27                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-        19: invokevirtual #28                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        16: invokevirtual #39                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        19: invokevirtual #40                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
         22: invokevirtual #17                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
         25: iconst_1
         26: ireturn
       LineNumberTable:
-        line 21: 0
-        line 22: 25
+        line 60: 0
+        line 61: 25
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
             0      27     0     s   Ljava/lang/String;
@@ -302,40 +384,45 @@ Constant pool:
     Code:
       stack=3, locals=1, args_size=1
          0: getstatic     #15                 // Field java/lang/System.out:Ljava/io/PrintStream;
-         3: new           #24                 // class java/lang/StringBuilder
+         3: new           #36                 // class java/lang/StringBuilder
          6: dup
-         7: invokespecial #25                 // Method java/lang/StringBuilder."<init>":()V
-        10: ldc           #26                 // String filter:
-        12: invokevirtual #27                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+         7: invokespecial #37                 // Method java/lang/StringBuilder."<init>":()V
+        10: ldc           #38                 // String filter:
+        12: invokevirtual #39                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
         15: aload_0
-        16: invokevirtual #27                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-        19: invokevirtual #28                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        16: invokevirtual #39                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        19: invokevirtual #40                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
         22: invokevirtual #17                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
         25: iconst_1
         26: ireturn
       LineNumberTable:
-        line 16: 0
-        line 17: 25
+        line 55: 0
+        line 56: 25
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
             0      27     0     s   Ljava/lang/String;
 }
 SourceFile: "StreamTest.java"
 InnerClasses:
-     public static final #144= #143 of #148; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+     public static final #189= #188 of #193; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
 BootstrapMethods:
-  0: #60 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  0: #76 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
     Method arguments:
-      #61 (Ljava/lang/Object;)Z
-      #62 invokestatic com/interview/sc/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
-      #63 (Ljava/lang/String;)Z
-  1: #60 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+      #77 (Ljava/lang/Object;)Z
+      #78 invokestatic com/practice/base/StreamTest.lambda$main$0:(Ljava/lang/String;)Z
+      #79 (Ljava/lang/String;)Z
+  1: #76 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
     Method arguments:
-      #61 (Ljava/lang/Object;)Z
-      #68 invokestatic com/interview/sc/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
-      #63 (Ljava/lang/String;)Z
-  2: #60 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+      #77 (Ljava/lang/Object;)Z
+      #84 invokestatic com/practice/base/StreamTest.lambda$main$1:(Ljava/lang/String;)Z
+      #79 (Ljava/lang/String;)Z
+  2: #76 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
     Method arguments:
-      #82 (Ljava/lang/Object;)V
-      #83 invokevirtual java/io/PrintStream.print:(Ljava/lang/Object;)V
-      #84 (Ljava/lang/Integer;)V
+      #97 (Ljava/lang/Object;)V
+      #98 invokevirtual java/io/PrintStream.print:(Ljava/lang/Object;)V
+      #99 (Ljava/lang/Integer;)V
+  3: #76 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #104 (Ljava/lang/Object;)Ljava/lang/Object;
+      #105 invokestatic com/practice/base/StreamTest.lambda$main$2:(Ljava/lang/Integer;)Ljava/lang/Integer;
+      #106 (Ljava/lang/Integer;)Ljava/lang/Integer;
