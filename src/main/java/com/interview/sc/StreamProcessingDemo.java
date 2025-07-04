@@ -8,6 +8,7 @@ import java.util.Spliterators;
 import java.util.function.IntConsumer;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Stream处理演示类
