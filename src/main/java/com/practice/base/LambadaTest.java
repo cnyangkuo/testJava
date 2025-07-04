@@ -17,23 +17,23 @@ public class LambadaTest {
         t1.start();
         t2.start();
 
-        // 2. 单参数Lambda示例 - Consumer接口
+        // 2. 单参数Lambda示例 - Consumer接口, 只有入参，没有返回值
         // 自动类型推断，可省略参数类型
         Consumer<String> printConsumer = str -> System.out.println("消费型接口: " + str);
         printConsumer.accept("Hello World");
 
-        // 3. 多参数Lambda示例 - BiFunction接口
+        // 3. 带返回值的Lambda - Function接口, 有入参和返回值
+        // 单表达式可省略return关键字
+        Function<String, Integer> strToInt = Integer::parseInt;
+        System.out.println("字符串转整数: " + strToInt.apply("1234"));
+
+        // 4. 多参数Lambda示例 - BiFunction接口
         // 需要显式声明参数类型，使用表达式体
         BiFunction<Integer, Integer, Double> calc = (a, b) -> {
             double result = Math.sqrt(a * a + b * b);
             return result;
         };
         System.out.println("双参数计算结果: " + calc.apply(3, 4));
-
-        // 4. 带返回值的Lambda - Function接口
-        // 单表达式可省略return关键字
-        Function<String, Integer> strToInt = Integer::parseInt;
-        System.out.println("字符串转整数: " + strToInt.apply("1234"));
 
         // 5. 方法引用示例 - 静态方法引用
         // 使用类名::方法名的语法替代Lambda表达式
@@ -65,6 +65,17 @@ public class LambadaTest {
         // 实现自定义接口的Lambda表达式
         Calculator adder = (a, b) -> a + b;
         System.out.println("自定义接口计算: " + adder.calculate(15, 25));
+
+        // 11. 自定义函数式接口示例2 - 使用Lambda表达式连接字符串
+        StringConnector connector = String::concat;
+        System.out.println("自定义接口连接字符串: " + connector.connect("Hello", "World"));
+    }
+
+
+    // 自定义函数式接口示例2
+    @FunctionalInterface
+    interface StringConnector {
+        String connect(String a, String b);
     }
 
     // 自定义函数式接口示例
