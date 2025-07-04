@@ -3,7 +3,6 @@ package com.interview;
 import com.interview.sc.DataStructureExplanation;
 import com.interview.sc.ForkJoinBatchProcessor;
 import com.interview.sc.StreamProcessingDemo;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -26,9 +25,9 @@ public class YkTests {
         
         List<Integer> result = demo.parallelProcess();
         
-        Assert.notNull(result, "结果列表不应为空");
-        Assert.isTrue(result.size() == 5, "偶数数量应为5个");
-        Assert.isTrue(result.get(0) == 20, "最大值应为20");
+        notNull(result, "结果列表不应为空");
+        isTrue(result.size() == 5, "偶数数量应为5个");
+        isTrue(result.get(0) == 20, "最大值应为20");
         
         System.out.println("Stream处理结果: " + result);
     }
@@ -37,8 +36,20 @@ public class YkTests {
         int[] dataArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         int result = ForkJoinBatchProcessor.batchProcess(dataArray);
         
-        Assert.isTrue(result == 120, "总和应为55");
+        isTrue(result == 120, "总和应为55");
         System.out.println("ForkJoin处理结果: " + result);
+    }
+
+    public static void isTrue(boolean expression, String message) {
+        if (!expression) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void notNull(Object obj, String message) {
+        if (obj == null) {
+            throw new NullPointerException(message);
+        }
     }
 
     public void testDataStructureExplanation() {

@@ -1,0 +1,843 @@
+Classfile /Users/hanson/data/project/study/testJava/target/classes/com/practice/base/LambadaTest.class
+  Last modified 2025-7-4; size 6807 bytes
+  MD5 checksum 16c3e471396cdcff85410a8f7b44dd8a
+  Compiled from "LambadaTest.java"
+public class com.practice.base.LambadaTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+    #1 = Methodref          #64.#143      // java/lang/Object."<init>":()V
+    #2 = InvokeDynamic      #0:#148       // #0:run:()Ljava/lang/Runnable;
+    #3 = Class              #149          // java/lang/Thread
+    #4 = Methodref          #3.#150       // java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+    #5 = InvokeDynamic      #1:#148       // #1:run:()Ljava/lang/Runnable;
+    #6 = Methodref          #3.#152       // java/lang/Thread.start:()V
+    #7 = InvokeDynamic      #2:#156       // #2:accept:()Ljava/util/function/Consumer;
+    #8 = String             #157          // Hello World
+    #9 = InterfaceMethodref #158.#159     // java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+   #10 = InvokeDynamic      #3:#163       // #3:apply:()Ljava/util/function/Function;
+   #11 = Fieldref           #164.#165     // java/lang/System.out:Ljava/io/PrintStream;
+   #12 = Class              #166          // java/lang/StringBuilder
+   #13 = Methodref          #12.#143      // java/lang/StringBuilder."<init>":()V
+   #14 = String             #167          // 字符串转整数:
+   #15 = Methodref          #12.#168      // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   #16 = String             #169          // 1234
+   #17 = InterfaceMethodref #170.#171     // java/util/function/Function.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+   #18 = Methodref          #12.#172      // java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   #19 = Methodref          #12.#173      // java/lang/StringBuilder.toString:()Ljava/lang/String;
+   #20 = Methodref          #174.#175     // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #21 = InvokeDynamic      #4:#179       // #4:apply:()Ljava/util/function/BiFunction;
+   #22 = String             #180          // 双参数计算结果:
+   #23 = Methodref          #181.#182     // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+   #24 = InterfaceMethodref #183.#184     // java/util/function/BiFunction.apply:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+   #25 = InvokeDynamic      #5:#188       // #5:get:()Ljava/util/function/Supplier;
+   #26 = String             #189          // 方法引用获取随机数:
+   #27 = InterfaceMethodref #190.#191     // java/util/function/Supplier.get:()Ljava/lang/Object;
+   #28 = InvokeDynamic      #6:#194       // #6:apply:(I)Ljava/util/function/Function;
+   #29 = String             #195          // 变量捕获示例:
+   #30 = InvokeDynamic      #7:#163       // #7:apply:()Ljava/util/function/Function;
+   #31 = String             #198          // 构造方法引用:
+   #32 = String             #199          // 测试文本
+   #33 = InvokeDynamic      #8:#203       // #8:test:()Ljava/util/function/Predicate;
+   #34 = String             #204          // 数字是否为偶数:
+   #35 = InterfaceMethodref #205.#206     // java/util/function/Predicate.test:(Ljava/lang/Object;)Z
+   #36 = Methodref          #12.#207      // java/lang/StringBuilder.append:(Z)Ljava/lang/StringBuilder;
+   #37 = Class              #208          // java/lang/String
+   #38 = String             #209          // apple
+   #39 = String             #210          // banana
+   #40 = String             #211          // cherry
+   #41 = Methodref          #212.#213     // java/util/Arrays.asList:([Ljava/lang/Object;)Ljava/util/List;
+   #42 = InvokeDynamic      #9:#156       // #9:accept:()Ljava/util/function/Consumer;
+   #43 = InterfaceMethodref #215.#216     // java/util/List.forEach:(Ljava/util/function/Consumer;)V
+   #44 = InvokeDynamic      #10:#219      // #10:calculate:()Lcom/practice/base/LambadaTest$Calculator;
+   #45 = String             #220          // 自定义接口计算:
+   #46 = InterfaceMethodref #65.#221      // com/practice/base/LambadaTest$Calculator.calculate:(II)I
+   #47 = Methodref          #12.#222      // java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   #48 = InvokeDynamic      #11:#225      // #11:connect:()Lcom/practice/base/LambadaTest$StringConnector;
+   #49 = String             #226          // 自定义接口连接字符串:
+   #50 = String             #227          // Hello
+   #51 = String             #228          // World
+   #52 = InterfaceMethodref #68.#229      // com/practice/base/LambadaTest$StringConnector.connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+   #53 = InvokeDynamic      #12:#230      // #12:apply:()Ljava/util/function/BinaryOperator;
+   #54 = String             #231          // operator接口测试:
+   #55 = InterfaceMethodref #232.#184     // java/util/function/BinaryOperator.apply:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+   #56 = String             #233          // 集合元素:
+   #57 = Methodref          #181.#234     // java/lang/Integer.intValue:()I
+   #58 = Methodref          #235.#236     // java/lang/Math.sqrt:(D)D
+   #59 = Methodref          #237.#238     // java/lang/Double.valueOf:(D)Ljava/lang/Double;
+   #60 = String             #239          // 消费型接口:
+   #61 = String             #240          // 无参数Lambda执行2
+   #62 = String             #241          // 无参数Lambda执行
+   #63 = Class              #242          // com/practice/base/LambadaTest
+   #64 = Class              #243          // java/lang/Object
+   #65 = Class              #244          // com/practice/base/LambadaTest$Calculator
+   #66 = Utf8               Calculator
+   #67 = Utf8               InnerClasses
+   #68 = Class              #245          // com/practice/base/LambadaTest$StringConnector
+   #69 = Utf8               StringConnector
+   #70 = Utf8               <init>
+   #71 = Utf8               ()V
+   #72 = Utf8               Code
+   #73 = Utf8               LineNumberTable
+   #74 = Utf8               LocalVariableTable
+   #75 = Utf8               this
+   #76 = Utf8               Lcom/practice/base/LambadaTest;
+   #77 = Utf8               main
+   #78 = Utf8               ([Ljava/lang/String;)V
+   #79 = Utf8               args
+   #80 = Utf8               [Ljava/lang/String;
+   #81 = Utf8               task
+   #82 = Utf8               Ljava/lang/Runnable;
+   #83 = Utf8               t1
+   #84 = Utf8               Ljava/lang/Thread;
+   #85 = Utf8               t2
+   #86 = Utf8               printConsumer
+   #87 = Utf8               Ljava/util/function/Consumer;
+   #88 = Utf8               strToInt
+   #89 = Utf8               Ljava/util/function/Function;
+   #90 = Utf8               calc
+   #91 = Utf8               Ljava/util/function/BiFunction;
+   #92 = Utf8               piSupplier
+   #93 = Utf8               Ljava/util/function/Supplier;
+   #94 = Utf8               factor
+   #95 = Utf8               I
+   #96 = Utf8               multiplier
+   #97 = Utf8               builder
+   #98 = Utf8               isEven
+   #99 = Utf8               Ljava/util/function/Predicate;
+  #100 = Utf8               fruits
+  #101 = Utf8               Ljava/util/List;
+  #102 = Utf8               adder
+  #103 = Utf8               Lcom/practice/base/LambadaTest$Calculator;
+  #104 = Utf8               connector
+  #105 = Utf8               Lcom/practice/base/LambadaTest$StringConnector;
+  #106 = Utf8               operator
+  #107 = Utf8               Ljava/util/function/BinaryOperator;
+  #108 = Utf8               LocalVariableTypeTable
+  #109 = Utf8               Ljava/util/function/Consumer<Ljava/lang/String;>;
+  #110 = Utf8               Ljava/util/function/Function<Ljava/lang/String;Ljava/lang/Integer;>;
+  #111 = Utf8               Ljava/util/function/BiFunction<Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Double;>;
+  #112 = Utf8               Ljava/util/function/Supplier<Ljava/lang/Double;>;
+  #113 = Utf8               Ljava/util/function/Function<Ljava/lang/Integer;Ljava/lang/Integer;>;
+  #114 = Utf8               Ljava/util/function/Function<Ljava/lang/String;Ljava/lang/StringBuilder;>;
+  #115 = Utf8               Ljava/util/function/Predicate<Ljava/lang/Integer;>;
+  #116 = Utf8               Ljava/util/List<Ljava/lang/String;>;
+  #117 = Utf8               Ljava/util/function/BinaryOperator<Ljava/lang/String;>;
+  #118 = Utf8               lambda$main$7
+  #119 = Utf8               (II)I
+  #120 = Utf8               a
+  #121 = Utf8               b
+  #122 = Utf8               lambda$main$6
+  #123 = Utf8               (Ljava/lang/String;)V
+  #124 = Utf8               fruit
+  #125 = Utf8               Ljava/lang/String;
+  #126 = Utf8               lambda$main$5
+  #127 = Utf8               (Ljava/lang/Integer;)Z
+  #128 = Utf8               x
+  #129 = Utf8               Ljava/lang/Integer;
+  #130 = Utf8               StackMapTable
+  #131 = Utf8               lambda$main$4
+  #132 = Utf8               (ILjava/lang/Integer;)Ljava/lang/Integer;
+  #133 = Utf8               lambda$main$3
+  #134 = Utf8               (Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  #135 = Utf8               result
+  #136 = Utf8               D
+  #137 = Utf8               lambda$main$2
+  #138 = Utf8               str
+  #139 = Utf8               lambda$main$1
+  #140 = Utf8               lambda$main$0
+  #141 = Utf8               SourceFile
+  #142 = Utf8               LambadaTest.java
+  #143 = NameAndType        #70:#71       // "<init>":()V
+  #144 = Utf8               BootstrapMethods
+  #145 = MethodHandle       #6:#246       // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #146 = MethodType         #71           //  ()V
+  #147 = MethodHandle       #6:#247       // invokestatic com/practice/base/LambadaTest.lambda$main$0:()V
+  #148 = NameAndType        #248:#249     // run:()Ljava/lang/Runnable;
+  #149 = Utf8               java/lang/Thread
+  #150 = NameAndType        #70:#250      // "<init>":(Ljava/lang/Runnable;)V
+  #151 = MethodHandle       #6:#251       // invokestatic com/practice/base/LambadaTest.lambda$main$1:()V
+  #152 = NameAndType        #252:#71      // start:()V
+  #153 = MethodType         #253          //  (Ljava/lang/Object;)V
+  #154 = MethodHandle       #6:#254       // invokestatic com/practice/base/LambadaTest.lambda$main$2:(Ljava/lang/String;)V
+  #155 = MethodType         #123          //  (Ljava/lang/String;)V
+  #156 = NameAndType        #255:#256     // accept:()Ljava/util/function/Consumer;
+  #157 = Utf8               Hello World
+  #158 = Class              #257          // java/util/function/Consumer
+  #159 = NameAndType        #255:#253     // accept:(Ljava/lang/Object;)V
+  #160 = MethodType         #258          //  (Ljava/lang/Object;)Ljava/lang/Object;
+  #161 = MethodHandle       #6:#259       // invokestatic java/lang/Integer.parseInt:(Ljava/lang/String;)I
+  #162 = MethodType         #260          //  (Ljava/lang/String;)Ljava/lang/Integer;
+  #163 = NameAndType        #261:#262     // apply:()Ljava/util/function/Function;
+  #164 = Class              #263          // java/lang/System
+  #165 = NameAndType        #264:#265     // out:Ljava/io/PrintStream;
+  #166 = Utf8               java/lang/StringBuilder
+  #167 = Utf8               字符串转整数:
+  #168 = NameAndType        #266:#267     // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #169 = Utf8               1234
+  #170 = Class              #268          // java/util/function/Function
+  #171 = NameAndType        #261:#258     // apply:(Ljava/lang/Object;)Ljava/lang/Object;
+  #172 = NameAndType        #266:#269     // append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  #173 = NameAndType        #270:#271     // toString:()Ljava/lang/String;
+  #174 = Class              #272          // java/io/PrintStream
+  #175 = NameAndType        #273:#123     // println:(Ljava/lang/String;)V
+  #176 = MethodType         #274          //  (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #177 = MethodHandle       #6:#275       // invokestatic com/practice/base/LambadaTest.lambda$main$3:(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  #178 = MethodType         #134          //  (Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  #179 = NameAndType        #261:#276     // apply:()Ljava/util/function/BiFunction;
+  #180 = Utf8               双参数计算结果:
+  #181 = Class              #277          // java/lang/Integer
+  #182 = NameAndType        #278:#279     // valueOf:(I)Ljava/lang/Integer;
+  #183 = Class              #280          // java/util/function/BiFunction
+  #184 = NameAndType        #261:#274     // apply:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #185 = MethodType         #281          //  ()Ljava/lang/Object;
+  #186 = MethodHandle       #6:#282       // invokestatic java/lang/Math.random:()D
+  #187 = MethodType         #283          //  ()Ljava/lang/Double;
+  #188 = NameAndType        #284:#285     // get:()Ljava/util/function/Supplier;
+  #189 = Utf8               方法引用获取随机数:
+  #190 = Class              #286          // java/util/function/Supplier
+  #191 = NameAndType        #284:#281     // get:()Ljava/lang/Object;
+  #192 = MethodHandle       #6:#287       // invokestatic com/practice/base/LambadaTest.lambda$main$4:(ILjava/lang/Integer;)Ljava/lang/Integer;
+  #193 = MethodType         #288          //  (Ljava/lang/Integer;)Ljava/lang/Integer;
+  #194 = NameAndType        #261:#289     // apply:(I)Ljava/util/function/Function;
+  #195 = Utf8               变量捕获示例:
+  #196 = MethodHandle       #8:#290       // newinvokespecial java/lang/StringBuilder."<init>":(Ljava/lang/String;)V
+  #197 = MethodType         #267          //  (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #198 = Utf8               构造方法引用:
+  #199 = Utf8               测试文本
+  #200 = MethodType         #291          //  (Ljava/lang/Object;)Z
+  #201 = MethodHandle       #6:#292       // invokestatic com/practice/base/LambadaTest.lambda$main$5:(Ljava/lang/Integer;)Z
+  #202 = MethodType         #127          //  (Ljava/lang/Integer;)Z
+  #203 = NameAndType        #293:#294     // test:()Ljava/util/function/Predicate;
+  #204 = Utf8               数字是否为偶数:
+  #205 = Class              #295          // java/util/function/Predicate
+  #206 = NameAndType        #293:#291     // test:(Ljava/lang/Object;)Z
+  #207 = NameAndType        #266:#296     // append:(Z)Ljava/lang/StringBuilder;
+  #208 = Utf8               java/lang/String
+  #209 = Utf8               apple
+  #210 = Utf8               banana
+  #211 = Utf8               cherry
+  #212 = Class              #297          // java/util/Arrays
+  #213 = NameAndType        #298:#299     // asList:([Ljava/lang/Object;)Ljava/util/List;
+  #214 = MethodHandle       #6:#300       // invokestatic com/practice/base/LambadaTest.lambda$main$6:(Ljava/lang/String;)V
+  #215 = Class              #301          // java/util/List
+  #216 = NameAndType        #302:#303     // forEach:(Ljava/util/function/Consumer;)V
+  #217 = MethodType         #119          //  (II)I
+  #218 = MethodHandle       #6:#304       // invokestatic com/practice/base/LambadaTest.lambda$main$7:(II)I
+  #219 = NameAndType        #305:#306     // calculate:()Lcom/practice/base/LambadaTest$Calculator;
+  #220 = Utf8               自定义接口计算:
+  #221 = NameAndType        #305:#119     // calculate:(II)I
+  #222 = NameAndType        #266:#307     // append:(I)Ljava/lang/StringBuilder;
+  #223 = MethodType         #308          //  (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #224 = MethodHandle       #5:#309       // invokevirtual java/lang/String.concat:(Ljava/lang/String;)Ljava/lang/String;
+  #225 = NameAndType        #310:#311     // connect:()Lcom/practice/base/LambadaTest$StringConnector;
+  #226 = Utf8               自定义接口连接字符串:
+  #227 = Utf8               Hello
+  #228 = Utf8               World
+  #229 = NameAndType        #310:#308     // connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #230 = NameAndType        #261:#312     // apply:()Ljava/util/function/BinaryOperator;
+  #231 = Utf8               operator接口测试:
+  #232 = Class              #313          // java/util/function/BinaryOperator
+  #233 = Utf8               集合元素:
+  #234 = NameAndType        #314:#315     // intValue:()I
+  #235 = Class              #316          // java/lang/Math
+  #236 = NameAndType        #317:#318     // sqrt:(D)D
+  #237 = Class              #319          // java/lang/Double
+  #238 = NameAndType        #278:#320     // valueOf:(D)Ljava/lang/Double;
+  #239 = Utf8               消费型接口:
+  #240 = Utf8               无参数Lambda执行2
+  #241 = Utf8               无参数Lambda执行
+  #242 = Utf8               com/practice/base/LambadaTest
+  #243 = Utf8               java/lang/Object
+  #244 = Utf8               com/practice/base/LambadaTest$Calculator
+  #245 = Utf8               com/practice/base/LambadaTest$StringConnector
+  #246 = Methodref          #321.#322     // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #247 = Methodref          #63.#323      // com/practice/base/LambadaTest.lambda$main$0:()V
+  #248 = Utf8               run
+  #249 = Utf8               ()Ljava/lang/Runnable;
+  #250 = Utf8               (Ljava/lang/Runnable;)V
+  #251 = Methodref          #63.#324      // com/practice/base/LambadaTest.lambda$main$1:()V
+  #252 = Utf8               start
+  #253 = Utf8               (Ljava/lang/Object;)V
+  #254 = Methodref          #63.#325      // com/practice/base/LambadaTest.lambda$main$2:(Ljava/lang/String;)V
+  #255 = Utf8               accept
+  #256 = Utf8               ()Ljava/util/function/Consumer;
+  #257 = Utf8               java/util/function/Consumer
+  #258 = Utf8               (Ljava/lang/Object;)Ljava/lang/Object;
+  #259 = Methodref          #181.#326     // java/lang/Integer.parseInt:(Ljava/lang/String;)I
+  #260 = Utf8               (Ljava/lang/String;)Ljava/lang/Integer;
+  #261 = Utf8               apply
+  #262 = Utf8               ()Ljava/util/function/Function;
+  #263 = Utf8               java/lang/System
+  #264 = Utf8               out
+  #265 = Utf8               Ljava/io/PrintStream;
+  #266 = Utf8               append
+  #267 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #268 = Utf8               java/util/function/Function
+  #269 = Utf8               (Ljava/lang/Object;)Ljava/lang/StringBuilder;
+  #270 = Utf8               toString
+  #271 = Utf8               ()Ljava/lang/String;
+  #272 = Utf8               java/io/PrintStream
+  #273 = Utf8               println
+  #274 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+  #275 = Methodref          #63.#327      // com/practice/base/LambadaTest.lambda$main$3:(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  #276 = Utf8               ()Ljava/util/function/BiFunction;
+  #277 = Utf8               java/lang/Integer
+  #278 = Utf8               valueOf
+  #279 = Utf8               (I)Ljava/lang/Integer;
+  #280 = Utf8               java/util/function/BiFunction
+  #281 = Utf8               ()Ljava/lang/Object;
+  #282 = Methodref          #235.#328     // java/lang/Math.random:()D
+  #283 = Utf8               ()Ljava/lang/Double;
+  #284 = Utf8               get
+  #285 = Utf8               ()Ljava/util/function/Supplier;
+  #286 = Utf8               java/util/function/Supplier
+  #287 = Methodref          #63.#329      // com/practice/base/LambadaTest.lambda$main$4:(ILjava/lang/Integer;)Ljava/lang/Integer;
+  #288 = Utf8               (Ljava/lang/Integer;)Ljava/lang/Integer;
+  #289 = Utf8               (I)Ljava/util/function/Function;
+  #290 = Methodref          #12.#330      // java/lang/StringBuilder."<init>":(Ljava/lang/String;)V
+  #291 = Utf8               (Ljava/lang/Object;)Z
+  #292 = Methodref          #63.#331      // com/practice/base/LambadaTest.lambda$main$5:(Ljava/lang/Integer;)Z
+  #293 = Utf8               test
+  #294 = Utf8               ()Ljava/util/function/Predicate;
+  #295 = Utf8               java/util/function/Predicate
+  #296 = Utf8               (Z)Ljava/lang/StringBuilder;
+  #297 = Utf8               java/util/Arrays
+  #298 = Utf8               asList
+  #299 = Utf8               ([Ljava/lang/Object;)Ljava/util/List;
+  #300 = Methodref          #63.#332      // com/practice/base/LambadaTest.lambda$main$6:(Ljava/lang/String;)V
+  #301 = Utf8               java/util/List
+  #302 = Utf8               forEach
+  #303 = Utf8               (Ljava/util/function/Consumer;)V
+  #304 = Methodref          #63.#333      // com/practice/base/LambadaTest.lambda$main$7:(II)I
+  #305 = Utf8               calculate
+  #306 = Utf8               ()Lcom/practice/base/LambadaTest$Calculator;
+  #307 = Utf8               (I)Ljava/lang/StringBuilder;
+  #308 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #309 = Methodref          #37.#334      // java/lang/String.concat:(Ljava/lang/String;)Ljava/lang/String;
+  #310 = Utf8               connect
+  #311 = Utf8               ()Lcom/practice/base/LambadaTest$StringConnector;
+  #312 = Utf8               ()Ljava/util/function/BinaryOperator;
+  #313 = Utf8               java/util/function/BinaryOperator
+  #314 = Utf8               intValue
+  #315 = Utf8               ()I
+  #316 = Utf8               java/lang/Math
+  #317 = Utf8               sqrt
+  #318 = Utf8               (D)D
+  #319 = Utf8               java/lang/Double
+  #320 = Utf8               (D)Ljava/lang/Double;
+  #321 = Class              #335          // java/lang/invoke/LambdaMetafactory
+  #322 = NameAndType        #336:#339     // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #323 = NameAndType        #140:#71      // lambda$main$0:()V
+  #324 = NameAndType        #139:#71      // lambda$main$1:()V
+  #325 = NameAndType        #137:#123     // lambda$main$2:(Ljava/lang/String;)V
+  #326 = NameAndType        #340:#341     // parseInt:(Ljava/lang/String;)I
+  #327 = NameAndType        #133:#134     // lambda$main$3:(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  #328 = NameAndType        #342:#343     // random:()D
+  #329 = NameAndType        #131:#132     // lambda$main$4:(ILjava/lang/Integer;)Ljava/lang/Integer;
+  #330 = NameAndType        #70:#123      // "<init>":(Ljava/lang/String;)V
+  #331 = NameAndType        #126:#127     // lambda$main$5:(Ljava/lang/Integer;)Z
+  #332 = NameAndType        #122:#123     // lambda$main$6:(Ljava/lang/String;)V
+  #333 = NameAndType        #118:#119     // lambda$main$7:(II)I
+  #334 = NameAndType        #344:#345     // concat:(Ljava/lang/String;)Ljava/lang/String;
+  #335 = Utf8               java/lang/invoke/LambdaMetafactory
+  #336 = Utf8               metafactory
+  #337 = Class              #347          // java/lang/invoke/MethodHandles$Lookup
+  #338 = Utf8               Lookup
+  #339 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #340 = Utf8               parseInt
+  #341 = Utf8               (Ljava/lang/String;)I
+  #342 = Utf8               random
+  #343 = Utf8               ()D
+  #344 = Utf8               concat
+  #345 = Utf8               (Ljava/lang/String;)Ljava/lang/String;
+  #346 = Class              #348          // java/lang/invoke/MethodHandles
+  #347 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #348 = Utf8               java/lang/invoke/MethodHandles
+{
+  public com.practice.base.LambadaTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 9: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/practice/base/LambadaTest;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=16, args_size=1
+         0: invokedynamic #2,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable;
+         5: astore_1
+         6: new           #3                  // class java/lang/Thread
+         9: dup
+        10: aload_1
+        11: invokespecial #4                  // Method java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+        14: astore_2
+        15: new           #3                  // class java/lang/Thread
+        18: dup
+        19: invokedynamic #5,  0              // InvokeDynamic #1:run:()Ljava/lang/Runnable;
+        24: invokespecial #4                  // Method java/lang/Thread."<init>":(Ljava/lang/Runnable;)V
+        27: astore_3
+        28: aload_2
+        29: invokevirtual #6                  // Method java/lang/Thread.start:()V
+        32: aload_3
+        33: invokevirtual #6                  // Method java/lang/Thread.start:()V
+        36: invokedynamic #7,  0              // InvokeDynamic #2:accept:()Ljava/util/function/Consumer;
+        41: astore        4
+        43: aload         4
+        45: ldc           #8                  // String Hello World
+        47: invokeinterface #9,  2            // InterfaceMethod java/util/function/Consumer.accept:(Ljava/lang/Object;)V
+        52: invokedynamic #10,  0             // InvokeDynamic #3:apply:()Ljava/util/function/Function;
+        57: astore        5
+        59: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        62: new           #12                 // class java/lang/StringBuilder
+        65: dup
+        66: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+        69: ldc           #14                 // String 字符串转整数:
+        71: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        74: aload         5
+        76: ldc           #16                 // String 1234
+        78: invokeinterface #17,  2           // InterfaceMethod java/util/function/Function.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+        83: invokevirtual #18                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+        86: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        89: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        92: invokedynamic #21,  0             // InvokeDynamic #4:apply:()Ljava/util/function/BiFunction;
+        97: astore        6
+        99: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       102: new           #12                 // class java/lang/StringBuilder
+       105: dup
+       106: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       109: ldc           #22                 // String 双参数计算结果:
+       111: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       114: aload         6
+       116: iconst_3
+       117: invokestatic  #23                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       120: iconst_4
+       121: invokestatic  #23                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       124: invokeinterface #24,  3           // InterfaceMethod java/util/function/BiFunction.apply:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+       129: invokevirtual #18                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       132: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       135: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       138: invokedynamic #25,  0             // InvokeDynamic #5:get:()Ljava/util/function/Supplier;
+       143: astore        7
+       145: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       148: new           #12                 // class java/lang/StringBuilder
+       151: dup
+       152: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       155: ldc           #26                 // String 方法引用获取随机数:
+       157: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       160: aload         7
+       162: invokeinterface #27,  1           // InterfaceMethod java/util/function/Supplier.get:()Ljava/lang/Object;
+       167: invokevirtual #18                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       170: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       173: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       176: bipush        10
+       178: istore        8
+       180: iload         8
+       182: invokedynamic #28,  0             // InvokeDynamic #6:apply:(I)Ljava/util/function/Function;
+       187: astore        9
+       189: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       192: new           #12                 // class java/lang/StringBuilder
+       195: dup
+       196: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       199: ldc           #29                 // String 变量捕获示例:
+       201: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       204: aload         9
+       206: iconst_5
+       207: invokestatic  #23                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       210: invokeinterface #17,  2           // InterfaceMethod java/util/function/Function.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+       215: invokevirtual #18                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       218: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       221: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       224: invokedynamic #30,  0             // InvokeDynamic #7:apply:()Ljava/util/function/Function;
+       229: astore        10
+       231: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       234: new           #12                 // class java/lang/StringBuilder
+       237: dup
+       238: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       241: ldc           #31                 // String 构造方法引用:
+       243: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       246: aload         10
+       248: ldc           #32                 // String 测试文本
+       250: invokeinterface #17,  2           // InterfaceMethod java/util/function/Function.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+       255: invokevirtual #18                 // Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+       258: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       261: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       264: invokedynamic #33,  0             // InvokeDynamic #8:test:()Ljava/util/function/Predicate;
+       269: astore        11
+       271: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       274: new           #12                 // class java/lang/StringBuilder
+       277: dup
+       278: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       281: ldc           #34                 // String 数字是否为偶数:
+       283: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       286: aload         11
+       288: bipush        12
+       290: invokestatic  #23                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       293: invokeinterface #35,  2           // InterfaceMethod java/util/function/Predicate.test:(Ljava/lang/Object;)Z
+       298: invokevirtual #36                 // Method java/lang/StringBuilder.append:(Z)Ljava/lang/StringBuilder;
+       301: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       304: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       307: iconst_3
+       308: anewarray     #37                 // class java/lang/String
+       311: dup
+       312: iconst_0
+       313: ldc           #38                 // String apple
+       315: aastore
+       316: dup
+       317: iconst_1
+       318: ldc           #39                 // String banana
+       320: aastore
+       321: dup
+       322: iconst_2
+       323: ldc           #40                 // String cherry
+       325: aastore
+       326: invokestatic  #41                 // Method java/util/Arrays.asList:([Ljava/lang/Object;)Ljava/util/List;
+       329: astore        12
+       331: aload         12
+       333: invokedynamic #42,  0             // InvokeDynamic #9:accept:()Ljava/util/function/Consumer;
+       338: invokeinterface #43,  2           // InterfaceMethod java/util/List.forEach:(Ljava/util/function/Consumer;)V
+       343: invokedynamic #44,  0             // InvokeDynamic #10:calculate:()Lcom/practice/base/LambadaTest$Calculator;
+       348: astore        13
+       350: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       353: new           #12                 // class java/lang/StringBuilder
+       356: dup
+       357: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       360: ldc           #45                 // String 自定义接口计算:
+       362: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       365: aload         13
+       367: bipush        15
+       369: bipush        25
+       371: invokeinterface #46,  3           // InterfaceMethod com/practice/base/LambadaTest$Calculator.calculate:(II)I
+       376: invokevirtual #47                 // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+       379: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       382: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       385: invokedynamic #48,  0             // InvokeDynamic #11:connect:()Lcom/practice/base/LambadaTest$StringConnector;
+       390: astore        14
+       392: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       395: new           #12                 // class java/lang/StringBuilder
+       398: dup
+       399: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       402: ldc           #49                 // String 自定义接口连接字符串:
+       404: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       407: aload         14
+       409: ldc           #50                 // String Hello
+       411: ldc           #51                 // String World
+       413: invokeinterface #52,  3           // InterfaceMethod com/practice/base/LambadaTest$StringConnector.connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+       418: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       421: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       424: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       427: invokedynamic #53,  0             // InvokeDynamic #12:apply:()Ljava/util/function/BinaryOperator;
+       432: astore        15
+       434: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       437: new           #12                 // class java/lang/StringBuilder
+       440: dup
+       441: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+       444: ldc           #54                 // String operator接口测试:
+       446: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       449: aload         15
+       451: ldc           #50                 // String Hello
+       453: ldc           #51                 // String World
+       455: invokeinterface #55,  3           // InterfaceMethod java/util/function/BinaryOperator.apply:(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+       460: checkcast     #37                 // class java/lang/String
+       463: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+       466: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+       469: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       472: return
+      LineNumberTable:
+        line 15: 0
+        line 16: 6
+        line 17: 15
+        line 18: 28
+        line 19: 32
+        line 23: 36
+        line 24: 43
+        line 28: 52
+        line 29: 59
+        line 33: 92
+        line 37: 99
+        line 41: 138
+        line 42: 145
+        line 46: 176
+        line 47: 180
+        line 48: 189
+        line 52: 224
+        line 53: 231
+        line 57: 264
+        line 58: 271
+        line 62: 307
+        line 63: 331
+        line 67: 343
+        line 68: 350
+        line 74: 385
+        line 75: 392
+        line 77: 427
+        line 83: 434
+        line 86: 472
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     473     0  args   [Ljava/lang/String;
+            6     467     1  task   Ljava/lang/Runnable;
+           15     458     2    t1   Ljava/lang/Thread;
+           28     445     3    t2   Ljava/lang/Thread;
+           43     430     4 printConsumer   Ljava/util/function/Consumer;
+           59     414     5 strToInt   Ljava/util/function/Function;
+           99     374     6  calc   Ljava/util/function/BiFunction;
+          145     328     7 piSupplier   Ljava/util/function/Supplier;
+          180     293     8 factor   I
+          189     284     9 multiplier   Ljava/util/function/Function;
+          231     242    10 builder   Ljava/util/function/Function;
+          271     202    11 isEven   Ljava/util/function/Predicate;
+          331     142    12 fruits   Ljava/util/List;
+          350     123    13 adder   Lcom/practice/base/LambadaTest$Calculator;
+          392      81    14 connector   Lcom/practice/base/LambadaTest$StringConnector;
+          434      39    15 operator   Ljava/util/function/BinaryOperator;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+           43     430     4 printConsumer   Ljava/util/function/Consumer<Ljava/lang/String;>;
+           59     414     5 strToInt   Ljava/util/function/Function<Ljava/lang/String;Ljava/lang/Integer;>;
+           99     374     6  calc   Ljava/util/function/BiFunction<Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Double;>;
+          145     328     7 piSupplier   Ljava/util/function/Supplier<Ljava/lang/Double;>;
+          189     284     9 multiplier   Ljava/util/function/Function<Ljava/lang/Integer;Ljava/lang/Integer;>;
+          231     242    10 builder   Ljava/util/function/Function<Ljava/lang/String;Ljava/lang/StringBuilder;>;
+          271     202    11 isEven   Ljava/util/function/Predicate<Ljava/lang/Integer;>;
+          331     142    12 fruits   Ljava/util/List<Ljava/lang/String;>;
+          434      39    15 operator   Ljava/util/function/BinaryOperator<Ljava/lang/String;>;
+
+  private static int lambda$main$7(int, int);
+    descriptor: (II)I
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: iload_0
+         1: iload_1
+         2: iadd
+         3: ireturn
+      LineNumberTable:
+        line 67: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       4     0     a   I
+            0       4     1     b   I
+
+  private static void lambda$main$6(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: new           #12                 // class java/lang/StringBuilder
+         6: dup
+         7: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+        10: ldc           #56                 // String 集合元素:
+        12: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        15: aload_0
+        16: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        19: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        22: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        25: return
+      LineNumberTable:
+        line 63: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      26     0 fruit   Ljava/lang/String;
+
+  private static boolean lambda$main$5(java.lang.Integer);
+    descriptor: (Ljava/lang/Integer;)Z
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+         4: iconst_2
+         5: irem
+         6: ifne          13
+         9: iconst_1
+        10: goto          14
+        13: iconst_0
+        14: ireturn
+      LineNumberTable:
+        line 57: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0     x   Ljava/lang/Integer;
+      StackMapTable: number_of_entries = 2
+        frame_type = 13 /* same */
+        frame_type = 64 /* same_locals_1_stack_item */
+          stack = [ int ]
+
+  private static java.lang.Integer lambda$main$4(int, java.lang.Integer);
+    descriptor: (ILjava/lang/Integer;)Ljava/lang/Integer;
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_1
+         1: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+         4: iload_0
+         5: imul
+         6: invokestatic  #23                 // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+         9: areturn
+      LineNumberTable:
+        line 47: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0 factor   I
+            0      10     1     x   Ljava/lang/Integer;
+
+  private static java.lang.Double lambda$main$3(java.lang.Integer, java.lang.Integer);
+    descriptor: (Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=4, args_size=2
+         0: aload_0
+         1: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+         4: aload_0
+         5: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+         8: imul
+         9: aload_1
+        10: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+        13: aload_1
+        14: invokevirtual #57                 // Method java/lang/Integer.intValue:()I
+        17: imul
+        18: iadd
+        19: i2d
+        20: invokestatic  #58                 // Method java/lang/Math.sqrt:(D)D
+        23: dstore_2
+        24: dload_2
+        25: invokestatic  #59                 // Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+        28: areturn
+      LineNumberTable:
+        line 34: 0
+        line 35: 24
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      29     0     a   Ljava/lang/Integer;
+            0      29     1     b   Ljava/lang/Integer;
+           24       5     2 result   D
+
+  private static void lambda$main$2(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: new           #12                 // class java/lang/StringBuilder
+         6: dup
+         7: invokespecial #13                 // Method java/lang/StringBuilder."<init>":()V
+        10: ldc           #60                 // String 消费型接口:
+        12: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        15: aload_0
+        16: invokevirtual #15                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        19: invokevirtual #19                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        22: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        25: return
+      LineNumberTable:
+        line 23: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      26     0   str   Ljava/lang/String;
+
+  private static void lambda$main$1();
+    descriptor: ()V
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #61                 // String 无参数Lambda执行2
+         5: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 17: 0
+
+  private static void lambda$main$0();
+    descriptor: ()V
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=0, args_size=0
+         0: getstatic     #11                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #62                 // String 无参数Lambda执行
+         5: invokevirtual #20                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: return
+      LineNumberTable:
+        line 15: 0
+}
+SourceFile: "LambadaTest.java"
+InnerClasses:
+     static #66= #65 of #63; //Calculator=class com/practice/base/LambadaTest$Calculator of class com/practice/base/LambadaTest
+     static #69= #68 of #63; //StringConnector=class com/practice/base/LambadaTest$StringConnector of class com/practice/base/LambadaTest
+     public static final #338= #337 of #346; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+BootstrapMethods:
+  0: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #146 ()V
+      #147 invokestatic com/practice/base/LambadaTest.lambda$main$0:()V
+      #146 ()V
+  1: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #146 ()V
+      #151 invokestatic com/practice/base/LambadaTest.lambda$main$1:()V
+      #146 ()V
+  2: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #153 (Ljava/lang/Object;)V
+      #154 invokestatic com/practice/base/LambadaTest.lambda$main$2:(Ljava/lang/String;)V
+      #155 (Ljava/lang/String;)V
+  3: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #160 (Ljava/lang/Object;)Ljava/lang/Object;
+      #161 invokestatic java/lang/Integer.parseInt:(Ljava/lang/String;)I
+      #162 (Ljava/lang/String;)Ljava/lang/Integer;
+  4: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #176 (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+      #177 invokestatic com/practice/base/LambadaTest.lambda$main$3:(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+      #178 (Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Double;
+  5: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #185 ()Ljava/lang/Object;
+      #186 invokestatic java/lang/Math.random:()D
+      #187 ()Ljava/lang/Double;
+  6: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #160 (Ljava/lang/Object;)Ljava/lang/Object;
+      #192 invokestatic com/practice/base/LambadaTest.lambda$main$4:(ILjava/lang/Integer;)Ljava/lang/Integer;
+      #193 (Ljava/lang/Integer;)Ljava/lang/Integer;
+  7: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #160 (Ljava/lang/Object;)Ljava/lang/Object;
+      #196 newinvokespecial java/lang/StringBuilder."<init>":(Ljava/lang/String;)V
+      #197 (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  8: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #200 (Ljava/lang/Object;)Z
+      #201 invokestatic com/practice/base/LambadaTest.lambda$main$5:(Ljava/lang/Integer;)Z
+      #202 (Ljava/lang/Integer;)Z
+  9: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #153 (Ljava/lang/Object;)V
+      #214 invokestatic com/practice/base/LambadaTest.lambda$main$6:(Ljava/lang/String;)V
+      #155 (Ljava/lang/String;)V
+  10: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #217 (II)I
+      #218 invokestatic com/practice/base/LambadaTest.lambda$main$7:(II)I
+      #217 (II)I
+  11: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #223 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      #224 invokevirtual java/lang/String.concat:(Ljava/lang/String;)Ljava/lang/String;
+      #223 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  12: #145 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #176 (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+      #224 invokevirtual java/lang/String.concat:(Ljava/lang/String;)Ljava/lang/String;
+      #223 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
