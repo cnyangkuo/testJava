@@ -4,8 +4,9 @@ import java.util.function.*;
 /**
  * Lambda表达式完整示例集
  * 涵盖各种使用场景和语法特性
+ * @author hanson
  */
-public class LambadaTest {
+public class  LambadaTest {
     public static void main(String[] args) {
         // 1. 无参数Lambda示例 - Runnable接口
         // 修复：通过Runnable接口正确使用Lambda表达式
@@ -67,8 +68,21 @@ public class LambadaTest {
         System.out.println("自定义接口计算: " + adder.calculate(15, 25));
 
         // 11. 自定义函数式接口示例2 - 使用Lambda表达式连接字符串
+        // 核心原理：隐含的调用者参数
+        // 语法形式：ClassName::instanceMethodName
+        // 本质：将函数式接口的第一个参数作为实例方法的调用者（this），其余参数作为方法的入参。
         StringConnector connector = String::concat;
         System.out.println("自定义接口连接字符串: " + connector.connect("Hello", "World"));
+
+        BinaryOperator<String> operator = String::concat;
+        // 等价于：
+        // BinaryOperator<String> operator = (s1, s2) -> s1.concat(s2);
+        // BinaryOperator<String> 需要两个 String 参数并返回 String ; String::concat 将：
+        // 第一个参数 s1 作为 concat 的调用者 (this)
+        // 第二个参数 s2 作为 concat 的入参
+        System.out.println("operator接口测试: " + operator.apply("Hello", "World"));
+
+
     }
 
 
