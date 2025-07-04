@@ -26,11 +26,13 @@ public class ForkJoinBatchProcessor extends RecursiveTask<Integer> {
     protected Integer compute() {
         if (end - start <= THRESHOLD) {
             // 直接计算部分
+            System.out.println("Calculating directly from " + start + " to " + end);
             return calculateDirectly();
         }
 
         // 分割任务
         int mid = (start + end) / 2;
+        System.out.println("Splitting task from " + start + " to " + end + " with mid:" + mid);
         ForkJoinBatchProcessor leftTask = new ForkJoinBatchProcessor(data, start, mid);
         ForkJoinBatchProcessor rightTask = new ForkJoinBatchProcessor(data, mid, end);
 

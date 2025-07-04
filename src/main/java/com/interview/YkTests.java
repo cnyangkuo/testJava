@@ -34,10 +34,10 @@ public class YkTests {
     }
 
     public void testForkJoinProcessing() {
-        int[] dataArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] dataArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         int result = ForkJoinBatchProcessor.batchProcess(dataArray);
         
-        Assert.isTrue(result == 55, "总和应为55");
+        Assert.isTrue(result == 120, "总和应为55");
         System.out.println("ForkJoin处理结果: " + result);
     }
 
