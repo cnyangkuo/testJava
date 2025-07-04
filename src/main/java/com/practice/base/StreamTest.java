@@ -2,7 +2,10 @@ package com.practice.base;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -83,6 +86,88 @@ public class StreamTest {
                 .parallel().limit(10)
                 .collect(Collectors.toList());
         System.out.println(safeList);
+        
+        // 1. 基础操作链式调用示例
+        List<String> filtered = Arrays.asList("apple", "banana", "cherry", "date")
+            .stream()
+            .filter(s -> s.length() > 5)  // 过滤长度>5的字符串
+            .map(String::toUpperCase)     // 转换为大写
+            .limit(2)                      // 限制最多取2个
+            .collect(Collectors.toList()); // 收集结果
+        System.out.println("基础操作结果: " + filtered);
+
+        // 2. reduce聚合操作示例
+        Optional<Integer> sum = Arrays.asList(1, 2, 3, 4, 5)
+            .stream()
+            .reduce((a, b) -> a + b);
+        System.out.println("reduce求和结果: " + sum.orElse(0));
+
+        // 3. 分组groupingBy示例 - 按字符串长度分组
+        Map<Integer, List<String>> grouped = Arrays.asList("one", "two", "three", "four")
+            .stream()
+            .collect(Collectors.groupingBy(String::length));
+        System.out.println("按长度分组结果: " + grouped);
+
+        // 4. partitioningBy分区示例 - 按条件分区
+        Map<Boolean, List<Integer>> partitioned = Arrays.asList(1, 2, 3, 4, 5)
+            .stream()
+            .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+        System.out.println("奇偶数分区结果: " + partitioned);
+
+        // 5. 惰性求值特性演示
+        List<Integer> lazyResult = Arrays.asList(1, 2, 3, 4, 5)
+            .stream()
+            .filter(n -> {
+                System.out.print("惰性求值执行过滤 ");
+                return n % 2 == 0;
+            })
+            .map(n -> {
+                System.out.print("惰性求值执行映射 ");
+                return n * 2;
+            })
+            .limit(1)
+            .collect(Collectors.toList());
+        System.out.println("\n惰性求值结果: " + lazyResult);
+
+        // 6. 并行流parallelStream示例
+        int sumParallel = Arrays.asList(1, 2, 3, 4, 5)
+            .parallelStream()
+            .mapToInt(Integer::intValue)
+            .sum();
+        System.out.println("并行流求和结果: " + sumParallel);
+
+        // 7. flatMap扁平化处理示例
+        List<String> flatResult = Arrays.asList(Arrays.asList("a", "b"), Arrays.asList("c", "d"))
+            .stream()
+            .flatMap(List::stream)
+            .map(String::toUpperCase)
+            .collect(Collectors.toList());
+        System.out.println("扁平化处理结果: " + flatResult);
+
+        // 8. 自定义收集器示例 - 使用StringBuilder拼接
+        String joined = Arrays.asList("Java", "Stream", "API")
+            .stream()
+            .collect(Collectors.reducing(
+                new StringBuilder(),
+                s -> new StringBuilder(s),
+                (sb1, sb2) -> sb1.append("-").append(sb2)
+            ))
+            .toString();
+        System.out.println("自定义收集器结果: " + joined);
+
+        // 9. 短路操作示例 - findFirst和anyMatch
+        boolean hasMatch = Arrays.asList(1, 2, 3, 4, 5)
+            .stream()
+            .anyMatch(n -> {
+                System.out.print("短路操作检查 " + n + " ");
+                return n > 3;
+            });
+        System.out.println("\n存在大于3的数: " + hasMatch);
+
+        // 10. 数值流特化示例 - IntStream操作
+        int rangeSum = IntStream.range(1, 6)  // [1,2,3,4,5)
+            .sum();
+        System.out.println("数值流求和结果: " + rangeSum);
     }
 
 }
