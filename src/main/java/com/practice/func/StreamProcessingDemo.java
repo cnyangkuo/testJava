@@ -1,4 +1,4 @@
-package com.interview.sc;
+package com.practice.func;
 
 import java.util.ArrayList;
 import java.util.Collections;

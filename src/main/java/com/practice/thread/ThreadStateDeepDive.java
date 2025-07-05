@@ -1,4 +1,4 @@
-package com.interview.sc;
+package com.practice.thread;
 
 /**
  * @author yangkuo

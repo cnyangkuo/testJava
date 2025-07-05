@@ -1,11 +1,10 @@
 package com.interview;
 
 import com.interview.sc.DataStructureExplanation;
-import com.interview.sc.ForkJoinBatchProcessor;
-import com.interview.sc.StreamProcessingDemo;
+import com.practice.thread.ForkJoinBatchProcessor;
+import com.practice.func.StreamProcessingDemo;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * YkApplicationTests
