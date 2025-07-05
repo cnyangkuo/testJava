@@ -34,11 +34,19 @@ public class CompletableFutureExample {
 // 7. thenApply和thenAccept的内存可见性保障
 // 8. 异步方法的双重变体：xxx和xxxAsync的区别
 
+// Q: 判断使用thenCompose还是thenApply：是否需要基于结果启动新异步任务？
+//├── 是 → 使用 thenCompose
+//└── 否 →
+//    ├── 需要同步转换结果 → 使用 thenApply
+//    └── 需要消费结果 → 使用 thenAccept
+
     public static void main(String[] args) throws Exception {
         // 复杂任务组合
         // 全完成：allOf(futures).thenApply(v -> futures.map(CompletableFuture::join))
         // 任一完成：anyOf(futures).thenAccept(result -> ...)
         // 合并结果：future1.thenCombine(future2, (res1, res2) -> res1 + res2)
+
+        testStackTrace();
 
         // 1. 异步任务创建示例
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
@@ -68,7 +76,7 @@ public class CompletableFutureExample {
 
         // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个新生成的替代任务
         // thenApply vs thenCompose:
-        // thenApply 同步转换结果；thenCompose 返回新 CompletableFuture，用于解嵌套异步任务链。
+        // thenApply 只是转换结果；thenCompose 返回新 CompletableFuture，用于解嵌套异步任务链。
         CompletableFuture<Integer> future5 = CompletableFuture.supplyAsync(() -> 100, executor);
         future5.thenCompose(a -> CompletableFuture.supplyAsync(() -> a + 100, executor))
                 .thenAccept(a -> System.out.println("任务替换结果: " + a));
@@ -101,9 +109,69 @@ public class CompletableFutureExample {
 
         // 等待所有任务完成
         allFutures.join();
+
+        // 避免下面的嵌套回调地狱：
+        //  future.thenCompose(a ->
+        //    futureB.thenCompose(b ->
+        //        futureC.thenCompose(c ->
+        //            process(a, b, c))));
+        //
+        // 正确做法：使用 thenCompose，比如拿到多任务的结果，使用结果继续处理其它逻辑:
+        // CompletableFuture<String> a = futureA;
+        // CompletableFuture<Integer> b = futureB;
+        // CompletableFuture<Boolean> c = futureC;
+        //
+        // CompletableFuture.allOf(a, b, c)
+        //    .thenCompose(v -> {
+        //        String aVal = a.join();
+        //        Integer bVal = b.join();
+        //        Boolean cVal = c.join();
+        //        return process(aVal, bVal, cVal);
+        //    });
+
+
         executor.shutdown();
 
         completableFutureDemo();
+    }
+
+    private static void testStackTrace() throws InterruptedException {
+
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(200);
+                System.out.println("Wait200");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "wait200";
+        });
+
+        future.thenApply(result -> {
+            System.out.println("Callback 1");
+            return result + " 1";
+        });
+        future.thenApply(result -> {
+            System.out.println("Callback 2");
+            return result + " 2";
+        });
+        Thread.sleep(300L);
+        future.thenApply(result -> {
+            System.out.println("Callback 3");
+            return result + " 3";
+        });
+        future.thenApply(result -> {
+            System.out.println("Callback 4");
+            return result + " 4";
+        });
+        /**
+         * 任务完成前按照LIFO执行thenApply注册的函数, sleep200ms后，future里面的任务已完成（设置了result），thenApply新注册的函数直接执行（FIFO）
+         * Wait200
+         * Callback 2
+         * Callback 1
+         * Callback 3
+         * Callback 4
+         */
     }
 
 
