@@ -1,0 +1,181 @@
+Classfile /Users/hanson/data/project/study/testJava/target/classes/com/interview/sc/Solution.class
+  Last modified 2025-7-5; size 1807 bytes
+  MD5 checksum 70f8ba330d454aa2ab00632941818bc9
+  Compiled from "Solution.java"
+public class com.interview.sc.Solution
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #14.#41        // java/lang/Object."<init>":()V
+   #2 = String             #42            // Hello
+   #3 = String             #43            // World
+   #4 = InvokeDynamic      #0:#48         // #0:connect:()Lcom/interview/sc/Solution$StringConnector;
+   #5 = Methodref          #13.#49        // com/interview/sc/Solution.connectStrings:(Ljava/lang/String;Ljava/lang/String;Lcom/interview/sc/Solution$StringConnector;)Ljava/lang/String;
+   #6 = Fieldref           #50.#51        // java/lang/System.out:Ljava/io/PrintStream;
+   #7 = Methodref          #52.#53        // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #8 = InterfaceMethodref #15.#54        // com/interview/sc/Solution$StringConnector.connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+   #9 = Class              #55            // java/lang/StringBuilder
+  #10 = Methodref          #9.#41         // java/lang/StringBuilder."<init>":()V
+  #11 = Methodref          #9.#56         // java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #12 = Methodref          #9.#57         // java/lang/StringBuilder.toString:()Ljava/lang/String;
+  #13 = Class              #58            // com/interview/sc/Solution
+  #14 = Class              #59            // java/lang/Object
+  #15 = Class              #60            // com/interview/sc/Solution$StringConnector
+  #16 = Utf8               StringConnector
+  #17 = Utf8               InnerClasses
+  #18 = Utf8               <init>
+  #19 = Utf8               ()V
+  #20 = Utf8               Code
+  #21 = Utf8               LineNumberTable
+  #22 = Utf8               LocalVariableTable
+  #23 = Utf8               this
+  #24 = Utf8               Lcom/interview/sc/Solution;
+  #25 = Utf8               main
+  #26 = Utf8               ([Ljava/lang/String;)V
+  #27 = Utf8               args
+  #28 = Utf8               [Ljava/lang/String;
+  #29 = Utf8               result1
+  #30 = Utf8               Ljava/lang/String;
+  #31 = Utf8               connectStrings
+  #32 = Utf8               (Ljava/lang/String;Ljava/lang/String;Lcom/interview/sc/Solution$StringConnector;)Ljava/lang/String;
+  #33 = Utf8               a
+  #34 = Utf8               b
+  #35 = Utf8               connector
+  #36 = Utf8               Lcom/interview/sc/Solution$StringConnector;
+  #37 = Utf8               lambda$main$0
+  #38 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #39 = Utf8               SourceFile
+  #40 = Utf8               Solution.java
+  #41 = NameAndType        #18:#19        // "<init>":()V
+  #42 = Utf8               Hello
+  #43 = Utf8               World
+  #44 = Utf8               BootstrapMethods
+  #45 = MethodHandle       #6:#61         // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #46 = MethodType         #38            //  (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #47 = MethodHandle       #6:#62         // invokestatic com/interview/sc/Solution.lambda$main$0:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #48 = NameAndType        #63:#64        // connect:()Lcom/interview/sc/Solution$StringConnector;
+  #49 = NameAndType        #31:#32        // connectStrings:(Ljava/lang/String;Ljava/lang/String;Lcom/interview/sc/Solution$StringConnector;)Ljava/lang/String;
+  #50 = Class              #65            // java/lang/System
+  #51 = NameAndType        #66:#67        // out:Ljava/io/PrintStream;
+  #52 = Class              #68            // java/io/PrintStream
+  #53 = NameAndType        #69:#70        // println:(Ljava/lang/String;)V
+  #54 = NameAndType        #63:#38        // connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #55 = Utf8               java/lang/StringBuilder
+  #56 = NameAndType        #71:#72        // append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #57 = NameAndType        #73:#74        // toString:()Ljava/lang/String;
+  #58 = Utf8               com/interview/sc/Solution
+  #59 = Utf8               java/lang/Object
+  #60 = Utf8               com/interview/sc/Solution$StringConnector
+  #61 = Methodref          #75.#76        // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #62 = Methodref          #13.#77        // com/interview/sc/Solution.lambda$main$0:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #63 = Utf8               connect
+  #64 = Utf8               ()Lcom/interview/sc/Solution$StringConnector;
+  #65 = Utf8               java/lang/System
+  #66 = Utf8               out
+  #67 = Utf8               Ljava/io/PrintStream;
+  #68 = Utf8               java/io/PrintStream
+  #69 = Utf8               println
+  #70 = Utf8               (Ljava/lang/String;)V
+  #71 = Utf8               append
+  #72 = Utf8               (Ljava/lang/String;)Ljava/lang/StringBuilder;
+  #73 = Utf8               toString
+  #74 = Utf8               ()Ljava/lang/String;
+  #75 = Class              #78            // java/lang/invoke/LambdaMetafactory
+  #76 = NameAndType        #79:#82        // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #77 = NameAndType        #37:#38        // lambda$main$0:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+  #78 = Utf8               java/lang/invoke/LambdaMetafactory
+  #79 = Utf8               metafactory
+  #80 = Class              #84            // java/lang/invoke/MethodHandles$Lookup
+  #81 = Utf8               Lookup
+  #82 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #83 = Class              #85            // java/lang/invoke/MethodHandles
+  #84 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #85 = Utf8               java/lang/invoke/MethodHandles
+{
+  public com.interview.sc.Solution();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 8: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/interview/sc/Solution;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=2, args_size=1
+         0: ldc           #2                  // String Hello
+         2: ldc           #3                  // String World
+         4: invokedynamic #4,  0              // InvokeDynamic #0:connect:()Lcom/interview/sc/Solution$StringConnector;
+         9: invokestatic  #5                  // Method connectStrings:(Ljava/lang/String;Ljava/lang/String;Lcom/interview/sc/Solution$StringConnector;)Ljava/lang/String;
+        12: astore_1
+        13: getstatic     #6                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        16: aload_1
+        17: invokevirtual #7                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        20: return
+      LineNumberTable:
+        line 10: 0
+        line 11: 13
+        line 12: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  args   [Ljava/lang/String;
+           13       8     1 result1   Ljava/lang/String;
+
+  public static java.lang.String connectStrings(java.lang.String, java.lang.String, com.interview.sc.Solution$StringConnector);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Lcom/interview/sc/Solution$StringConnector;)Ljava/lang/String;
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_2
+         1: aload_0
+         2: aload_1
+         3: invokeinterface #8,  3            // InterfaceMethod com/interview/sc/Solution$StringConnector.connect:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+         8: areturn
+      LineNumberTable:
+        line 15: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       9     0     a   Ljava/lang/String;
+            0       9     1     b   Ljava/lang/String;
+            0       9     2 connector   Lcom/interview/sc/Solution$StringConnector;
+
+  private static java.lang.String lambda$main$0(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    flags: ACC_PRIVATE, ACC_STATIC, ACC_SYNTHETIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: new           #9                  // class java/lang/StringBuilder
+         3: dup
+         4: invokespecial #10                 // Method java/lang/StringBuilder."<init>":()V
+         7: aload_1
+         8: invokevirtual #11                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        11: aload_0
+        12: invokevirtual #11                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+        15: invokevirtual #12                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+        18: areturn
+      LineNumberTable:
+        line 10: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      19     0     a   Ljava/lang/String;
+            0      19     1     b   Ljava/lang/String;
+}
+SourceFile: "Solution.java"
+InnerClasses:
+     static #16= #15 of #13; //StringConnector=class com/interview/sc/Solution$StringConnector of class com/interview/sc/Solution
+     public static final #81= #80 of #83; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+BootstrapMethods:
+  0: #45 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #46 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      #47 invokestatic com/interview/sc/Solution.lambda$main$0:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+      #46 (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
