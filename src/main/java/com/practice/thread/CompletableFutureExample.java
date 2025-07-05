@@ -54,7 +54,7 @@ public class CompletableFutureExample {
             return "Hello";
         }, executor);
 
-        // 2. 任务链式编排（thenApply），thenApply会在前一个任务完成后执行，并且会接收上一个任务的结果作为输入，同时有返回值。
+        // 2. 任务链式编排（thenApply），完成结果转换。thenApply会在前一个任务完成后执行，并且会接收上一个任务的结果作为输入，同时有返回值。
         // 执行是异步的，它不会阻塞当前线程，而是将回调函数注册到future1的完成事件中。当future1完成时，会自动触发thenApply中的函数。
         CompletableFuture<String> future2 = future1.thenApply(result -> {
             System.out.println("任务2处理结果: " + result);
@@ -74,7 +74,7 @@ public class CompletableFutureExample {
             return a + b;
         });
 
-        // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个新生成的替代任务
+        // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个新的替代任务CompletableFuture（链式异步操作）。
         // thenApply vs thenCompose:
         // thenApply 只是转换结果；thenCompose 返回新 CompletableFuture，用于解嵌套异步任务链。
         CompletableFuture<Integer> future5 = CompletableFuture.supplyAsync(() -> 100, executor);
