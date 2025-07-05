@@ -35,13 +35,19 @@ public class CompletableFutureExample {
 // 8. 异步方法的双重变体：xxx和xxxAsync的区别
 
     public static void main(String[] args) throws Exception {
+        // 复杂任务组合
+        // 全完成：allOf(futures).thenApply(v -> futures.map(CompletableFuture::join))
+        // 任一完成：anyOf(futures).thenAccept(result -> ...)
+        // 合并结果：future1.thenCombine(future2, (res1, res2) -> res1 + res2)
+
         // 1. 异步任务创建示例
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             System.out.println("任务1执行线程: " + Thread.currentThread().getName());
             return "Hello";
         }, executor);
 
-        // 2. 任务链式编排（thenApply）
+        // 2. 任务链式编排（thenApply），thenApply会在前一个任务完成后执行，并且会接收上一个任务的结果作为输入，同时有返回值。
+        // 执行是异步的，它不会阻塞当前线程，而是将回调函数注册到future1的完成事件中。当future1完成时，会自动触发thenApply中的函数。
         CompletableFuture<String> future2 = future1.thenApply(result -> {
             System.out.println("任务2处理结果: " + result);
             return result + " World";
@@ -60,16 +66,24 @@ public class CompletableFutureExample {
             return a + b;
         });
 
-        // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个任务
+        // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个新生成的替代任务
+        // thenApply vs thenCompose:
+        // thenApply 同步转换结果；thenCompose 返回新 CompletableFuture，用于解嵌套异步任务链。
         CompletableFuture<Integer> future5 = CompletableFuture.supplyAsync(() -> 100, executor);
         future5.thenCompose(a -> CompletableFuture.supplyAsync(() -> a + 100, executor))
                 .thenAccept(a -> System.out.println("任务替换结果: " + a));
 
-        // 5. 异常处理（exceptionally）
+        // 5.1. handle() 集中处理异常
+        CompletableFuture<String> errorFuture2 = CompletableFuture.supplyAsync(() -> 1/0)
+                .handle((res, ex) -> String.valueOf(ex != null ? 0 : res)); // 异常时返回默认值
+        System.out.println("处理异常结果：" + errorFuture2.join());
+
+        // 5.2 异常处理（exceptionally）针对特定前置任务错误恢复。
         CompletableFuture<Integer> errorFuture = CompletableFuture.supplyAsync(() -> {
             if (Math.random() > 0.5) throw new RuntimeException("测试异常");
             return 100;
-        }, executor).exceptionally(ex -> {
+        }, executor)
+                .exceptionally(ex -> {
             System.out.println("捕获异常: " + ex.getMessage());
             return 0; // 默认值
         });
@@ -80,6 +94,8 @@ public class CompletableFutureExample {
         }, executor);
 
         // 7. 多任务编排（allOf） 或任一完成（anyOf）
+        // Q：如何保证多任务并行？
+        // A：拆分独立任务为多个 CompletableFuture，通过 allOf/anyOf 组合结果，而非依赖单一任务链。
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(future2, dependentFuture);
         allFutures.thenRun(() -> System.out.println("所有任务完成"));
 
