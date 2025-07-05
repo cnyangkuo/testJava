@@ -81,6 +81,9 @@ public class  LambadaTest {
         // 第一个参数 s1 作为 concat 的调用者 (this)
         // 第二个参数 s2 作为 concat 的入参
         System.out.println("operator接口测试: " + operator.apply("Hello", "World"));
+        // 隐含的调用者参数
+        // 语法形式：ClassName::instanceMethodName
+        // 本质：将函数式接口的第一个参数作为实例方法的调用者（this），其余参数作为方法的入参。 相当于 "hello".concat("World")
 
 
     }

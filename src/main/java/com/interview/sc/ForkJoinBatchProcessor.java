@@ -8,6 +8,7 @@ import java.util.concurrent.ForkJoinPool;
  * 1. 演示RecursiveTask的分解与合并机制
  * 2. 使用ArrayDeque实现任务队列
  * 3. 工作窃取算法的具体实现
+ * @author hanson
  */
 public class ForkJoinBatchProcessor extends RecursiveTask<Integer> {
     // 任务阈值，小于该值直接计算

@@ -88,11 +88,12 @@ public class StreamTest {
         System.out.println(safeList);
         
         // 1. 基础操作链式调用示例
-        List<String> filtered = Arrays.asList("apple", "banana", "cherry", "date")
+        List<String> filtered = Arrays.asList("apple", "banana", "cherry", "date", "pipeline")
             .stream()
             .filter(s -> s.length() > 5)  // 过滤长度>5的字符串
             .map(String::toUpperCase)     // 转换为大写
-            .limit(2)                      // 限制最多取2个
+            .limit(2)            // 限制最多取2个
+            .sorted()
             .collect(Collectors.toList()); // 收集结果
         System.out.println("基础操作结果: " + filtered);
 
