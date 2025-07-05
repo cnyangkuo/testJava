@@ -13,7 +13,7 @@ import java.util.concurrent.*;
  * @author hanson
  */
 public class CompletableFutureExample {
-    // 线程池配置 - 推荐显式声明
+    // 线程池配置 - 推荐显式声明, 比默认ForkJoinPool更可控
     private static final ExecutorService executor = Executors.newFixedThreadPool(2, r -> {
         Thread t = new Thread(r);
         t.setDaemon(false);
