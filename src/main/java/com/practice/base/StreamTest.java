@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -86,7 +87,27 @@ public class StreamTest {
                 .parallel().limit(10)
                 .collect(Collectors.toList());
         System.out.println(safeList);
-        
+
+        // 为什么需要特化流，比如LongStream等：
+        // 避免 Long 对象的装箱/拆箱开销
+        // 提升数值计算效率（比通用流快 2-5 倍），
+        // 应用场景选择： 1. 数据量 > 10,000 时优先使用特化流； 2. 需要 sum(), average() 等特化操作时必选。
+        // 对比示例
+        Stream<Long> boxed = Stream.of(1L, 2L, 3L);
+        LongStream unboxed = boxed.flatMapToLong(LongStream::of); // 更高效
+        unboxed.forEach(System.out::print);
+        System.out.println();
+
+        // 输入：Stream<String>
+        Stream<String> words = Stream.of("apple", "banana", "cherry");
+        // 转换为 LongStream
+        IntStream asciiCodes = words.flatMapToInt(CharSequence::chars);
+        // 输出：所有字符的 ASCII 码
+        asciiCodes.forEach(System.out::print);
+        System.out.println();
+
+
+
         // 1. 基础操作链式调用示例
         List<String> filtered = Arrays.asList("apple", "banana", "cherry", "date", "pipeline")
             .stream()
