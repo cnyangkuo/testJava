@@ -10,6 +10,7 @@ import java.util.concurrent.*;
  * 面试考点：线程池配置、任务依赖关系、异常传播机制
  *
  *
+ * @author hanson
  */
 public class CompletableFutureExample {
     // 线程池配置 - 推荐显式声明
@@ -51,13 +52,18 @@ public class CompletableFutureExample {
             System.out.println("最终结果: " + finalResult);
         });
 
-        // 4. 组合操作（thenCombine） 组合两个独立Future的结果
+        // 4. 组合操作（thenCombine） 组合两个独立Future的结果  future3 和future4 并行执行
         CompletableFuture<Integer> future3 = CompletableFuture.supplyAsync(() -> 100, executor);
         CompletableFuture<Integer> future4 = CompletableFuture.supplyAsync(() -> 200, executor);
         future3.thenCombine(future4, (a, b) -> {
             System.out.println("组合操作结果: " + (a + b));
             return a + b;
         });
+
+        // 4.2 任务替换 thenCompose，获取结果后，将结果作为参数传递给下一个任务
+        CompletableFuture<Integer> future5 = CompletableFuture.supplyAsync(() -> 100, executor);
+        future5.thenCompose(a -> CompletableFuture.supplyAsync(() -> a + 100, executor))
+                .thenAccept(a -> System.out.println("任务替换结果: " + a));
 
         // 5. 异常处理（exceptionally）
         CompletableFuture<Integer> errorFuture = CompletableFuture.supplyAsync(() -> {
