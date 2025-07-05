@@ -1,5 +1,7 @@
 package com.practice.base;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +108,10 @@ public class StreamTest {
         asciiCodes.forEach(System.out::print);
         System.out.println();
 
-
+//        // 示例：计算文件中所有单词的字符总长度
+//        long totalLength = Files.lines(Paths.get("data.txt"))
+//                .flatMapToLong(CharSequence::chars)
+//                .count();
 
         // 1. 基础操作链式调用示例
         List<String> filtered = Arrays.asList("apple", "banana", "cherry", "date", "pipeline")
