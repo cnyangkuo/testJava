@@ -1,4 +1,4 @@
-package com.practice.base;
+package com.practice.func;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
