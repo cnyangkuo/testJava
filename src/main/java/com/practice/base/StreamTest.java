@@ -48,6 +48,13 @@ import java.util.stream.Stream;
     list.parallelStream().forEach(orderMapper::save); // 事务失效
  }
 
+ // ReferencePipeline.flatMapToLong() 是 Java Stream API 中用于将对象流转换为原始类型 long 流的核心方法之一。
+ 特性       flatMapToLong()                                flatMap()
+ 输出类型       LongStream                                  Stream<R>
+ 中间对象       不产生对象包装（如 Long）                      产生对象流（可能引发GC压力）,频繁装箱/拆箱
+ 性能优化       更适合大数据集处理                            对象流有额外开销
+ 终端操作兼容性  可直接使用 sum(), average() 等特化操作         需要手动拆箱
+
  *
  * @author yangkuo
  * @date 2025 /7/4
@@ -91,10 +98,10 @@ public class StreamTest {
         System.out.println(safeList);
 
         // 为什么需要特化流，比如LongStream等：
-        // 避免 Long 对象的装箱/拆箱开销
-        // 提升数值计算效率（比通用流快 2-5 倍），
+            // 避免 Long 对象的装箱/拆箱开销
+            // 提升数值计算效率（比通用流快 2-5 倍），
         // 应用场景选择： 1. 数据量 > 10,000 时优先使用特化流； 2. 需要 sum(), average() 等特化操作时必选。
-        // 对比示例
+        // 对比示例 flatMapToLong vs flatMap
         Stream<Long> boxed = Stream.of(1L, 2L, 3L);
         LongStream unboxed = boxed.flatMapToLong(LongStream::of); // 更高效
         unboxed.forEach(System.out::print);
