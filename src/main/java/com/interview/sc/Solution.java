@@ -7,7 +7,7 @@ package com.interview.sc;
  */
 public class Solution {
     public static void main(String[] args) {
-        String result1 = connectStrings("Hello", "World", String::concat);
+        String result1 = connectStrings("Hello", "World", String::concat); // 等价于 (a, b) -> a.concat(b)
         System.out.println(result1);
         String result2 = connectStrings("你", "好", (a, b) -> a + b);
         System.out.println(result2);

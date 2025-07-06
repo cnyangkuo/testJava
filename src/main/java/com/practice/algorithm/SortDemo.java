@@ -51,7 +51,7 @@ public class SortDemo {
         System.out.println("Original array:");
         printArray(arr);
 
-        // 选择排序 迭代方式直接选择最小元素
+        // 选择排序 迭代方式直接从未排序列表中选择最小元素，放在已排序列表末尾
         // 特点: 时间复杂度始终O(n^2)，属于稳定排序算法，空间复杂度O(1)
         selectionSort(arr4);
         System.out.println("Selection Sorted array:");
@@ -95,7 +95,7 @@ public class SortDemo {
 
     /**
      * 选择排序, 核心思想是 repeatedly 选择最小的元素，将它与当前位置的元素交换位置。
-     * 时间复杂度O(n^2)，最差时间复杂度O(n^2)，属于不稳定排序算法，空间复杂度O(1)
+     * 时间复杂度O(n^2)，属于稳定排序算法，空间复杂度O(1)
      * @param arr
      * @return
      **/
