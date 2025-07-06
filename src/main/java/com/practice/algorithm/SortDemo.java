@@ -135,19 +135,20 @@ public class SortDemo {
 
     // 划分函数，返回划分后的基准元素的索引
     private static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high]; // 选择最后一个元素作为基准元素
-        int i = low - 1; // 指针 i 指向小于基准元素的最后一个元素
+        int pivot = arr[high]; // 选择一个元素作为基准元素（比基准元素小的元素都在其左边，比基准元素大的元素都在其右边）
+        int i = low - 1; // 指针 i 指向小于基准元素的最后一个元素，初始化为 low-1
 
-        // 遍历数组
+        // 遍历数组，双指针移动
         for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) { // 如果当前元素小于等于基准元素
-                i++; // 指针 i 向右移动
-                // 交换 arr[i] 和 arr[j]
-                swap(arr, i, j);
+            if (arr[j] < pivot) {  // 如果当前元素小于基准元素，交换两个元素 把当前元素移到左边
+                i++;             // 指针 i 向右移动，指向>=基准值的第一个元素位置
+                swap(arr, i, j); // 交换后，i 指向的元素比基准元素小
+            } else {
+                // 当前元素大于等于基准元素，不需要交换, 移动指针 j
             }
         }
 
-        // 将基准元素放置到正确的位置上
+        // 将基准元素放置到正确的位置上，确保比基准元素小的元素都在其左边，比基准元素大的元素都在其右边
         swap(arr, i + 1, high);
 
         // 返回基准元素的索引
