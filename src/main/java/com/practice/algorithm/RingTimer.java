@@ -1,5 +1,6 @@
 package com.practice.algorithm;
 
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 /**
@@ -56,10 +57,16 @@ public class RingTimer {
         
         // 线程安全地添加任务
         synchronized (this) {
-            DelayTask[] oldTasks = wheel[index];
-            DelayTask[] newTasks = new DelayTask[oldTasks.length + 1];
-            System.arraycopy(oldTasks, 0, newTasks, 0, oldTasks.length);
-            newTasks[oldTasks.length] = task;
+            DelayTask[] currentTasks = wheel[index];
+
+            DelayTask[] newTasks = new DelayTask[currentTasks.length + 1];
+            System.arraycopy(currentTasks, 0, newTasks, 0, currentTasks.length);
+            // 适用场景 高频扩容、性能敏感场景（如底层数据结构）；灵活，但容易出错
+
+            // 轻微性能损耗：内部会创建临时对象（如 ArrayList），但对大多数场景可忽略，可读性好
+            // DelayTask[] newTasks = Arrays.copyOf(currentTasks, currentTasks.length + 1);
+
+            newTasks[currentTasks.length] = task;
             wheel[index] = newTasks;
         }
     }
