@@ -96,9 +96,7 @@ public class HeapProblems {
     public static ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
         
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(
-            (a, b) -> a.val - b.val
-        );
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
         
         // 将所有链表的头节点加入堆
         for (ListNode list : lists) {
