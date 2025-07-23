@@ -61,8 +61,8 @@ public class GroupByDemo {
         // 打印结果
         result.forEach((key, agg) -> {
             System.out.println("分组: " + key);
-            System.out.printf("  平均工资: %.2f%n", agg.get("salary_AVG"));
-            System.out.printf("  最高工资: %.2f%n", agg.get("salary_MAX"));
+            System.out.printf("  平均工资: %.2f%n", (Double)agg.get("salary_AVG"));
+            System.out.printf("  最高工资: %.2f%n", (Double)agg.get("salary_MAX"));
             System.out.println();
         });
     }
