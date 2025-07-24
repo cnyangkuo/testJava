@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 聚合结果类
  * @author yangkuo
  * @date 2025/7/23
  * @description

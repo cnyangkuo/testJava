@@ -31,7 +31,7 @@ class Person {
 
 public class GroupByDemo {
     public static void main(String[] args) {
-        List<Person> people = Arrays.asList(
+        List<Person> personList = Arrays.asList(
                 new Person("Alice", 28, "F", "New York", 85000),
                 new Person("Bob", 32, "M", "Boston", 95000),
                 new Person("Charlie", 28, "M", "New York", 78000),
@@ -50,10 +50,11 @@ public class GroupByDemo {
         };
 
         // 分组聚合：按年龄和性别分组，计算平均工资和最大工资
-        GroupByAggregator<Person> aggregator = new GroupByAggregator<>(people, propertyExtractor);
+        GroupByAggregator<Person> aggregator = new GroupByAggregator<>(personList, propertyExtractor);
 
         Map<GroupKey, AggResult> result = aggregator
-                .groupBy("age", "sex")
+//                .groupBy("age", "sex")
+                .groupBy("sex")
                 .aggregate("salary", AggType.AVG)
                 .aggregate("salary", AggType.MAX)
                 .execute();
