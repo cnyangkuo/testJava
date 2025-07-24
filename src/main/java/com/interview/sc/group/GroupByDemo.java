@@ -53,11 +53,33 @@ public class GroupByDemo {
         GroupByAggregator<Person> aggregator = new GroupByAggregator<>(personList, propertyExtractor);
 
         Map<GroupKey, AggResult> result = aggregator
-//                .groupBy("age", "sex")
+//                .groupBy("age", "sex")   // or .groupBy("age").groupBy("sex")
                 .groupBy("sex")
                 .aggregate("salary", AggType.AVG)
                 .aggregate("salary", AggType.MAX)
                 .execute();
+
+        /**
+         * 1. 灵活的分组机制
+         * 动态分组属性：通过groupBy()方法接收任意属性组合
+         * 复合键设计：使用GroupKey封装多个属性值，正确实现equals/hashCode
+         * 属性提取器：通过函数式接口支持任意对象结构
+         *
+         * 2. 可扩展的聚合运算
+         * 聚合规范：AggSpec封装"属性+运算类型"组合
+         * 多聚合支持：支持同时计算多种聚合结果
+         * 类型安全：使用泛型确保聚合结果类型安全
+         *
+         * 3. 流式API设计
+         *
+         * 4. 性能优化考虑
+         * 并行处理：可轻松改为并行流处理大数据集
+         * 懒加载：只在execute()时进行计算
+         * 内存效率：分组阶段仅存储分组键，不复制完整对象
+         *
+         */
+
+
 
         // 打印结果
         result.forEach((key, agg) -> {
