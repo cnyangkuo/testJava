@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
+ * 聚合器 按照属性灵活分组，分组后完成聚合操作
  * @author yangkuo
  * @date 2025/7/23
  * @description
