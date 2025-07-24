@@ -62,7 +62,7 @@ public class GroupByDemo {
         /**
          * 1. 灵活的分组机制
          * 动态分组属性：通过groupBy()方法接收任意属性组合
-         * 复合键设计：使用GroupKey封装多个属性值，正确实现equals/hashCode
+         * 复合键设计：使用GroupKey封装多个属性值，正确重写实现equals/hashCode用于分组
          * 属性提取器：通过函数式接口支持任意对象结构
          *
          * 2. 可扩展的聚合运算
