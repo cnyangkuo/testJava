@@ -12,9 +12,10 @@ import java.util.stream.Collectors;
  */
 public class GroupByAggregator<T> {
     private final Collection<T> data;
+    private final Function<T, Map<String, Object>> propertyExtractor;
+
     private final List<String> groupProperties = new ArrayList<>();
     private final List<AggSpec> aggSpecs = new ArrayList<>();
-    private final Function<T, Map<String, Object>> propertyExtractor;
 
     public GroupByAggregator(Collection<T> data, Function<T, Map<String, Object>> propertyExtractor) {
         this.data = data;
