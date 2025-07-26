@@ -11,7 +11,7 @@ package com.practice.algorithm;
  * 图的表示：
      * 将任务视为图的节点，依赖关系视为有向边。
      * 构建邻接表（adjacency）和入度表（inDegree）。
- *          入度表: 记录每个节点的依赖数量， 先A后B（A依赖B），则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
+ *          入度表: 记录每个节点的依赖数量， 先A后B（B依赖A），则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
  * 拓扑排序：
      * 使用 Kahn算法（基于入度）实现拓扑排序。
      * 找出所有入度为0的节点，依次处理并更新其邻居的入度。
@@ -49,12 +49,35 @@ public class TaskScheduler {
             neighbor D inDegree=1
             任务执行顺序: AEGBCFD
          */
+
+
+//        Map<String, List<String>> map1 = new HashMap<>();
+//        Map<String, List<String>> map2 = new HashMap<>();
+//        String key = "job";
+//        String value = "task";
+//        String value2 = "task2";
+//
+//        // 写法1
+//        if (!map1.containsKey(key)) {
+//            map1.put(key, new ArrayList<>());
+//        }
+//        map1.get(key).add(value);
+//        map1.get(key).add(value2);
+//
+//        // 写法2
+//        map2.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
+//        map2.computeIfAbsent(key, k -> new ArrayList<>()).add(value2);
+//
+//        // 验证结果相同
+//        System.out.println("写法1结果: " + map1); // {job=[task]}
+//        System.out.println("写法2结果: " + map2); // {job=[task]}
+//        System.out.println("结果相等: " + map1.equals(map2)); // true
     }
 
     public static List<String> topologicalSort(String[] dependencies) {
         // 1. 构建邻接表和入度表
         Map<String, List<String>> adjList = new HashMap<>();
-        Map<String, Integer> indegree = new HashMap<>();
+        Map<String, Integer> inDegree = new HashMap<>();
         Set<String> allTaskNodes = new HashSet<>();
         
         // 2. 解析依赖关系
@@ -76,30 +99,40 @@ public class TaskScheduler {
             // 处理多个前置任务的情况
             String[] prevTasks = prevPart.split(",");
             for (String prevTask : prevTasks) {
-                String task = prevTask.trim();
+                String preJob = prevTask.trim();
                 
                 // 添加任务到全局集合
-                allTaskNodes.add(task);
+                allTaskNodes.add(preJob);
                 allTaskNodes.add(next);
                 
                 // 显式初始化邻接表
-                if (!adjList.containsKey(task)) {
-                    adjList.put(task, new ArrayList<>());
-                }
-                adjList.get(task).add(next);
+//                if (!adjList.containsKey(preJob)) {
+//                    adjList.put(preJob, new ArrayList<>());
+//                }
+//                adjList.get(preJob).add(next);
+                adjList.computeIfAbsent(preJob, k -> new ArrayList<>()).add(next);
                 
                 // 更新入度表
-                if (!indegree.containsKey(next)) {
-                    indegree.put(next, 0);
-                }
-                indegree.put(next, indegree.get(next) + 1);
+//              // 方法1 （原始）
+//                if (!inDegree.containsKey(next)) {
+//                    inDegree.put(next, 0);
+//                }
+//                inDegree.put(next, indegree.get(next) + 1);
+
+//              // 方法2 （适合复杂计算）
+//                inDegree.compute(next, (k, v) -> (v == null) ? 1 : v + 1);
+
+//              // 方法3 （推荐）
+                inDegree.merge(next, 1, Integer::sum);
+
+
             }
         }
         
         // 3. 初始化队列
         Queue<String> queue = new LinkedList<>();
         for (String task : allTaskNodes) {
-            if (!indegree.containsKey(task)) {
+            if (!inDegree.containsKey(task)) {
                 queue.offer(task);
             }
         }
@@ -112,8 +145,8 @@ public class TaskScheduler {
             
             if (adjList.containsKey(curr)) {
                 for (String neighbor : adjList.get(curr)) {
-                    indegree.put(neighbor, indegree.get(neighbor) - 1);
-                    if (indegree.get(neighbor) == 0) {
+                    inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+                    if (inDegree.get(neighbor) == 0) {
                         queue.offer(neighbor);
                     }
                 }
