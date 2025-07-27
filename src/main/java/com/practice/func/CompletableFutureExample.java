@@ -1,4 +1,4 @@
-package com.practice.thread;
+package com.practice.func;
 
 import jodd.util.ThreadUtil;
 
@@ -20,25 +20,45 @@ public class CompletableFutureExample {
         return t;
     });
 
-// 注释说明：
-// 面试考点：
-// 0. CompletableFuture vs Future  后者只能阻塞获取结果，前者支持回调和链式编排
-//          任务取消与超时可通过completeExceptionally()主动中断任务流
-// 1. 线程池配置：显式配置比默认线程池更可控
-// 2. 任务状态转换：NEW → COMPLETING → DONE 的生命周期管理
-// 3. 任务依赖关系：thenApply 传递结果 vs thenCompose 替换整个任务 vs thenCombine 合并结果 的区别
-//                thenAccept 最终结果消费-无返回值
-// 4. 异常传播机制：异常会跳过后续then步骤直接触发exceptionally
-// 5. CompletionStage契约：11种组合方法的使用场景
-// 6. ForkJoinPool实现原理：工作窃取算法在CompletableFuture中的应用
-// 7. thenApply和thenAccept的内存可见性保障
-// 8. 异步方法的双重变体：xxx和xxxAsync的区别
+    /**
+ 注释说明：
+ 面试考点：
+ 0. CompletableFuture vs Future  后者只能阻塞获取结果，前者支持回调和链式编排
+          任务取消与超时可通过completeExceptionally()主动中断任务流
+ 1. 线程池配置：显式配置比默认线程池更可控
+ 2. 任务状态转换：NEW → COMPLETING → DONE 的生命周期管理
+ 3. 任务依赖关系：thenApply 传递结果 vs thenCompose 替换整个任务 vs thenCombine 合并结果 的区别
+                thenAccept 最终结果消费-无返回值
+ 4. 异常传播机制：异常会跳过后续then步骤直接触发exceptionally
+ 5. CompletionStage契约：11种组合方法的使用场景
+ 6. ForkJoinPool实现原理：工作窃取算法在CompletableFuture中的应用
+ 7. thenApply和thenAccept的内存可见性保障
+ 8. 异步方法的双重变体：xxx和xxxAsync的区别
 
-// Q: 判断使用thenCompose还是thenApply：是否需要基于结果启动新异步任务？
-//├── 是 → 使用 thenCompose
-//└── 否 →
-//    ├── 需要同步转换结果 → 使用 thenApply
-//    └── 需要消费结果 → 使用 thenAccept
+ Q: 判断使用thenCompose还是thenApply：是否需要基于结果启动新异步任务？
+├── 是 → 使用 thenCompose
+└── 否 →
+    ├── 需要同步转换结果 → 使用 thenApply
+    └── 需要消费结果 → 使用 thenAccept
+
+ 小技巧：
+ 1. 为 CompletableFuture 提供自定义线程池，带来以下优势：
+      隔离性：为不同任务分配独立的线程池，避免全局线程池资源争夺。
+      资源控制：根据任务特性调整线程池大小和队列类型，优化性能表现。
+      异常处理：通过自定义 ThreadFactory 更好地处理线程中的异常情况。
+ 2. CompletableFuture的get()方法是阻塞的，尽量避免使用。
+      如果必须要使用的话，需要添加超时时间，否则可能会导致主线程一直等待，无法执行其他任务。
+
+ 3. 正确进行异常处理使用
+    CompletableFuture的时候一定要以正确的方式进行异常处理，避免异常丢失或者出现不可控问题。下面是一些建议：
+    使用 whenComplete 方法可以在任务完成时触发回调函数，并正确地处理异常，而不是让异常被吞噬或丢失。
+    使用 exceptionally 方法可以处理异常并重新抛出，以便异常能够传播到后续阶段，而不是让异常被忽略或终止。
+    使用 handle 方法可以处理正常的返回结果和异常，并返回一个新的结果，而不是让异常影响正常的业务逻辑。
+    使用 CompletableFuture.allOf 方法可以组合多个 CompletableFuture，并统一处理所有任务的异常，
+    而不是让异常处理过于冗长或重复。
+
+     *
+    **/
 
     public static void main(String[] args) throws Exception {
         // 复杂任务组合
