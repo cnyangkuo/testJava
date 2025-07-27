@@ -2,7 +2,9 @@ package com.practice.func;
 
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Function接口核心用法演示
@@ -79,5 +81,38 @@ public class FunctionTest {
         // 3) 组合操作：计算长度差并生成描述
         BiFunction<String, String, String> lengthDiffProcessor = lengthDiff.andThen(diffDesc);
         System.out.println("多级函数组合 - 长度差描述: " + lengthDiffProcessor.apply("Java", "Python"));
+        
+        // 10. Supplier基础应用 - 延迟计算示例
+        Supplier<String> currentTimeSupplier = () -> "当前时间: " + new java.util.Date();
+        System.out.println("Supplier应用 - 延迟计算: " + currentTimeSupplier.get());
+
+        // 11. Supplier结合Function使用 - 动态数据源
+        Function<Boolean, String> conditionalSupplier = flag -> flag ? "启用状态" : "禁用状态";
+        System.out.println("Supplier结合Function - 状态描述: " + conditionalSupplier.apply(true));
+
+        // 12. Consumer基础应用 - 数据处理
+        Consumer<String> printConsumer = text -> System.out.println("Consumer输出: " + text);
+        printConsumer.accept("Hello Lambda");
+
+        // 13. Consumer链式处理 - 多阶段处理
+        Consumer<String> processor2 = text -> {
+            String processed = text.trim().toUpperCase();
+            System.out.println("Consumer链式处理 - 阶段1: " + processed);
+        };
+        
+        Consumer<String> logger = text -> System.out.println("Consumer链式处理 - 阶段2: 日志记录 - " + text);
+        // 链式处理, 执行阶段1后执行阶段2, 执行阶段1和执行阶段2的输入参数一致
+        processor2.andThen(logger).accept("  test data  ");
+
+        // 14. BiConsumer复合场景 - 键值处理
+        java.util.Map<String, Integer> map = new java.util.HashMap<>();
+        map.put("A", 1);
+        map.put("B", 2);
+        
+        java.util.function.BiConsumer<String, Integer> mapProcessor = (key, value) -> 
+            System.out.println("BiConsumer处理 - Key: " + key + ", Value*2: " + (value * 2));
+        
+        System.out.println("BiConsumer复合场景 - Map处理:");
+        map.forEach(mapProcessor);
     }
 }
