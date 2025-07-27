@@ -11,11 +11,11 @@ package com.practice.algorithm;
  * 图的表示：
      * 将任务视为图的节点，依赖关系视为有向边。
      * 构建邻接表（adjacency）和入度表（inDegree）。
- *          入度表: 记录每个节点的依赖数量， 先A后B（B依赖A），则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
+ *          入度表: 记录每个节点的依赖数量， A -> B, 先A后B（B依赖A），则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
  * 拓扑排序：
      * 使用 Kahn算法（基于入度）实现拓扑排序。
      * 找出所有入度为0的节点，依次处理并更新其邻居的入度。
-    * 环检测 若最终拓扑序列长度 < 总节点数，说明存在环（依赖冲突
+     * 环检测 若最终拓扑序列长度 < 总节点数，说明存在环（依赖冲突
  * 处理多解性：
      * 拓扑排序结果可能有多个，只要满足依赖关系即可。
  *
@@ -38,7 +38,8 @@ import java.util.stream.Collectors;
 public class TaskScheduler {
 
     public static void main(String[] args) {
-        String[] dependencies = {"A->B", "B,C->D", "E->C", "B->F", "G"};
+//        String[] dependencies = {"A->B", "B,C->D", "E->C", "B->F", "G"};
+        String[] dependencies = {"A->B", "B->C"};
         List<String> order = topologicalSort(dependencies);
         System.out.println("任务执行顺序: " + order.stream()
                 .map(String::valueOf)
@@ -102,8 +103,9 @@ public class TaskScheduler {
                 String preJob = prevTask.trim();
                 
                 // 添加任务到全局集合
-                allTaskNodes.add(preJob);
-                allTaskNodes.add(next);
+//                allTaskNodes.add(preJob);
+//                allTaskNodes.add(next);
+                allTaskNodes.addAll(Arrays.asList(prevTask.trim(), next));
                 
                 // 显式初始化邻接表
 //                if (!adjList.containsKey(preJob)) {
@@ -125,17 +127,23 @@ public class TaskScheduler {
 //              // 方法3 （推荐）
                 inDegree.merge(next, 1, Integer::sum);
 
-
             }
         }
+        // 邻接表 {A=[B], B=[C]}
+        // 入度表 {B=1, C=1}, 没有A，即A=0
+        System.out.println("邻接表: " + adjList);
+        System.out.println("入度表: " + inDegree);
         
         // 3. 初始化队列
         Queue<String> queue = new LinkedList<>();
         for (String task : allTaskNodes) {
+            // 入度为0的节点入队
             if (!inDegree.containsKey(task)) {
                 queue.offer(task);
             }
         }
+        // 队列 [A]
+        System.out.println("当前没有依赖的队列: " + queue);
         
         // 4. 拓扑排序
         List<String> result = new ArrayList<>();
@@ -144,12 +152,20 @@ public class TaskScheduler {
             result.add(curr);
             
             if (adjList.containsKey(curr)) {
+                // 遍历当前节点的邻接节点, 第一轮找到B，第二轮找到C
                 for (String neighbor : adjList.get(curr)) {
-                    inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+//                    // 原始写法
+//                    inDegree.put(neighbor, inDegree.get(neighbor) - 1);
+//                    // 优化的原子写法
+                    inDegree.merge(neighbor, -1, Integer::sum);
+                    // 入度为0的节点入队 （第一轮B入度为0，第二轮C入度为0）
                     if (inDegree.get(neighbor) == 0) {
                         queue.offer(neighbor);
                     }
                 }
+                // 第一轮后 {B=0, C=1}, 第二轮后{B=0, C=0}
+                System.out.println("入度表: " + inDegree);
+                System.out.println("当前没有依赖的队列: " + queue);
             }
         }
         
