@@ -12,15 +12,37 @@ import java.util.stream.Collectors;
  */
 public class GroupByAggregator<T> {
     private final Collection<T> data;
+    private final Class<T> clazz;
     private final Function<T, Map<String, Object>> propertyExtractor;
 
     private final List<String> groupProperties = new ArrayList<>();
     private final List<AggSpec> aggSpecs = new ArrayList<>();
 
-    public GroupByAggregator(Collection<T> data, Function<T, Map<String, Object>> propertyExtractor) {
+    public GroupByAggregator(Collection<T> data, Class<T> clazz){
         this.data = data;
-        this.propertyExtractor = propertyExtractor;
+        this.clazz = clazz;
+        // 创建属性提取器
+        this.propertyExtractor = generatePropertyExtractor(clazz);
     }
+
+    private static Function generatePropertyExtractor(Class clazz) {
+        return obj -> {
+            Map<String, Object> props = new HashMap<>();
+            for (java.lang.reflect.Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+                try {
+                    props.put(field.getName(), field.get(obj));
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("字段访问失败: " + field.getName(), e);
+                }
+            }
+            return props;
+        };
+    }
+//    public GroupByAggregator(Collection<T> data, Function<T, Map<String, Object>> propertyExtractor) {
+//        this.data = data;
+//        this.propertyExtractor = propertyExtractor;
+//    }
 
     public GroupByAggregator<T> groupBy(String... properties) {
         groupProperties.addAll(Arrays.asList(properties));
@@ -113,7 +135,9 @@ public class GroupByAggregator<T> {
 
     private double getNumericValue(T item, String property) {
         Object value = getPropertyValue(item, property);
-        if (value == null) return 0;
+        if (value == null) {
+            return 0;
+        }
 
         if (value instanceof Number) {
             return ((Number) value).doubleValue();

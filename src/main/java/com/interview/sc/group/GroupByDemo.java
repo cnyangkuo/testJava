@@ -37,20 +37,21 @@ public class GroupByDemo {
                 new Person("Charlie", 28, "M", "New York", 78000),
                 new Person("Diana", 32, "F", "Boston", 110000)
         );
+//
+//        // 创建属性提取器
+//        Function<Person, Map<String, Object>> propertyExtractor = person -> {
+//            Map<String, Object> props = new HashMap<>();
+//            props.put("name", person.getName());
+//            props.put("age", person.getAge());
+//            props.put("sex", person.getSex());
+//            props.put("city", person.getCity());
+//            props.put("salary", person.getSalary());
+//            return props;
+//        };
+//        // 分组聚合：按年龄和性别分组，计算平均工资和最大工资
+//        GroupByAggregator<Person> aggregator = new GroupByAggregator<>(personList, propertyExtractor);
 
-        // 创建属性提取器
-        Function<Person, Map<String, Object>> propertyExtractor = person -> {
-            Map<String, Object> props = new HashMap<>();
-            props.put("name", person.getName());
-            props.put("age", person.getAge());
-            props.put("sex", person.getSex());
-            props.put("city", person.getCity());
-            props.put("salary", person.getSalary());
-            return props;
-        };
-
-        // 分组聚合：按年龄和性别分组，计算平均工资和最大工资
-        GroupByAggregator<Person> aggregator = new GroupByAggregator<>(personList, propertyExtractor);
+        GroupByAggregator<Person> aggregator = new GroupByAggregator<>(personList, Person.class);
 
         Map<GroupKey, AggResult> result = aggregator
 //                .groupBy("age", "sex")   // or .groupBy("age").groupBy("sex")
@@ -89,4 +90,5 @@ public class GroupByDemo {
             System.out.println();
         });
     }
+
 }
