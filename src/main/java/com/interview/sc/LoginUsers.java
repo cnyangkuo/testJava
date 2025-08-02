@@ -1,4 +1,4 @@
-package com.practice.func;
+package com.interview.sc;
 
 import lombok.Data;
 
@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class LoginUsers {
     public static void main(String[] args) {
         String[][] stringArray = getStringArray();
+
         // 先尝试分组，分组后再计算，同一天的登录算一个，计算出连续登陆超过3天的用户ID
         List<LoginRecord> data = Arrays.stream(stringArray).map(record -> {
             LoginRecord loginRecord = new LoginRecord();
@@ -28,7 +29,7 @@ public class LoginUsers {
 
     }
     private static Set findConsecutiveLoginUsers(List<LoginRecord> data, int minLoginDays) {
-        // 按照用户ID分组  收集有序日期集合
+        // 按照用户ID分组  收集用户登录的日期集合
         Map<String, Set<String>> userDates = data.stream()
                 .collect(Collectors.groupingBy(
                         LoginRecord::getUserId,
@@ -48,7 +49,6 @@ public class LoginUsers {
         if (dates.size() < minLoginDays) {
             return false;
         }
-
         List<LocalDate> sortedDates = dates.stream()
                 .map(date -> LocalDate.parse(date))
                 .sorted()
