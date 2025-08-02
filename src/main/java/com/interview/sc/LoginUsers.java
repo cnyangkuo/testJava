@@ -69,6 +69,12 @@ public class LoginUsers {
         return false;
     }
 
+    @Data
+    static class LoginRecord {
+        private String userId;
+        private String loginTime;
+    }
+
     private static String[][] getStringArray() {
         String[][] stringArray = new String[13][2];
         stringArray[0][0] = "001";
@@ -100,10 +106,4 @@ public class LoginUsers {
         return stringArray;
     }
 
-}
-
-@Data
-class LoginRecord {
-    private String userId;
-    private String loginTime;
 }
