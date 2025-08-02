@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
  */
 public class GroupByAggregator<T> {
     private final Collection<T> data;
-    private final Class<T> clazz;
     private final Function<T, Map<String, Object>> propertyExtractor;
 
     private final List<String> groupProperties = new ArrayList<>();
@@ -20,7 +19,6 @@ public class GroupByAggregator<T> {
 
     public GroupByAggregator(Collection<T> data, Class<T> clazz){
         this.data = data;
-        this.clazz = clazz;
         // 创建属性提取器
         this.propertyExtractor = generatePropertyExtractor(clazz);
     }
