@@ -11,7 +11,10 @@ package com.practice.algorithm;
  * 图的表示：
      * 将任务视为图的节点，依赖关系视为有向边。
      * 构建邻接表（adjacency）和入度表（inDegree）。
- *          入度表: 记录每个节点的依赖数量， A -> B, 先A后B（B依赖A），则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
+ *          入度表: 记录每个节点的依赖任务数量， B依赖A（A -> B, 先A后B），
+ *                  则B的入度就增加1，标识还多少依赖的项目需要完成；决定可执行顺序，依次执行入度为0的节点。
+ *          邻接表的Key表示任务，value表示任务的邻接节点，当前任务完成后可以继续完成邻接任务节点。
+ *          B依赖A，则邻接表的Key为A，value是包含B的列表，表示任务A完成后可以继续完成任务B。
  * 拓扑排序：
      * 使用 Kahn算法（基于入度）实现拓扑排序。
      * 找出所有入度为0的节点，依次处理并更新其邻居的入度。
@@ -38,8 +41,8 @@ import java.util.stream.Collectors;
 public class TaskScheduler {
 
     public static void main(String[] args) {
-//        String[] dependencies = {"A->B", "B,C->D", "E->C", "B->F", "G"};
-        String[] dependencies = {"A->B", "B->C"};
+        String[] dependencies = {"A->B", "B,C->D", "E->C", "B->F", "G"};
+//        String[] dependencies = {"A->B", "B->C"};
         List<String> order = topologicalSort(dependencies);
         System.out.println("任务执行顺序: " + order.stream()
                 .map(String::valueOf)
@@ -135,13 +138,17 @@ public class TaskScheduler {
         System.out.println("入度表: " + inDegree);
         
         // 3. 初始化队列
-        Queue<String> queue = new LinkedList<>();
-        for (String task : allTaskNodes) {
-            // 入度为0的节点入队
-            if (!inDegree.containsKey(task)) {
-                queue.offer(task);
-            }
-        }
+//      // 写法1
+//        Queue<String> queue = new LinkedList<>();
+//        for (String task : allTaskNodes) {
+//            // 入度为0的节点入队
+//            if (!inDegree.containsKey(task)) {
+//                queue.offer(task);
+//            }
+//        }
+//      // 写法2
+        Queue<String> queue = allTaskNodes.stream().filter(task -> !inDegree.containsKey(task))
+                .collect(Collectors.toCollection(() -> new LinkedList<>()));
         // 队列 [A]
         System.out.println("当前没有依赖的队列: " + queue);
         
