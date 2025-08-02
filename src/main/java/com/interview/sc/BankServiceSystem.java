@@ -300,7 +300,7 @@ public class BankServiceSystem {
         }
         
         // 如果没有对应类型的空闲窗口，寻找对应类型的窗口（队列最短）
-        int minQueueSize = Integer.MAX_VALUE;
+        int minQueueSize = 2; // Integer.MAX_VALUE;
         for (ServiceWindow window : windows) {
             if (window.getWindowType() == preferredType && window.getQueueSize() < minQueueSize) {
                 minQueueSize = window.getQueueSize();
