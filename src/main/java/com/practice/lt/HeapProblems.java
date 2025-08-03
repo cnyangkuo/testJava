@@ -31,22 +31,31 @@ public class HeapProblems {
         // 统计频率
         Map<Integer, Integer> numFreqMap = new HashMap<>();
         for (int num : nums) {
-            numFreqMap.put(num, numFreqMap.getOrDefault(num, 0) + 1);
+//            numFreqMap.put(num, numFreqMap.getOrDefault(num, 0) + 1);
+            numFreqMap.merge(num, 1, Integer::sum);
         }
         
         // 创建最小堆
         PriorityQueue<Integer> minHeap = new PriorityQueue<>(
-            (a, b) -> numFreqMap.get(a) - numFreqMap.get(b)
-//            Comparator.comparingInt(numFreqMap::get)
+//            (a, b) -> numFreqMap.get(a) - numFreqMap.get(b)
+            Comparator.comparingInt(numFreqMap::get)
         );
         
         // 维护堆大小不超过k
-        for (int num : numFreqMap.keySet()) {
-            minHeap.offer(num);
-            if (minHeap.size() > k) {
+//        for (int num : numFreqMap.keySet()) {
+//            minHeap.offer(num);
+//            if (minHeap.size() > k) {
+//                minHeap.poll();
+//            }
+//        }
+        numFreqMap.keySet().stream().forEach(num -> {
+            if (minHeap.size() < k) {
+                minHeap.offer(num);
+            } else if (numFreqMap.get(num) > numFreqMap.get(minHeap.peek())) {
                 minHeap.poll();
+                minHeap.offer(num);
             }
-        }
+        });
         
         // 构建结果数组
         int[] result = new int[k];
@@ -189,6 +198,7 @@ public class HeapProblems {
         }
 
         public void addNum(int num) {
+            // 插入元素
             if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
                 maxHeap.offer(num);
             } else {

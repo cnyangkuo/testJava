@@ -16,6 +16,8 @@ public class SimpleTest {
         test.testComputeForCounter();
         test.testComputeWithLock();
         test.testComputeConcurrency();
+
+        ConcurrentHashMap<String, Integer> counter = new ConcurrentHashMap<>();
     }
     
     /**
