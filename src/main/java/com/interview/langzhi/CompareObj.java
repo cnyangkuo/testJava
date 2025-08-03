@@ -50,7 +50,10 @@ public class CompareObj {
      * @return CompareObj实例
      */
     public CompareObj ignore(String... fieldNames) {
-        Collections.addAll(ignoredFields, fieldNames);
+        for (String fieldName:fieldNames) {
+            ignoredFields.add(normalizeFieldName(fieldName));
+        }
+//        Collections.addAll(ignoredFields, fieldNames);
         return this;
     }
 
@@ -63,9 +66,11 @@ public class CompareObj {
      */
     public CompareObj map(String field1, String field2) {
         // 创建标准化字段名作为键
-        String normalizedKey = normalizeFieldName(field1) + "#" + normalizeFieldName(field2);
+        String normalizedField1 = normalizeFieldName(field1);
+        String normalizedField2 = normalizeFieldName(field2);
 
-        fieldMappings.put(field1, field2);
+        fieldMappings.put(normalizedField1, normalizedField2);
+        fieldMappings.put(normalizedField2, normalizedField1);
         return this;
     }
 
@@ -86,39 +91,46 @@ public class CompareObj {
         List<FieldComparison> differences = new ArrayList<>();
 
         // 处理显式映射的字段
-        for (Map.Entry<String, String> mapping : fieldMappings.entrySet()) {
-            String field1Name = mapping.getKey();
-            String field2Name = mapping.getValue();
-
-            Field field1 = obj1Fields.get(field1Name);
-            Field field2 = obj2Fields.get(field2Name);
-
-            if (field1 != null && field2 != null) {
-                // 检查是否在忽略列表中
-                if (!ignoredFields.contains(field1Name) && !ignoredFields.contains(field2Name)) {
-                    commonFields.add(field1Name + " <-> " + field2Name);
-                    compareFields(field1Name, field2Name, field1, field2, differences);
-                }
-            }
-        }
+//        for (Map.Entry<String, String> mapping : fieldMappings.entrySet()) {
+//            String field1Name = mapping.getKey();
+//            String field2Name = mapping.getValue();
+//
+//            Field field1 = obj1Fields.get(field1Name);
+//            Field field2 = obj2Fields.get(field2Name);
+//
+//            String normalizedField1Name = normalizeFieldName(field1Name);
+//            String normalizedField2Name = normalizeFieldName(field2Name);
+//
+//            if (field1 != null && field2 != null) {
+//                // 检查是否在忽略列表中
+//                if (!ignoredFields.contains(normalizedField1Name) && !ignoredFields.contains(normalizedField2Name)) {
+//                    commonFields.add(field1Name + " <-> " + field2Name);
+//                    compareFields(field1Name, field2Name, field1, field2, differences);
+//                }
+//            }
+//        }
 
         // 查找公共属性并比较值（排除已处理的映射字段）
         Set<String> processedFields = fieldMappings.keySet();
         for (Map.Entry<String, Field> entry1 : obj1Fields.entrySet()) {
             String fieldName1 = entry1.getKey();
+            String normalizedFieldName1 = normalizeFieldName(fieldName1);
             
             // 跳过已处理的字段和忽略的字段
-            if (processedFields.contains(fieldName1) || ignoredFields.contains(fieldName1)) {
+            if (processedFields.contains(fieldName1) || ignoredFields.contains(normalizedFieldName1)) {
                 continue;
             }
 
             Field field1 = entry1.getValue();
 
             // 查找对应的字段（考虑驼峰和下划线命名）
-            String normalizedFieldName1 = normalizeFieldName(fieldName1);
-            Field field2 = findMatchingField(normalizedFieldName1, obj2Fields);
+            Field field2 = findMatchingField(normalizedFieldName1, obj2Fields, this.fieldMappings);
+            if (field2 == null) {
+                continue;
+            }
 
-            if (field2 != null && !ignoredFields.contains(field2.getName())) {
+            String normalizedFieldName2 = normalizeFieldName(field2.getName());
+            if (!ignoredFields.contains(normalizedFieldName2)) {
                 commonFields.add(fieldName1 + " <-> " + field2.getName());
                 compareFields(fieldName1, field2.getName(), field1, field2, differences);
             }
@@ -496,10 +508,14 @@ public class CompareObj {
      * @param fields 字段映射
      * @return 匹配的字段，如果未找到返回null
      */
-    private static Field findMatchingField(String normalizedFieldName, Map<String, Field> fields) {
+    private static Field findMatchingField(String normalizedFieldName, Map<String, Field> fields, Map<String, String> fieldMappings) {
+        String alias = fieldMappings.get(normalizedFieldName);
         for (Map.Entry<String, Field> entry : fields.entrySet()) {
             String fieldName = entry.getKey();
             if (normalizedFieldName.equals(normalizeFieldName(fieldName))) {
+                return entry.getValue();
+            }
+            if (alias != null && alias.equals(normalizeFieldName(fieldName))) {
                 return entry.getValue();
             }
         }
@@ -668,7 +684,7 @@ public class CompareObj {
         System.out.println("=== 使用流式API进行比较 ===");
         ComparisonResult result1 = CompareObj.of(personDto, personEntity)
                 .ignore("salary")  // 忽略salary字段
-                .map("update_at", "updateTime")  // 映射update_at和updateTime字段
+                .map("update_at", "updatetime")  // 映射update_at和updateTime字段
                 .map("is_active", "isActive")    // 映射is_active和isActive字段
                 .compare();
         System.out.println(result1);
