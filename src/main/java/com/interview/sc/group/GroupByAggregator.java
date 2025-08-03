@@ -3,6 +3,7 @@ package com.interview.sc.group;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.lang.reflect.Field;
 
 /**
  * 聚合器 按照属性灵活分组，分组后完成聚合操作
@@ -23,13 +24,23 @@ public class GroupByAggregator<T> {
         this.propertyExtractor = generatePropertyExtractor(clazz);
     }
 
-    private static Function generatePropertyExtractor(Class clazz) {
+    private static <T> Function<T, Map<String, Object>> generatePropertyExtractor(Class<T> clazz) {
         return obj -> {
             Map<String, Object> props = new HashMap<>();
-            for (java.lang.reflect.Field field : clazz.getDeclaredFields()) {
+            for (Field field : clazz.getDeclaredFields()) {
                 field.setAccessible(true);
                 try {
-                    props.put(field.getName(), field.get(obj));
+                    String fieldName = field.getName();
+                    Object fieldValue = field.get(obj);
+                    
+                    // 添加原始字段名
+                    props.put(fieldName, fieldValue);
+                    
+                    // 如果字段名包含下划线，则转换为驼峰命名并添加
+                    if (fieldName.contains("_")) {
+                        String camelCaseName = toCamelCase(fieldName);
+                        props.put(camelCaseName, fieldValue);
+                    }
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException("字段访问失败: " + field.getName(), e);
                 }
@@ -37,6 +48,35 @@ public class GroupByAggregator<T> {
             return props;
         };
     }
+    
+    /**
+     * 将下划线命名转换为驼峰命名
+     * 例如: work_item_id -> workItemId
+     * @param underscoreName 下划线命名的字符串
+     * @return 驼峰命名的字符串
+     */
+    private static String toCamelCase(String underscoreName) {
+        if (underscoreName == null || !underscoreName.contains("_")) {
+            return underscoreName;
+        }
+        
+        StringBuilder result = new StringBuilder();
+        String[] parts = underscoreName.split("_");
+        
+        // 第一个部分保持小写
+        result.append(parts[0].toLowerCase());
+        
+        // 后续部分首字母大写
+        for (int i = 1; i < parts.length; i++) {
+            if (!parts[i].isEmpty()) {
+                result.append(Character.toUpperCase(parts[i].charAt(0)))
+                      .append(parts[i].substring(1).toLowerCase());
+            }
+        }
+        
+        return result.toString();
+    }
+    
 //    public GroupByAggregator(Collection<T> data, Function<T, Map<String, Object>> propertyExtractor) {
 //        this.data = data;
 //        this.propertyExtractor = propertyExtractor;

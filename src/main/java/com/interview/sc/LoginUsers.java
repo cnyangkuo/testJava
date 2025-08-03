@@ -29,7 +29,7 @@ public class LoginUsers {
 
     }
     private static Set findConsecutiveLoginUsers(List<LoginRecord> data, int minLoginDays) {
-        // 按照用户ID分组  收集用户登录的日期集合
+        // 按照用户ID分组  收集用户登录的日期set集合
         Map<String, Set<String>> userDates = data.stream()
                 .collect(Collectors.groupingBy(
                         LoginRecord::getUserId,
