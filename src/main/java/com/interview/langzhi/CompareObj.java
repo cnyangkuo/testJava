@@ -81,7 +81,7 @@ public class CompareObj {
      */
     public ComparisonResult compare() {
         if (obj1 == null || obj2 == null) {
-            return new ComparisonResult(false, Collections.emptyList(), Collections.emptyList());
+            return new ComparisonResult(false, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
         }
 
         Map<String, Field> obj1Fields = getAllFields(obj1.getClass());
@@ -89,26 +89,8 @@ public class CompareObj {
 
         List<String> commonFields = new ArrayList<>();
         List<FieldComparison> differences = new ArrayList<>();
-
-        // 处理显式映射的字段
-//        for (Map.Entry<String, String> mapping : fieldMappings.entrySet()) {
-//            String field1Name = mapping.getKey();
-//            String field2Name = mapping.getValue();
-//
-//            Field field1 = obj1Fields.get(field1Name);
-//            Field field2 = obj2Fields.get(field2Name);
-//
-//            String normalizedField1Name = normalizeFieldName(field1Name);
-//            String normalizedField2Name = normalizeFieldName(field2Name);
-//
-//            if (field1 != null && field2 != null) {
-//                // 检查是否在忽略列表中
-//                if (!ignoredFields.contains(normalizedField1Name) && !ignoredFields.contains(normalizedField2Name)) {
-//                    commonFields.add(field1Name + " <-> " + field2Name);
-//                    compareFields(field1Name, field2Name, field1, field2, differences);
-//                }
-//            }
-//        }
+        List<String> obj1OnlyFields = new ArrayList<>();
+        List<String> obj2OnlyFields = new ArrayList<>();
 
         // 查找公共属性并比较值（排除已处理的映射字段）
         Set<String> processedFields = fieldMappings.keySet();
@@ -121,14 +103,15 @@ public class CompareObj {
                 continue;
             }
 
-            Field field1 = entry1.getValue();
-
             // 查找对应的字段（考虑驼峰和下划线命名）
             Field field2 = findMatchingField(normalizedFieldName1, obj2Fields, this.fieldMappings);
             if (field2 == null) {
+                // 只在obj1中存在的字段
+                obj1OnlyFields.add(fieldName1);
                 continue;
             }
 
+            Field field1 = entry1.getValue();
             String normalizedFieldName2 = normalizeFieldName(field2.getName());
             if (!ignoredFields.contains(normalizedFieldName2)) {
                 commonFields.add(fieldName1 + " <-> " + field2.getName());
@@ -136,7 +119,25 @@ public class CompareObj {
             }
         }
 
-        return new ComparisonResult(differences.isEmpty(), commonFields, differences);
+        // 查找只在obj2中存在的字段
+        for (Map.Entry<String, Field> entry2 : obj2Fields.entrySet()) {
+            String fieldName2 = entry2.getKey();
+            String normalizedFieldName2 = normalizeFieldName(fieldName2);
+            
+            // 跳过已处理的字段和忽略的字段
+            if (ignoredFields.contains(normalizedFieldName2)) {
+                continue;
+            }
+
+            // 查找对应的字段（考虑驼峰和下划线命名）
+            Field field1 = findMatchingField(normalizedFieldName2, obj1Fields, this.fieldMappings);
+            if (field1 == null) {
+                // 只在obj2中存在的字段
+                obj2OnlyFields.add(fieldName2);
+            }
+        }
+
+        return new ComparisonResult(differences.isEmpty(), commonFields, differences, obj1OnlyFields, obj2OnlyFields);
     }
 
     /**
@@ -557,11 +558,16 @@ public class CompareObj {
         private final boolean identical;
         private final List<String> commonFields;
         private final List<FieldComparison> differences;
+        private final List<String> obj1OnlyFields;
+        private final List<String> obj2OnlyFields;
 
-        public ComparisonResult(boolean identical, List<String> commonFields, List<FieldComparison> differences) {
+        public ComparisonResult(boolean identical, List<String> commonFields, List<FieldComparison> differences, 
+                               List<String> obj1OnlyFields, List<String> obj2OnlyFields) {
             this.identical = identical;
             this.commonFields = commonFields;
             this.differences = differences;
+            this.obj1OnlyFields = obj1OnlyFields;
+            this.obj2OnlyFields = obj2OnlyFields;
         }
 
         public boolean isIdentical() {
@@ -576,6 +582,14 @@ public class CompareObj {
             return differences;
         }
 
+        public List<String> getObj1OnlyFields() {
+            return obj1OnlyFields;
+        }
+
+        public List<String> getObj2OnlyFields() {
+            return obj2OnlyFields;
+        }
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -583,6 +597,16 @@ public class CompareObj {
             sb.append("  是否完全一致: ").append(identical).append("\n");
             sb.append("  公共属性数量: ").append(commonFields.size()).append("\n");
             sb.append("  公共属性: ").append(String.join(", ", commonFields)).append("\n");
+            
+            // 打印只在obj1中存在的属性
+            if (!obj1OnlyFields.isEmpty()) {
+                sb.append("  只在第一个对象中存在的属性").append("(").append(obj1OnlyFields.size()).append("个)").append(": ").append(String.join(", ", obj1OnlyFields)).append("\n");
+            }
+            
+            // 打印只在obj2中存在的属性
+            if (!obj2OnlyFields.isEmpty()) {
+                sb.append("  只在第二个对象中存在的属性").append("(").append(obj2OnlyFields.size()).append("个)").append(": ").append(String.join(", ", obj2OnlyFields)).append("\n");
+            }
 
             if (!differences.isEmpty()) {
                 sb.append("  不同值的属性:\n");
@@ -643,6 +667,9 @@ public class CompareObj {
             private double salary;
             private Date update_at; // Date类型
             private String is_active; // 字符串布尔值
+            private String description; // 只在PersonDto中存在的字段
+
+            private String update_user_name = "abc";
 
             public PersonDto(String work_item_id, String user_name, String age, double salary, Date update_at, String is_active) {
                 this.work_item_id = work_item_id;
@@ -651,6 +678,7 @@ public class CompareObj {
                 this.salary = salary;
                 this.update_at = update_at;
                 this.is_active = is_active;
+                this.description = "这是一个只在PersonDto中存在的字段";
             }
         }
 
@@ -662,6 +690,7 @@ public class CompareObj {
             private double salary;
             private String updateTime; // 时间戳类型
             private boolean isActive; // 布尔类型
+            private int version; // 只在PersonEntity中存在的字段
 
             public PersonEntity(String workItemId, String userName, int age, double salary, String updateTime, boolean isActive) {
                 this.workItemId = workItemId;
@@ -670,6 +699,7 @@ public class CompareObj {
                 this.salary = salary;
                 this.updateTime = updateTime;
                 this.isActive = isActive;
+                this.version = 1;
             }
         }
 
